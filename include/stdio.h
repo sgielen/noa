@@ -27,9 +27,16 @@
 #ifndef _STDIO_H_
 #define	_STDIO_H_
 
+#define	__NEED_OFF_T
+#define	__NEED_SIZE_T
+#define	__NEED_SSIZE_T
+#define	__NEED_VA_LIST
+
 #include <noa/cdefs.h>
+#include <noa/types.h>
 
 typedef struct __FILE *FILE;
+typedef off_t fpos_t;
 
 __BEGIN_DECLS
 extern FILE *stderr;
