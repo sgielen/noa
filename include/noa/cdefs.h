@@ -24,37 +24,15 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _STDIO_H_
-#define	_STDIO_H_
+#ifndef _NOA_CDEFS_H_
+#define	_NOA_CDEFS_H_
 
-#include <noa/cdefs.h>
+#ifdef __cplusplus
+#define	__BEGIN_DECLS	extern "C" {
+#define	__END_DECLS	}
+#else
+#define	__BEGIN_DECLS
+#define	__END_DECLS
+#endif
 
-typedef struct __FILE *FILE;
-
-__BEGIN_DECLS
-extern FILE *stderr;
-extern FILE *stdin;
-extern FILE *stdout;
-
-void	 clearerr(FILE *);
-char	*ctermid(char *);
-int	 dprintf(int, const char *restrict, ...);
-int	 fclose(FILE *);
-FILE	*fdopen(int, const char *);
-int	 feof(FILE *);
-int	 ferror(FILE *);
-int	 fflush(FILE *);
-int	 fgetc(FILE *);
-int	 fgetpos(FILE *restrict, fpos_t *restrict);
-char	*fgets(char *restrict, int, FILE *restrict);
-int	 fileno(FILE *);
-void	 flockfile(FILE *);
-FILE	*fmemopen(void *restrict, size_t, const char *restrict);
-FILE	*fopen(const char *restrict, const char *restrict);
-int	 fprintf(FILE *restrict, const char *restrict);
-int	 fputc(int,FILE *);
-int	 fputs(const char *restrict, FILE *restrict);
-size_t	 fread(void *restrict, size_t, size_t, FILE *restrict);
-__END_DECLS
-
-#endif /* !_STDIO_H_ */
+#endif /* !_NOA_CDEFS_H_ */
