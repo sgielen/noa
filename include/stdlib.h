@@ -28,9 +28,6 @@
 #define	_STDLIB_H_
 
 #define	__NEED_NULL
-#define	__NEED_DIV_T
-#define	__NEED_LDIV_T
-#define	__NEED_LLDIV_T
 #define	__NEED_SIZE_T
 #define	__NEED_WCHAR_T
 
@@ -43,6 +40,21 @@
 #define	RAND_MAX	TODO_UNDEFINED
 
 /* XXX constants as in sys/wait.h: WEXITSTATUS, etc */
+
+typedef struct {
+	int		quot;
+	int		rem;
+} div_t;
+
+typedef struct {
+	long		quot;
+	long		rem;
+} ldiv_t;
+
+typedef struct {
+	long long	quot;
+	long long	rem;
+} lldiv_t;
 
 __BEGIN_DECLS
 void	 _Exit(int);

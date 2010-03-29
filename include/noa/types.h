@@ -78,6 +78,11 @@ typedef int timer_t;
 #define	__HAVE_TIMER_T
 #endif
 
+#if defined(__NEED_WCHAR_T) && !defined(__HAVE_WCHAR_T)
+typedef __int32_t wchar_t;
+#define	__HAVE_WCHAR_T
+#endif
+
 /*
  * Structures.
  */

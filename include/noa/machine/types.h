@@ -31,6 +31,7 @@
 #error "We only have amd64 support for now!"
 #endif
 
+typedef int __int32_t;
 typedef long __int64_t;
 typedef long __size_t;
 
