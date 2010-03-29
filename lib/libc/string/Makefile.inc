@@ -1,5 +1,5 @@
 .PATH: ${.CURDIR}/string
 
-SRCS+=	strlen.c
+SRCS+=	strdup.c strlen.c
 
 SYMBOL_MAPS= ${.CURDIR}/string/Symbol.map
