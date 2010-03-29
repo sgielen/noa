@@ -48,9 +48,19 @@ typedef struct __locale_t *locale_t;
 #define	__HAVE_LOCALE_T
 #endif
 
+#if defined(__NEED_MODE_T) && !defined(__HAVE_MODE_T)
+typedef unsigned long mode_t;
+#define	__HAVE_MODE_T
+#endif
+
 #if defined(__NEED_OFF_T) && !defined(__HAVE_OFF_T)
 typedef __int64_t off_t;
 #define	__HAVE_OFF_T
+#endif
+
+#if defined(__NEED_PID_T) && !defined(__HAVE_PID_T)
+typedef int pid_t;
+#define	__HAVE_PID_T
 #endif
 
 #if defined(__NEED_SIZE_T) && !defined(__HAVE_SIZE_T)
