@@ -1,4 +1,6 @@
 NOA_1.0 {
 	strdup;
 	strlen;
+	memchr;
+	memcmp;
 };

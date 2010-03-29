@@ -26,13 +26,13 @@
 
 #include <string.h>
 
-size_t
-strlen(const char *s)
+void*
+memchr(const void *b, int c, size_t len)
 {
-	const char *o = s;
+	const void *max = b + len;
 
-	while (*s != '\0')
-		s++;
+	while (*b != c && b <= max)
+		b++;
 
-	return (s - o);
+	return (b <= max ? b : 0);
 }

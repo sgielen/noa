@@ -26,13 +26,16 @@
 
 #include <string.h>
 
-size_t
-strlen(const char *s)
+int
+memcmp(const void *b1, const void *b2, size_t len)
 {
-	const char *o = s;
+	const void *max = b1 + len;
 
-	while (*s != '\0')
-		s++;
+	while (*b1 == *b2 && b1 <= max)
+	{
+		b1++;
+		b2++;
+	}
 
-	return (s - o);
+	return (b1 <= max ? *b2 - *b1 : 0);
 }
