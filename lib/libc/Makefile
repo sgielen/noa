@@ -1,5 +1,7 @@
 SHLIB_NAME=libc.so
 
+CFLAGS+=-nostdinc -I${.CURDIR}/../../include
+
 VERSION_DEF=${.CURDIR}/Versions.def
 
 WARNS?=	6

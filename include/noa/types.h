@@ -24,9 +24,6 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _NOA_TYPES_H_
-#define	_NOA_TYPES_H_
-
 #include <noa/machine/types.h>
 
 /*
@@ -78,6 +75,11 @@ typedef int timer_t;
 #define	__HAVE_TIMER_T
 #endif
 
+#if defined(__NEED_VA_LIST) && !defined(__HAVE_VA_LIST)
+typedef __builtin_va_list va_list;
+#define	__HAVE_VA_LIST
+#endif
+
 #if defined(__NEED_WCHAR_T) && !defined(__HAVE_WCHAR_T)
 typedef __int32_t wchar_t;
 #define	__HAVE_WCHAR_T
@@ -94,5 +96,3 @@ struct timespec {
 };
 #define	__HAVE_STRUCT_TIMESPEC
 #endif
-
-#endif /* !_NOA_TYPES_H_ */
