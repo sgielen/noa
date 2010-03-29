@@ -35,6 +35,14 @@
 #endif
 
 /*
+ * Dependencies.
+ */
+
+#ifdef __NEED_STRUCT_TIMESPEC
+#define	__NEED_TIME_T
+#endif
+
+/*
  * Primitive types.
  */
 
@@ -48,6 +56,21 @@ typedef int clockid_t;
 #define	__HAVE_CLOCKID_T
 #endif
 
+#if defined(__NEED_DEV_T) && !defined(__HAVE_DEV_T)
+typedef unsigned long dev_t;
+#define	__HAVE_DEV_T
+#endif
+
+#if defined(__NEED_GID_T) && !defined(__HAVE_GID_T)
+typedef int gid_t;
+#define	__HAVE_GID_T
+#endif
+
+#if defined(__NEED_INO_T) && !defined(__HAVE_INO_T)
+typedef unsigned long ino_t;
+#define	__HAVE_INO_T
+#endif
+
 #if defined(__NEED_LOCALE_T) && !defined(__HAVE_LOCALE_T)
 typedef struct __locale_t *locale_t;
 #define	__HAVE_LOCALE_T
@@ -56,6 +79,11 @@ typedef struct __locale_t *locale_t;
 #if defined(__NEED_MODE_T) && !defined(__HAVE_MODE_T)
 typedef unsigned int mode_t;
 #define	__HAVE_MODE_T
+#endif
+
+#if defined(__NEED_NLINK_T) && !defined(__HAVE_NLINK_T)
+typedef unsigned int nlink_t;
+#define	__HAVE_NLINK_T
 #endif
 
 #if defined(__NEED_OFF_T) && !defined(__HAVE_OFF_T)
@@ -76,6 +104,11 @@ typedef __size_t size_t;
 #if defined(__NEED_TIME_T) && !defined(__HAVE_TIME_T)
 typedef __int64_t time_t;
 #define	__HAVE_TIME_T
+#endif
+
+#if defined(__NEED_UID_T) && !defined(__HAVE_UID_T)
+typedef int uid_t;
+#define	__HAVE_UID_T
 #endif
 
 #if defined(__NEED_TIMER_T) && !defined(__HAVE_TIMER_T)
