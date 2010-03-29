@@ -2,4 +2,4 @@
 
 SRCS+=	strdup.c strlen.c
 
-SYMBOL_MAPS= ${.CURDIR}/string/Symbol.map
+SYMBOL_MAPS+=${.CURDIR}/string/Symbol.map

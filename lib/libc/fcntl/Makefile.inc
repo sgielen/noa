@@ -2,4 +2,4 @@
 
 SRCS+=	creat.c open.c
 
-SYMBOL_MAPS= ${.CURDIR}/fcntl/Symbol.map
+SYMBOL_MAPS+=${.CURDIR}/fcntl/Symbol.map
