@@ -32,6 +32,6 @@ div(int number, int denom)
 	div_t t;
 
 	t.quot = number / denom;
-	t.rem  = number % denom;
+	t.rem = number % denom;
 	return (t);
 }

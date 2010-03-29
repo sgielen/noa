@@ -32,6 +32,6 @@ lldiv(long long number, long long denom)
 	lldiv_t t;
 
 	t.quot = number / denom;
-	t.rem  = number % denom;
+	t.rem = number % denom;
 	return (t);
 }
