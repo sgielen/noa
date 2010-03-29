@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2010 The Noa Project
+ * Copyright (c) 2010 The Noa Project, http://noaproject.org/
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
