@@ -35,8 +35,11 @@ strdup(const char *s)
 
 	len = strlen(s) + 1;
 	ns = malloc(len);
+	
 	if (ns == NULL)
 		return (NULL);
+		
 	memcpy(ns, s, len);
+	
 	return (ns);
 }

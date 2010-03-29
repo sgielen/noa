@@ -33,5 +33,6 @@ strlen(const char *s)
 
 	while (*s != '\0')
 		s++;
+		
 	return (s - o);
 }
