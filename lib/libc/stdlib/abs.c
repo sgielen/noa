@@ -29,7 +29,6 @@
 int
 abs(int s)
 {
-	if( s < 0 )
-		return -s;
-	return s;
+
+	return (s < 0 ? -s : s);
 }
