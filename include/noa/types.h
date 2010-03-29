@@ -49,7 +49,7 @@ typedef struct __locale_t *locale_t;
 #endif
 
 #if defined(__NEED_MODE_T) && !defined(__HAVE_MODE_T)
-typedef unsigned long mode_t;
+typedef unsigned int mode_t;
 #define	__HAVE_MODE_T
 #endif
 
