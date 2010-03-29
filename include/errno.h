@@ -108,7 +108,7 @@
 #define	EXDEV		77
 
 __BEGIN_DECLS
-__thread int errno;
+extern __thread int errno;
 __END_DECLS
 
 #endif /* !_ERRNO_H_ */
