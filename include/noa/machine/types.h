@@ -31,8 +31,8 @@
 #error "We only have amd64 support for now!"
 #endif
 
-typedef int __int32_t;
-typedef long __int64_t;
-typedef long __size_t;
+typedef signed int __int32_t;
+typedef signed long __int64_t;
+typedef unsigned long __size_t;
 
 #endif /* !_NOA_MACHINE_TYPES_H_ */
