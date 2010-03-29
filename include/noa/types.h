@@ -26,6 +26,14 @@
 
 #include <noa/machine/types.h>
 
+#if defined(__NEED_NULL) && !defined(NULL)
+#ifdef __cplusplus
+#define	NULL	__null
+#else
+#define	NULL	(void *)0
+#endif
+#endif
+
 /*
  * Primitive types.
  */
