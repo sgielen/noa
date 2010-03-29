@@ -29,6 +29,7 @@
 
 #define	__NEED_CLOCKID_T
 #define	__NEED_CLOCK_T
+#define	__NEED_LOCALE_T
 #define	__NEED_NULL
 #define	__NEED_PID_T
 #define	__NEED_SIZE_T

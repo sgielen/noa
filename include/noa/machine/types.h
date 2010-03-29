@@ -24,44 +24,14 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _STDIO_H_
-#define	_STDIO_H_
+#ifndef _NOA_MACHINE_TYPES_H_
+#define	_NOA_MACHINE_TYPES_H_
 
-#define	__NEED_OFF_T
-#define	__NEED_SIZE_T
-#define	__NEED_SSIZE_T
-#define	__NEED_VA_LIST
+#ifndef __amd64__
+#error "We only have amd64 support for now!"
+#endif
 
-#include <noa/cdefs.h>
-#include <noa/types.h>
+typedef long __int64_t;
+typedef long __size_t;
 
-typedef struct __FILE FILE;
-typedef off_t fpos_t;
-
-__BEGIN_DECLS
-extern FILE *stderr;
-extern FILE *stdin;
-extern FILE *stdout;
-
-void	 clearerr(FILE *);
-char	*ctermid(char *);
-int	 dprintf(int, const char *restrict, ...);
-int	 fclose(FILE *);
-FILE	*fdopen(int, const char *);
-int	 feof(FILE *);
-int	 ferror(FILE *);
-int	 fflush(FILE *);
-int	 fgetc(FILE *);
-int	 fgetpos(FILE *restrict, fpos_t *restrict);
-char	*fgets(char *restrict, int, FILE *restrict);
-int	 fileno(FILE *);
-void	 flockfile(FILE *);
-FILE	*fmemopen(void *restrict, size_t, const char *restrict);
-FILE	*fopen(const char *restrict, const char *restrict);
-int	 fprintf(FILE *restrict, const char *restrict, ...);
-int	 fputc(int,FILE *);
-int	 fputs(const char *restrict, FILE *restrict);
-size_t	 fread(void *restrict, size_t, size_t, FILE *restrict);
-__END_DECLS
-
-#endif /* !_STDIO_H_ */
+#endif /* !_NOA_MACHINE_TYPES_H_ */

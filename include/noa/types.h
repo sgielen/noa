@@ -24,44 +24,60 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _STDIO_H_
-#define	_STDIO_H_
+#ifndef _NOA_TYPES_H_
+#define	_NOA_TYPES_H_
 
-#define	__NEED_OFF_T
-#define	__NEED_SIZE_T
-#define	__NEED_SSIZE_T
-#define	__NEED_VA_LIST
+#include <noa/machine/types.h>
 
-#include <noa/cdefs.h>
-#include <noa/types.h>
+/*
+ * Primitive types.
+ */
 
-typedef struct __FILE FILE;
-typedef off_t fpos_t;
+#if defined(__NEED_CLOCK_T) && !defined(__HAVE_CLOCK_T)
+typedef __int64_t clock_t;
+#define	__HAVE_CLOCK_T
+#endif
 
-__BEGIN_DECLS
-extern FILE *stderr;
-extern FILE *stdin;
-extern FILE *stdout;
+#if defined(__NEED_CLOCKID_T) && !defined(__HAVE_CLOCKID_T)
+typedef int clockid_t;
+#define	__HAVE_CLOCKID_T
+#endif
 
-void	 clearerr(FILE *);
-char	*ctermid(char *);
-int	 dprintf(int, const char *restrict, ...);
-int	 fclose(FILE *);
-FILE	*fdopen(int, const char *);
-int	 feof(FILE *);
-int	 ferror(FILE *);
-int	 fflush(FILE *);
-int	 fgetc(FILE *);
-int	 fgetpos(FILE *restrict, fpos_t *restrict);
-char	*fgets(char *restrict, int, FILE *restrict);
-int	 fileno(FILE *);
-void	 flockfile(FILE *);
-FILE	*fmemopen(void *restrict, size_t, const char *restrict);
-FILE	*fopen(const char *restrict, const char *restrict);
-int	 fprintf(FILE *restrict, const char *restrict, ...);
-int	 fputc(int,FILE *);
-int	 fputs(const char *restrict, FILE *restrict);
-size_t	 fread(void *restrict, size_t, size_t, FILE *restrict);
-__END_DECLS
+#if defined(__NEED_LOCALE_T) && !defined(__HAVE_LOCALE_T)
+typedef struct __locale_t *locale_t;
+#define	__HAVE_LOCALE_T
+#endif
 
-#endif /* !_STDIO_H_ */
+#if defined(__NEED_OFF_T) && !defined(__HAVE_OFF_T)
+typedef __int64_t off_t;
+#define	__HAVE_OFF_T
+#endif
+
+#if defined(__NEED_SIZE_T) && !defined(__HAVE_SIZE_T)
+typedef __size_t size_t;
+#define	__HAVE_SIZE_T
+#endif
+
+#if defined(__NEED_TIME_T) && !defined(__HAVE_TIME_T)
+typedef __int64_t time_t;
+#define	__HAVE_TIME_T
+#endif
+
+#if defined(__NEED_TIMER_T) && !defined(__HAVE_TIMER_T)
+typedef int timer_t;
+#define	__HAVE_TIMER_T
+#endif
+
+/*
+ * Structures.
+ */
+
+#if defined(__NEED_STRUCT_TIMESPEC) && !defined(__HAVE_STRUCT_TIMESPEC)
+struct timespec {
+	time_t	tv_sec;
+	long	tv_nsec;
+};
+#define	__HAVE_STRUCT_TIMESPEC
+#endif
+
+#endif /* !_NOA_TYPES_H_ */
