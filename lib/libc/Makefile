@@ -5,5 +5,6 @@ VERSION_DEF=${.CURDIR}/Versions.def
 WARNS?=	6
 
 .include "${.CURDIR}/string/Makefile.inc"
+.include "${.CURDIR}/stdlib/Makefile.inc"
 
 .include <bsd.lib.mk>
