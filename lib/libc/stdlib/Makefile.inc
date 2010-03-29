@@ -2,4 +2,4 @@
 
 SRCS+=	abs.c
 
-SYMBOL_MAPS= ${.PATH}/Symbol.map
+SYMBOL_MAPS= ${.CURDIR}/stdlib/Symbol.map
