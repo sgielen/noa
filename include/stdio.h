@@ -35,7 +35,7 @@
 #include <noa/cdefs.h>
 #include <noa/types.h>
 
-typedef struct __FILE *FILE;
+typedef struct __FILE FILE;
 typedef off_t fpos_t;
 
 __BEGIN_DECLS
