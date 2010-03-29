@@ -24,14 +24,18 @@
  * SUCH DAMAGE.
  */
 
-#include <string.h>
+#include <fcntl.h>
+#include <stdarg.h>
 
-size_t
-strlen(const char *s)
+int
+open(const char *path, int oflag, ...)
 {
-	const char *o = s;
+	va_list args;
+	mode_t mode;
 
-	while (*s != '\0')
-		s++;
-	return (s - o);
+	va_start(args, oflag);
+	mode = va_arg(args, int);
+	va_end(args);
+
+	return (openat(AT_FDCWD, path, oflag, mode));
 }

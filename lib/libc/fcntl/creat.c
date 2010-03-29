@@ -24,14 +24,11 @@
  * SUCH DAMAGE.
  */
 
-#include <string.h>
+#include <fcntl.h>
 
-size_t
-strlen(const char *s)
+int
+creat(const char *path, mode_t mode)
 {
-	const char *o = s;
 
-	while (*s != '\0')
-		s++;
-	return (s - o);
+	return (openat(AT_FDCWD, path, O_WRONLY|O_CREAT|O_TRUNC, mode));
 }
