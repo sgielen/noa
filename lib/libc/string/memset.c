@@ -32,9 +32,9 @@ memset(void *b, int c, size_t len)
 
 	while (len > 0)
 	{
-		*(dst + len) = c;
+		*((char*)b + len) = c;
 		len--;
 	}
 
-	return (dst);
+	return (b);
 }

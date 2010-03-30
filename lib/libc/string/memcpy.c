@@ -32,7 +32,7 @@ memcpy(void *dst, const void *src, size_t len)
 
 	while (len > 0)
 	{
-		*(dst + len) = *(src + len);
+		*((char*)dst + len) = *((char*)src + len);
 		len--;
 	}
 

@@ -31,7 +31,7 @@ strcpy(char *restrict dst, const char *restrict src)
 {
 	size_t i = 0;
 
-	while (*(str+i) != 0)
+	while (*(src+i) != 0)
 	{
 		*(dst + i) = *(src + i);
 		i++;

@@ -31,8 +31,8 @@ memchr(const void *b, int c, size_t len)
 {
 	const void *max = b + len;
 
-	while (*b != c && b <= max)
+	while (*((char*)b) != c && b <= max)
 		b++;
 
-	return (b <= max ? b : 0);
+	return (b <= max ? (void*)b : 0);
 }

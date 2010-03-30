@@ -1,6 +1,6 @@
 SHLIB_NAME=libc.so
 
-CFLAGS+=-nostdinc -I${.CURDIR}/../../include
+CFLAGS+=-nostdinc -I${.CURDIR}/../../include -std=c99
 
 VERSION_DEF=${.CURDIR}/Versions.def
 
