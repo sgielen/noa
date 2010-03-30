@@ -27,12 +27,13 @@
 #include <string.h>
 
 void *
-memcpy(void *dst, const void *src, size_t len)
+memcpy(void *_dst, const void *_src, size_t len)
 {
+	char *dst = _dst;
+	const char *src = _src;
 
-	while (len > 0)
-	{
-		*((char *)dst + len) = *((char *)src + len);
+	while (len > 0) {
+		dst[len] = src[len];
 		len--;
 	}
 

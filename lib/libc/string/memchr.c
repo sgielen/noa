@@ -27,12 +27,13 @@
 #include <string.h>
 
 void *
-memchr(const void *b, int c, size_t len)
+memchr(const void *_b, int c, size_t len)
 {
-	const void *max = b + len;
+	const char *b = _b;
+	const char *max = b + len;
 
-	while (*((char *)b) != c && b <= max)
+	while (*b != c && b <= max)
 		b++;
 
-	return (b <= max ? (void *)b : 0);
+	return (b <= max ? __DECONST(void *, b) : 0);
 }

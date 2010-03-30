@@ -27,15 +27,15 @@
 #include <string.h>
 
 int
-memcmp(const void *b1, const void *b2, size_t len)
+memcmp(const void *_b1, const void *_b2, size_t len)
 {
-	const void *max = b1 + len;
+	const char *b1 = _b1, *b2 = _b2;
+	const char *max = b1 + len;
 
-	while (*((char *)b1) == *((char *)b2) && b1 <= max)
-	{
+	while (*b1 == *b2 && b1 <= max) {
 		b1++;
 		b2++;
 	}
 
-	return (b1 <= max ? *((char *)b2) - *((char *)b1) : 0);
+	return (b1 <= max ? *b2 - *b1 : 0);
 }

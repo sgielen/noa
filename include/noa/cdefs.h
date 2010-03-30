@@ -35,4 +35,7 @@
 #define	__END_DECLS
 #endif
 
+/* XXX */
+#define	__DECONST(type, var)	((type)(unsigned long)(const void *)(var))
+
 #endif /* !_NOA_CDEFS_H_ */
