@@ -30,8 +30,7 @@ void *
 memset(void *b, int c, size_t len)
 {
 
-	while (len > 0)
-	{
+	while (len > 0) {
 		*((char *)b + len) = c;
 		len--;
 	}

@@ -27,17 +27,12 @@
 #include <string.h>
 
 char *
-strcpy(char *restrict dst, const char *restrict src)
+strcpy(char *restrict _dst, const char *restrict src)
 {
-	size_t i = 0;
+	char *dst = _dst;
 
-	while (*(src+i) != 0)
-	{
-		*(dst + i) = *(src + i);
-		i++;
-	}
-
-	*(dst + i) = 0;
-
-	return (dst);
+	while (*src != '\0')
+		*dst++ = *src++;
+	*dst = '\0';
+	return (_dst);
 }

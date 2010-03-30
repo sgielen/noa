@@ -29,17 +29,10 @@
 char *
 strcat(char *restrict s1, const char *restrict s2)
 {
-	/* s1_end points to the null-byte */
 	char *s1_end = s1 + strlen(s1);
 
 	while (*s2 != 0)
-	{
-		*s1_end = *s2;
-		s1_end++;
-		s2++;
-	}
-
-	*s1_end = 0;
-
+		*s1_end++ = *s2++;
+	*s1_end = '\0';
 	return (s1);
 }
