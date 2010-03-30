@@ -1,0 +1,13 @@
+NOA_1.0 {
+	cfgetispeed;
+	cfgetospeed;
+	cfsetispeed;
+	cfsetospeed;
+	tcdrain;
+	tcflow;
+	tcflush;
+	tcgetattr;
+	tcgetsid;
+	tcsendbreak;
+	tcsetattr;
+};

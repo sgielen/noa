@@ -28,6 +28,7 @@
 #define	_UNISTD_H_
 
 #define	__NEED_GID_T
+#define	__NEED_INTPTR_T
 #define	__NEED_OFF_T
 #define	__NEED_PID_T
 #define	__NEED_SIZE_T
@@ -36,6 +37,10 @@
 
 #include <noa/cdefs.h>
 #include <noa/types.h>
+
+#define	STDIN_FILENO	0
+#define	STDOUT_FILENO	1
+#define	STDERR_FILENO	2
 
 __BEGIN_DECLS
 int	 access(const char *, int);
