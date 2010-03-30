@@ -63,7 +63,7 @@ void	 flockfile(FILE *);
 FILE	*fmemopen(void *restrict, size_t, const char *restrict);
 FILE	*fopen(const char *restrict, const char *restrict);
 int	 fprintf(FILE *restrict, const char *restrict, ...);
-int	 fputc(int,FILE *);
+int	 fputc(int, FILE *);
 int	 fputs(const char *restrict, FILE *restrict);
 size_t	 fread(void *restrict, size_t, size_t, FILE *restrict);
 FILE	*freopen(const char *restrict, const char *restrict, FILE *restrict);
