@@ -3,4 +3,7 @@ NOA_1.0 {
 	strlen;
 	memchr;
 	memcmp;
+	memcpy;
+	memset;
+	strcpy;
 };
