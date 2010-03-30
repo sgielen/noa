@@ -20,7 +20,7 @@ ARG oflag : int
 ARG mode : mode_t
 END
 
-SYSCALL 4
+SYSCALL 4 close
 RET int
 ARG fildes : int
 END
