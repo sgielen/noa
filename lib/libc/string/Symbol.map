@@ -1,9 +1,10 @@
 NOA_1.0 {
+	strcat;
+	strcpy;
 	strdup;
 	strlen;
 	memchr;
 	memcmp;
 	memcpy;
 	memset;
-	strcpy;
 };
