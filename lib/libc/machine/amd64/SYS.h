@@ -24,7 +24,10 @@
  * SUCH DAMAGE.
  */
 
-#define	SYSCALL(num, name)	\
-.globl sys_ ## name;		\
-	mov $num, %rax;		\
-	syscall;
+#define	SYSCALL(num, name)			\
+.globl sys_ ## name;				\
+	.type sys_ ## name , @function;		\
+sys_ ## name:					\
+	mov $num, %rax;				\
+	syscall;				\
+	retq;
