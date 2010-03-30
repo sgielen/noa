@@ -1,21 +1,21 @@
 SYSCALL 1 readv
 RET ssize_t
 ARG fildes : int
-ARG iov : const struct iovec *
+ARG iov : struct iovec *
 ARG iovcnt : int
 END
 
 SYSCALL 2 writev
 RET ssize_t
 ARG fildes : int
-ARG iov : const struct iovec *
+ARG iov : struct iovec *
 ARG iovcnt : int
 END
 
 SYSCALL 3 openat
 RET int
 ARG fd : int
-ARG path : const char *
+ARG path : char *
 ARG oflag : int
 ARG mode : mode_t
 END
