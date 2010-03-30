@@ -112,4 +112,4 @@ mode_t	 umask(mode_t);
 int	 utimensat(int, const char *, const struct timespec[2], int);
 __END_DECLS
 
-#endif /* !_SYS_UTSNAME_H_ */
+#endif /* !_SYS_STAT_H_ */
