@@ -26,13 +26,13 @@
 
 #include <string.h>
 
-void*
+void *
 memchr(const void *b, int c, size_t len)
 {
 	const void *max = b + len;
 
-	while (*((char*)b) != c && b <= max)
+	while (*((char *)b) != c && b <= max)
 		b++;
 
-	return (b <= max ? (void*)b : 0);
+	return (b <= max ? (void *)b : 0);
 }

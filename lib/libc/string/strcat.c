@@ -26,7 +26,7 @@
 
 #include <string.h>
 
-char*
+char *
 strcat(char *restrict s1, const char *restrict s2)
 {
 	/* s1_end points to the null-byte */

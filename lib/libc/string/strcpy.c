@@ -26,7 +26,7 @@
 
 #include <string.h>
 
-char*
+char *
 strcpy(char *restrict dst, const char *restrict src)
 {
 	size_t i = 0;

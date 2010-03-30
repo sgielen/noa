@@ -31,11 +31,11 @@ memcmp(const void *b1, const void *b2, size_t len)
 {
 	const void *max = b1 + len;
 
-	while (*((char*)b1) == *((char*)b2) && b1 <= max)
+	while (*((char *)b1) == *((char *)b2) && b1 <= max)
 	{
 		b1++;
 		b2++;
 	}
 
-	return (b1 <= max ? *((char*)b2) - *((char*)b1) : 0);
+	return (b1 <= max ? *((char *)b2) - *((char *)b1) : 0);
 }

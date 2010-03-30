@@ -26,13 +26,13 @@
 
 #include <string.h>
 
-void*
+void *
 memcpy(void *dst, const void *src, size_t len)
 {
 
 	while (len > 0)
 	{
-		*((char*)dst + len) = *((char*)src + len);
+		*((char *)dst + len) = *((char *)src + len);
 		len--;
 	}
 
