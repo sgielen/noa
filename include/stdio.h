@@ -98,7 +98,7 @@ int	 setvbuf(FILE *restrict, char *restrict, int, size_t);
 int	 snprintf(char *restrict, size_t, const char *restrict, ...);
 int	 sprintf(char *restrict, const char *restrict, ...);
 int	 sscanf(const char *restrict, const char *restrict, ...);
-FILE	 *tmpfile(void);
+FILE	*tmpfile(void);
 int	 ungetc(int, FILE *);
 int	 vdprintf(int, const char *restrict, va_list);
 int	 vfprintf(FILE *restrict, const char *restrict, va_list);
