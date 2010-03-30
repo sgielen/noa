@@ -24,20 +24,7 @@
  * SUCH DAMAGE.
  */
 
-#include <fcntl.h>
-#include <stdarg.h>
-
-#include "syscalls.h"
-
-int
-open(const char *path, int oflag, ...)
-{
-	va_list args;
-	mode_t mode;
-
-	va_start(args, oflag);
-	mode = va_arg(args, int);
-	va_end(args);
-
-	return (sys_open(AT_FDCWD, path, oflag, mode));
-}
+#define	SYSCALL(num, name)	\
+.globl sys_ ## name;		\
+	mov $num, %rax;		\
+	syscall;

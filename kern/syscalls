@@ -1,21 +1,33 @@
-SYSCALL 1 readv
+STRUCT iovec
+STRUCT stat
+
+TYPE mode_t
+TYPE off_t
+TYPE size_t
+TYPE ssize_t
+
+SYSCALL 1 read
 RET ssize_t
 ARG fildes : int
-ARG iov : struct iovec *
+ARG iov : const struct iovec *
 ARG iovcnt : int
+ARG offset : off_t
+ARG flags : int
 END
 
-SYSCALL 2 writev
+SYSCALL 2 write
 RET ssize_t
 ARG fildes : int
-ARG iov : struct iovec *
+ARG iov : const struct iovec *
 ARG iovcnt : int
+ARG offset : off_t
+ARG flags : int
 END
 
-SYSCALL 3 openat
+SYSCALL 3 open
 RET int
 ARG fd : int
-ARG path : char *
+ARG path : const char *
 ARG oflag : int
 ARG mode : mode_t
 END
@@ -23,4 +35,42 @@ END
 SYSCALL 4 close
 RET int
 ARG fildes : int
+END
+
+SYSCALL 5 mkdir
+RET int
+ARG fd : int
+ARG path : const char *
+ARG mode : mode_t
+END
+
+SYSCALL 6 stat
+RET int
+ARG fd : int
+ARG path : const char *
+ARG buf : struct stat *
+ARG flag : int
+END
+
+SYSCALL 7 mkfifo
+RET int
+ARG fd : int
+ARG path : const char *
+ARG mode : mode_t
+END
+
+SYSCALL 8 rename
+RET int
+ARG oldfd : int
+ARG old : const char *
+ARG newfd : int
+ARG new : const char *
+END
+
+SYSCALL 9 chmod
+RET int
+ARG fd : int
+ARG path : const char *
+ARG mode : mode_t
+ARG flag : int
 END

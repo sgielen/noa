@@ -27,6 +27,8 @@
 #include <sys/uio.h>
 #include <unistd.h>
 
+#include "syscalls.h"
+
 ssize_t
 write(int fildes, const void *buf, size_t nbyte)
 {
@@ -34,5 +36,5 @@ write(int fildes, const void *buf, size_t nbyte)
 
 	iov.iov_base = __DECONST(void *, buf);
 	iov.iov_len = nbyte;
-	return (writev(fildes, &iov, 1));
+	return (sys_write(fildes, &iov, 1, 0, 0));
 }

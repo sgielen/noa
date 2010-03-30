@@ -24,20 +24,13 @@
  * SUCH DAMAGE.
  */
 
-#include <fcntl.h>
-#include <stdarg.h>
+#include <sys/uio.h>
 
 #include "syscalls.h"
 
-int
-open(const char *path, int oflag, ...)
+ssize_t
+readv(int fildes, const struct iovec *iov, int iovcnt)
 {
-	va_list args;
-	mode_t mode;
 
-	va_start(args, oflag);
-	mode = va_arg(args, int);
-	va_end(args);
-
-	return (sys_open(AT_FDCWD, path, oflag, mode));
+	return (sys_read(fildes, iov, iovcnt, 0, 0));
 }

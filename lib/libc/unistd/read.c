@@ -27,6 +27,8 @@
 #include <sys/uio.h>
 #include <unistd.h>
 
+#include "syscalls.h"
+
 ssize_t
 read(int fildes, void *buf, size_t nbyte)
 {
@@ -34,5 +36,5 @@ read(int fildes, void *buf, size_t nbyte)
 
 	iov.iov_base = buf;
 	iov.iov_len = nbyte;
-	return (readv(fildes, &iov, 1));
+	return (sys_read(fildes, &iov, 1, 0, 0));
 }

@@ -27,9 +27,11 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#include "syscalls.h"
+
 int
 mkfifo(const char *path, mode_t mode)
 {
 
-	return (mkfifoat(AT_FDCWD, path, mode));
+	return (sys_mkfifo(AT_FDCWD, path, mode));
 }

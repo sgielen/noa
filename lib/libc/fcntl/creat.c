@@ -26,9 +26,11 @@
 
 #include <fcntl.h>
 
+#include "syscalls.h"
+
 int
 creat(const char *path, mode_t mode)
 {
 
-	return (openat(AT_FDCWD, path, O_WRONLY|O_CREAT|O_TRUNC, mode));
+	return (sys_open(AT_FDCWD, path, O_WRONLY|O_CREAT|O_TRUNC, mode));
 }
