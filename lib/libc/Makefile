@@ -8,6 +8,7 @@ WARNS?=	6
 
 .include "${.CURDIR}/fcntl/Makefile.inc"
 .include "${.CURDIR}/stat/Makefile.inc"
+.include "${.CURDIR}/stdio/Makefile.inc"
 .include "${.CURDIR}/stdlib/Makefile.inc"
 .include "${.CURDIR}/string/Makefile.inc"
 

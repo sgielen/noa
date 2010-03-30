@@ -24,16 +24,12 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _NOA_MACHINE_TYPES_H_
-#define	_NOA_MACHINE_TYPES_H_
+#include <fcntl.h>
+#include <stdio.h>
 
-#ifndef __amd64__
-#error "We only have amd64 support for now!"
-#endif
+int
+rename(const char *old, const char *new)
+{
 
-typedef signed int __int32_t;
-typedef signed long __int64_t;
-typedef unsigned long __size_t;
-typedef signed long __ssize_t;
-
-#endif /* !_NOA_MACHINE_TYPES_H_ */
+	return (renameat(AT_FDCWD, old, AT_FDCWD, new));
+}

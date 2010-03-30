@@ -101,6 +101,11 @@ typedef __size_t size_t;
 #define	__HAVE_SIZE_T
 #endif
 
+#if defined(__NEED_SSIZE_T) && !defined(__HAVE_SSIZE_T)
+typedef __ssize_t ssize_t;
+#define	__HAVE_SSIZE_T
+#endif
+
 #if defined(__NEED_TIME_T) && !defined(__HAVE_TIME_T)
 typedef __int64_t time_t;
 #define	__HAVE_TIME_T
