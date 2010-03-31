@@ -24,8 +24,8 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _SYS_UTSNAME_H_
-#define	_SYS_UTSNAME_H_
+#ifndef _SYS_STAT_H_
+#define	_SYS_STAT_H_
 
 #define	__NEED_DEV_T
 #define	__NEED_GID_T
