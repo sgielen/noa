@@ -67,7 +67,8 @@ ARG newfd : int
 ARG new : const char *
 END
 
-SYSCALL 9 chmod
+SYSCALL 9 fchmodat
+PUBLIC
 RET int
 ARG fd : int
 ARG path : const char *

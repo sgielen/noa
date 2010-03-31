@@ -27,11 +27,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "syscalls.h"
-
 int
 chmod(const char *path, mode_t mode)
 {
 
-	return (sys_chmod(AT_FDCWD, path, mode, 0));
+	return (fchmodat(AT_FDCWD, path, mode, 0));
 }

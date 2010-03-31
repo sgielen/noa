@@ -7,6 +7,6 @@ syscalls.h: ${.CURDIR}/sys/gensyshdr.awk ${.CURDIR}/../../kern/syscalls
 	${.CURDIR}/sys/gensyshdr.awk \
 		${.CURDIR}/../../kern/syscalls > ${.TARGET}
 
-syscalls.S: ${.CURDIR}/sys/gensyshdr.awk ${.CURDIR}/../../kern/syscalls
+syscalls.S: ${.CURDIR}/sys/gensysasm.awk ${.CURDIR}/../../kern/syscalls
 	${.CURDIR}/sys/gensysasm.awk \
 		${.CURDIR}/../../kern/syscalls > ${.TARGET}
