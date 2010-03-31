@@ -25,6 +25,9 @@
  */
 
 __syscall_bad:
+	movq	%fs:0, %rdx;
+	movq	errno@GOTTPOFF(%rip), %rcx;
+	movl	%eax, (%rdx,%rcx);
 	movq	$-1, %rax;
 	retq;
 
