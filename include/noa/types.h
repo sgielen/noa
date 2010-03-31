@@ -42,6 +42,11 @@
 #define	__NEED_TIME_T
 #endif
 
+#ifdef __NEED_STRUCT_TIMEVAL
+#define	__NEED_TIME_T
+#define	__NEED_SUSECONDS_T
+#endif
+
 /*
  * Primitive types.
  */
@@ -96,6 +101,13 @@ typedef int pid_t;
 #define	__HAVE_PID_T
 #endif
 
+#if defined(__NEED_SIGSET_T) && !defined(__HAVE_SIGSET_T)
+typedef struct {
+	long bogus[1];
+} sigset_t;
+#define	__HAVE_SIGSET_T
+#endif
+
 #if defined(__NEED_SIZE_T) && !defined(__HAVE_SIZE_T)
 typedef __size_t size_t;
 #define	__HAVE_SIZE_T
@@ -104,6 +116,11 @@ typedef __size_t size_t;
 #if defined(__NEED_SSIZE_T) && !defined(__HAVE_SSIZE_T)
 typedef __ssize_t ssize_t;
 #define	__HAVE_SSIZE_T
+#endif
+
+#if defined(__NEED_SUSECONDS_T) && !defined(__HAVE_SUSECONDS_T)
+typedef __int32_t suseconds_t;
+#define	__HAVE_SUSECONDS_T
 #endif
 
 #if defined(__NEED_TIME_T) && !defined(__HAVE_TIME_T)
@@ -137,8 +154,16 @@ typedef __int32_t wchar_t;
 
 #if defined(__NEED_STRUCT_TIMESPEC) && !defined(__HAVE_STRUCT_TIMESPEC)
 struct timespec {
-	time_t	tv_sec;
-	long	tv_nsec;
+	time_t		tv_sec;
+	long		tv_nsec;
 };
 #define	__HAVE_STRUCT_TIMESPEC
+#endif
+
+#if defined(__NEED_STRUCT_TIMEVAL) && !defined(__HAVE_STRUCT_TIMEVAL)
+struct timeval {
+	time_t		tv_sec;
+	suseconds_t	tv_usec;
+};
+#define	__HAVE_STRUCT_TIMEVAL
 #endif
