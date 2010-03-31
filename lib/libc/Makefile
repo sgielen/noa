@@ -6,6 +6,7 @@ VERSION_DEF=${.CURDIR}/Versions.def
 
 WARNS?=	6
 
+.include "${.CURDIR}/errno/Makefile.inc"
 .include "${.CURDIR}/fcntl/Makefile.inc"
 .include "${.CURDIR}/select/Makefile.inc"
 .include "${.CURDIR}/stat/Makefile.inc"
