@@ -27,11 +27,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "syscalls.h"
-
 int
 mkdir(const char *path, mode_t mode)
 {
 
-	return (sys_mkdir(AT_FDCWD, path, mode));
+	return (mkdirat(AT_FDCWD, path, mode));
 }

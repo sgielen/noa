@@ -27,8 +27,6 @@
 #include <fcntl.h>
 #include <stdarg.h>
 
-#include "syscalls.h"
-
 int
 open(const char *path, int oflag, ...)
 {
@@ -39,5 +37,5 @@ open(const char *path, int oflag, ...)
 	mode = va_arg(args, int);
 	va_end(args);
 
-	return (sys_open(AT_FDCWD, path, oflag, mode));
+	return (openat(AT_FDCWD, path, oflag, mode));
 }

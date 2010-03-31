@@ -27,11 +27,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "syscalls.h"
-
 int
 lstat(const char *restrict path, struct stat *restrict buf)
 {
 
-	return (sys_stat(AT_FDCWD, path, buf, AT_SYMLINK_NOFOLLOW));
+	return (fstatat(AT_FDCWD, path, buf, AT_SYMLINK_NOFOLLOW));
 }
