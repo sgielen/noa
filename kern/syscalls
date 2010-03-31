@@ -31,6 +31,7 @@ ARG mode : mode_t
 END
 
 SYSCALL 4 close
+PUBLIC 
 RET int
 ARG fildes : int
 END
