@@ -27,11 +27,9 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-#include "syscalls.h"
-
 int
 rename(const char *old, const char *new)
 {
 
-	return (sys_rename(AT_FDCWD, old, AT_FDCWD, new));
+	return (renameat(AT_FDCWD, old, AT_FDCWD, new));
 }

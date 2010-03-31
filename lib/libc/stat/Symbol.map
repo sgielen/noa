@@ -1,3 +1,7 @@
 NOA_1.0 {
 	chmod;
+	lstat;
+	mkdir;
+	mkfifo;
+	stat;
 };

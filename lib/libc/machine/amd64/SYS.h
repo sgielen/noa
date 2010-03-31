@@ -25,9 +25,9 @@
  */
 
 #define	SYSCALL(num, name)			\
-.globl sys_ ## name;				\
-	.type sys_ ## name , @function;		\
-sys_ ## name:					\
+.globl name;					\
+	.type name, @function;			\
+name:						\
 	mov $num, %rax;				\
 	syscall;				\
 	retq;

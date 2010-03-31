@@ -1,9 +1,6 @@
 STRUCT iovec
-STRUCT stat
 
-TYPE mode_t
 TYPE off_t
-TYPE size_t
 TYPE ssize_t
 
 SYSCALL 1 read
@@ -24,7 +21,8 @@ ARG offset : off_t
 ARG flags : int
 END
 
-SYSCALL 3 open
+SYSCALL 3 openat
+PUBLIC
 RET int
 ARG fd : int
 ARG path : const char *
@@ -33,18 +31,21 @@ ARG mode : mode_t
 END
 
 SYSCALL 4 close
+PUBLIC 
 RET int
 ARG fildes : int
 END
 
-SYSCALL 5 mkdir
+SYSCALL 5 mkdirat
+PUBLIC
 RET int
 ARG fd : int
 ARG path : const char *
 ARG mode : mode_t
 END
 
-SYSCALL 6 stat
+SYSCALL 6 fstatat
+PUBLIC
 RET int
 ARG fd : int
 ARG path : const char *
@@ -52,14 +53,16 @@ ARG buf : struct stat *
 ARG flag : int
 END
 
-SYSCALL 7 mkfifo
+SYSCALL 7 mkfifoat
+PUBLIC
 RET int
 ARG fd : int
 ARG path : const char *
 ARG mode : mode_t
 END
 
-SYSCALL 8 rename
+SYSCALL 8 renameat
+PUBLIC
 RET int
 ARG oldfd : int
 ARG old : const char *
@@ -67,7 +70,8 @@ ARG newfd : int
 ARG new : const char *
 END
 
-SYSCALL 9 chmod
+SYSCALL 9 fchmodat
+PUBLIC
 RET int
 ARG fd : int
 ARG path : const char *

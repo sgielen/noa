@@ -18,28 +18,39 @@ BEGIN {
 		init = 1;
 	}
 	name = $3;
+	public = 0;
+}
+
+/^PUBLIC/ {
+	public = 1;
 }
 
 /^RET/ {
-	printf "%s\tsys_%s(", $2, name;
-	narg = 0;
+	if (!public) {
+		printf "%s\tsys_%s(", $2, name;
+		narg = 0;
+	}
 }
 
 /^ARG/ {
-	split($0, a, " : ");
-	type = a[2];
-	if (narg == 0) {
-		printf "%s", type;
-		narg++;
-	} else {
-		printf ", %s", type;
+	if (!public) {
+		split($0, a, " : ");
+		type = a[2];
+		if (narg == 0) {
+			printf "%s", type;
+			narg++;
+		} else {
+			printf ", %s", type;
+		}
 	}
 }
 
 /^END/ {
-	if (narg == 0)
-		printf "void);\n";
-	printf ");\n";
+	if (!public) {
+		if (narg == 0)
+			printf "void);\n";
+		printf ");\n";
+	}
 }
 
 END {
