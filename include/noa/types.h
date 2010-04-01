@@ -82,7 +82,7 @@ typedef struct __locale_t *locale_t;
 #endif
 
 #if defined(__NEED_MODE_T) && !defined(__HAVE_MODE_T)
-typedef unsigned int mode_t;
+typedef __uint32_t mode_t;
 #define	__HAVE_MODE_T
 #endif
 
