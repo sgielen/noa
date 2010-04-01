@@ -33,7 +33,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds,
 {
 	struct timespec timeout;
 
-	timeout.tv_sec = _timeout->tv_sec + _timeout->tv_usec / 1000000;
-	timeout.tv_nsec = (_timeout->tv_usec % 1000000) * 1000;
+	timeout.tv_sec = _timeout->tv_sec;
+	timeout.tv_nsec = _timeout->tv_usec * 1000;
 	return (pselect(nfds, readfds, writefds, errorfds, &timeout, NULL));
 }
