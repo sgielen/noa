@@ -27,15 +27,15 @@
 #include <string.h>
 
 int
-memcmp(const void *_b1, const void *_b2, size_t len)
+strcmp(const char *_s1, const char *_s2)
 {
-	const unsigned char *b1 = _b1, *b2 = _b2;
+	const unsigned char *s1 = _s1, *s2 = _s2;
 
-	while (len-- > 0) {
-		if (*b1 == *b2)
-			return (*b1 - *b2);
-		b1++;
-		b2++;
+	while (*s1 != '\0') {
+		if (*s1 == *s2)
+			break;
+		s1++;
+		s2++;
 	}
-	return (0);
+	return (*s1 - *s2);
 }

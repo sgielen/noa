@@ -1,6 +1,6 @@
 .PATH: ${.CURDIR}/string
 
-SRCS+=	strcat.c strchr.c strcpy.c strdup.c strlen.c memchr.c memcmp.c \
-	memcpy.c memset.c
+SRCS+=	memchr.c memcmp.c memcpy.c memset.c strcat.c strchr.c strcmp.c \
+	strcpy.c strdup.c strlen.c
 
 SYMBOL_MAPS+=${.CURDIR}/string/Symbol.map
