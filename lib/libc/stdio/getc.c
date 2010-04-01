@@ -27,8 +27,8 @@
 #include <stdio.h>
 
 int
-getchar(void)
+getc(FILE *stream)
 {
 
-	return (fgetc(stdin));
+	return (fgetc(stream));
 }
