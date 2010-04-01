@@ -1,3 +1,4 @@
 NOA_1.0 {
+	getchar;
 	rename;
 };
