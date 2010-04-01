@@ -9,5 +9,6 @@ NOA_1.0 {
 	strcpy;
 	strdup;
 	strlen;
+	strncat;
 	strnlen;
 };
