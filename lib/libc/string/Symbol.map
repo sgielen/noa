@@ -2,11 +2,12 @@ NOA_1.0 {
 	memchr;
 	memcmp;
 	memcpy;
+	memset;
 	strcat;
 	strchr;
 	strcmp;
 	strcpy;
 	strdup;
 	strlen;
-	memset;
+	strnlen;
 };
