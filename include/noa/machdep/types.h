@@ -24,8 +24,8 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _NOA_MACHINE_TYPES_H_
-#define	_NOA_MACHINE_TYPES_H_
+#ifndef _NOA_MACHDEP_TYPES_H_
+#define	_NOA_MACHDEP_TYPES_H_
 
 #ifndef __amd64__
 #error "We only have amd64 support for now!"
@@ -37,4 +37,4 @@ typedef signed long __int64_t;
 typedef unsigned long __size_t;
 typedef signed long __ssize_t;
 
-#endif /* !_NOA_MACHINE_TYPES_H_ */
+#endif /* !_NOA_MACHDEP_TYPES_H_ */
