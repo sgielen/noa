@@ -7,4 +7,4 @@ all: lib${LIB}.so
 lib${LIB}.so: ${OBJS}
 
 clean:
-	rm -f ${OBJS}
+	rm -f ${OBJS} ${CLEANFILES}
