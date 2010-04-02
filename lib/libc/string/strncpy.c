@@ -34,9 +34,7 @@ strncpy(char *restrict _dst, const char *restrict _src, size_t n)
 
 	while (n-- > 0 && *src != '\0')
 		*dst++ = *src++;
-
 	if (n != 0)
 		*dst = '\0';
-
 	return (_dst);
 }
