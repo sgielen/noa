@@ -11,5 +11,6 @@ NOA_1.0 {
 	strlen;
 	strncat;
 	strncmp;
+	strncpy;
 	strnlen;
 };
