@@ -1,18 +1,10 @@
-SHLIB_NAME=libc.so
+LIB=	c
 
-.if ${MACHINE_ARCH} == "amd64"
-ARCH=x86_64
-.elif ${MACHINE_ARCH} == "i386"
-ARCH=x86_32
-.endif
-
-CFLAGS+=-nostdinc -std=c99 -I. -Imachdep/${ARCH} \
-	-I${.CURDIR}/../../include \
-	-I${.CURDIR}/../../include/machdep/${ARCH}
+CFLAGS+=-I. -Imachdep/${MACHINE}
+# XXX!
+CFLAGS+=-I../../include -I../../include/machdep/${MACHINE}
 
 VERSION_DEF=${.CURDIR}/Versions.def
-
-WARNS?=	6
 
 .include "${.CURDIR}/errno/Makefile.inc"
 .include "${.CURDIR}/fcntl/Makefile.inc"
@@ -26,4 +18,4 @@ WARNS?=	6
 .include "${.CURDIR}/time/Makefile.inc"
 .include "${.CURDIR}/unistd/Makefile.inc"
 
-.include <bsd.lib.mk>
+.include <noa.lib.mk>
