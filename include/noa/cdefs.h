@@ -52,7 +52,7 @@
 			char __pad[(size)];		\
 			struct contents;		\
 		};					\
-	} __aligned_max;			\
+	} __aligned_max;				\
 	__CTASSERT(sizeof(struct name) == (size));
 
 #endif /* !_NOA_CDEFS_H_ */
