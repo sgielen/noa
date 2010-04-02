@@ -29,7 +29,6 @@
 
 #define	__NEED_LOCALE_T
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
 __BEGIN_DECLS

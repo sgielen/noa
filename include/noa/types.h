@@ -24,6 +24,7 @@
  * SUCH DAMAGE.
  */
 
+#include <noa/cdefs.h>
 #include <noa/machine/types.h>
 
 #if defined(__NEED_NULL) && !defined(NULL)
@@ -153,17 +154,17 @@ typedef __int32_t wchar_t;
  */
 
 #if defined(__NEED_STRUCT_TIMESPEC) && !defined(__HAVE_STRUCT_TIMESPEC)
-struct timespec {
+__ABI_STRUCT(timespec, 16, {
 	time_t		tv_sec;
 	long		tv_nsec;
-};
+})
 #define	__HAVE_STRUCT_TIMESPEC
 #endif
 
 #if defined(__NEED_STRUCT_TIMEVAL) && !defined(__HAVE_STRUCT_TIMEVAL)
-struct timeval {
+__ABI_STRUCT(timeval, 16, {
 	time_t		tv_sec;
 	suseconds_t	tv_usec;
-};
+})
 #define	__HAVE_STRUCT_TIMEVAL
 #endif

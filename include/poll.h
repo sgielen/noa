@@ -29,11 +29,11 @@
 
 #include <noa/cdefs.h>
 
-struct pollfd {
+__ABI_STRUCT(pollfd, 16, {
 	int	fd;
 	short	events;
 	short	revents;
-};
+})
 
 typedef unsigned int nfds_t;
 

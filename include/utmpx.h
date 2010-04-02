@@ -30,7 +30,6 @@
 #define	__NEED_PID_T
 #define	__NEED_STRUCT_TIMEVAL
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
 #define	EMPTY		0
@@ -42,14 +41,14 @@
 #define	LOGIN_PROCESS	6
 #define	DEAD_PROCESS	7
 
-struct utmpx {
+__ABI_STRUCT(utmpx, 128, {
 	short		ut_type;
 	struct timeval	ut_tv;
 	char		ut_id[8];
 	pid_t		ut_pid;
 	char		ut_user[32];
 	char		ut_line[32];
-};
+})
 
 __BEGIN_DECLS
 void	 endutxent(void);

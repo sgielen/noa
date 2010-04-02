@@ -32,7 +32,6 @@
 #define	__NEED_SSIZE_T
 #define	__NEED_VA_LIST
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
 typedef struct __FILE FILE;

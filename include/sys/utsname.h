@@ -29,13 +29,13 @@
 
 #include <noa/cdefs.h>
 
-struct utsname {
+__ABI_STRUCT(utsname, 128, {
 	char	sysname[32];
 	char	nodename[128];
 	char	release[32];
 	char	version[32];
 	char	machine[32];
-};
+})
 
 __BEGIN_DECLS
 int	 uname(struct utsname *);

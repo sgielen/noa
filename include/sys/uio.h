@@ -30,13 +30,12 @@
 #define	__NEED_SIZE_T
 #define	__NEED_SSIZE_T
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
-struct iovec {
+__ABI_STRUCT(iovec, 32, {
 	void	*iov_base;
 	size_t	 iov_len;
-};
+})
 
 __BEGIN_DECLS
 ssize_t	 readv(int, const struct iovec *, int);

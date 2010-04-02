@@ -31,7 +31,6 @@
 #define	__NEED_STRUCT_TIMESPEC
 #define	__NEED_STRUCT_TIMEVAL
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
 #define	FD_SETSIZE	1024

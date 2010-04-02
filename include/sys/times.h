@@ -29,15 +29,14 @@
 
 #define	__NEED_CLOCK_T
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
-struct tms {
+__ABI_STRUCT(tms, 16, {
 	clock_t	tms_utime;
 	clock_t	tms_stime;
 	clock_t	tms_cutime;
 	clock_t	tms_cstime;
-};
+})
 
 __BEGIN_DECLS
 clock_t	 times(struct tms *);

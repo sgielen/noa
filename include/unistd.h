@@ -35,7 +35,6 @@
 #define	__NEED_SSIZE_T
 #define	__NEED_UID_T
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
 #define	STDIN_FILENO		0

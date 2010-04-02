@@ -36,10 +36,9 @@
 #define	__NEED_STRUCT_TIMESPEC
 #define	__NEED_UID_T
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
-struct stat {
+__ABI_STRUCT(stat, 128, {
 	dev_t	st_dev;
 	ino_t	st_ino;
 	mode_t	st_mode;
@@ -50,7 +49,7 @@ struct stat {
 	struct timespec st_atim;
 	struct timespec st_mtim;
 	struct timespec st_ctim;
-};
+})
 
 #define	st_atime	st_atim.tv_sec
 #define	st_mtime	st_mtim.tv_sec

@@ -31,7 +31,6 @@
 #define	__NEED_OFF_T
 #define	__NEED_SIZE_T
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
 #define	PROT_NONE		0x0

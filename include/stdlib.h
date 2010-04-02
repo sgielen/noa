@@ -31,7 +31,6 @@
 #define	__NEED_SIZE_T
 #define	__NEED_WCHAR_T
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
 #define	EXIT_FAILURE	1

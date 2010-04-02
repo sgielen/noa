@@ -31,7 +31,6 @@
 #define	__NEED_NULL
 #define	__NEED_SIZE_T
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
 __BEGIN_DECLS

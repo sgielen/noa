@@ -29,7 +29,6 @@
 
 #define	__NEED_PID_T
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
 #define	BRKINT		0x0001
@@ -116,7 +115,7 @@ typedef unsigned long	tcflag_t;
 typedef unsigned char	cc_t;
 typedef unsigned long	speed_t;
 
-struct termios {
+__ABI_STRUCT(termios, 64, {
 	tcflag_t	c_iflag;
 	tcflag_t	c_oflag;
 	tcflag_t	c_cflag;
@@ -124,7 +123,7 @@ struct termios {
 	cc_t		c_cc[NCCS];
 	speed_t		__c_ispeed;
 	speed_t		__c_ospeed;
-};
+})
 
 __BEGIN_DECLS
 speed_t	 cfgetispeed(const struct termios *);

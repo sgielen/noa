@@ -31,7 +31,6 @@
 #define	__NEED_OFF_T
 #define	__NEED_PID_T
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
 #define	F_DUPFD			1
@@ -86,13 +85,13 @@
 #define	POSIX_FADV_SEQUENTIAL	5
 #define	POSIX_FADV_WILLNEED	6
 
-struct flock {
+__ABI_STRUCT(flock, 32, {
 	short	l_type;
 	short	l_whence;
 	off_t	l_start;
 	off_t	l_len;
 	pid_t	l_pid;
-};
+})
 
 __BEGIN_DECLS
 int	 creat(const char *, mode_t);

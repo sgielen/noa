@@ -37,12 +37,11 @@
 #define	__NEED_TIMER_T
 #define	__NEED_TIME_T
 
-#include <noa/cdefs.h>
 #include <noa/types.h>
 
 struct sigevent;
 
-struct tm {
+__ABI_STRUCT(tm, 16, {
 	int	tm_sec;
 	int	tm_min;
 	int	tm_hour;
@@ -52,12 +51,12 @@ struct tm {
 	int	tm_wday;
 	int	tm_yday;
 	int	tm_isdst;
-};
+})
 
-struct itimerspec {
+__ABI_STRUCT(itimerspec, 16, {
 	struct timespec	it_interval;
 	struct timespec	it_value;
-};
+})
 
 __BEGIN_DECLS
 clock_t	 clock(void);
