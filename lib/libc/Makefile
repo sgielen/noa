@@ -1,8 +1,14 @@
 SHLIB_NAME=libc.so
 
-CFLAGS+=-nostdinc -std=c99 -I. -Imachdep/${MACHINE_ARCH} \
+.if ${MACHINE_ARCH} == "amd64"
+ARCH=x86_64
+.elif ${MACHINE_ARCH} == "i386"
+ARCH=x86_32
+.endif
+
+CFLAGS+=-nostdinc -std=c99 -I. -Imachdep/${ARCH} \
 	-I${.CURDIR}/../../include \
-	-I${.CURDIR}/../../include/machdep/${MACHINE_ARCH}
+	-I${.CURDIR}/../../include/machdep/${ARCH}
 
 VERSION_DEF=${.CURDIR}/Versions.def
 
