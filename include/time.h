@@ -39,9 +39,16 @@
 
 #include <noa/types.h>
 
+#define	CLOCK_MONOTONIC			1
+#define	CLOCK_PROCESS_CPUTIME_ID	2
+#define	CLOCK_REALTIME			3
+#define	CLOCK_THREAD_CPUTIME_ID		4
+
+#define	TIMER_ABSTIME			0x1
+
 struct sigevent;
 
-__ABI_STRUCT(tm, 16, {
+__ABI_STRUCT(tm, 64, {
 	int	tm_sec;
 	int	tm_min;
 	int	tm_hour;
@@ -53,7 +60,7 @@ __ABI_STRUCT(tm, 16, {
 	int	tm_isdst;
 })
 
-__ABI_STRUCT(itimerspec, 16, {
+__ABI_STRUCT(itimerspec, 32, {
 	struct timespec	it_interval;
 	struct timespec	it_value;
 })

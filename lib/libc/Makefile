@@ -15,6 +15,7 @@ WARNS?=	6
 .include "${.CURDIR}/string/Makefile.inc"
 .include "${.CURDIR}/sys/Makefile.inc"
 .include "${.CURDIR}/termios/Makefile.inc"
+.include "${.CURDIR}/time/Makefile.inc"
 .include "${.CURDIR}/unistd/Makefile.inc"
 
 .include <bsd.lib.mk>
