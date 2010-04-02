@@ -38,9 +38,11 @@
 #include <noa/cdefs.h>
 #include <noa/types.h>
 
-#define	STDIN_FILENO	0
-#define	STDOUT_FILENO	1
-#define	STDERR_FILENO	2
+#define	STDIN_FILENO		0
+#define	STDOUT_FILENO		1
+#define	STDERR_FILENO		2
+
+#define	_POSIX_VDISABLE		0xff
 
 __BEGIN_DECLS
 int	 access(const char *, int);

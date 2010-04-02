@@ -24,18 +24,40 @@
  * SUCH DAMAGE.
  */
 
-__syscall_bad:
-	movq	%fs:0, %rdx;
-	movq	errno@GOTTPOFF(%rip), %rcx;
-	movl	%eax, (%rdx,%rcx);
-	movq	$-1, %rax;
-	retq;
+#ifndef _SYS_TYPES_H_
+#define	_SYS_TYPES_H_
 
-#define	SYSCALL(num, name) \
-.globl name;					\
-	.type name, @function;			\
-name:						\
-	mov $num, %rax;				\
-	syscall;				\
-	jb __syscall_bad;			\
-	retq;
+#define	__NEED_BLKCNT_T
+#define	__NEED_BLKSIZE_T
+#define	__NEED_CLOCK_T
+#define	__NEED_CLOCKID_T
+#define	__NEED_DEV_T
+#define	__NEED_GID_T
+#define	__NEED_ID_T
+#define	__NEED_INO_T
+#define	__NEED_MODE_T
+#define	__NEED_NLINK_T
+#define	__NEED_OFF_T
+#define	__NEED_PID_T
+#define	__NEED_PTHREAD_ATTR_T
+#define	__NEED_PTHREAD_BARRIER_T
+#define	__NEED_PTHREAD_BARRIERATTR_T
+#define	__NEED_PTHREAD_COND_T
+#define	__NEED_PTHREAD_CONDATTR_T
+#define	__NEED_PTHREAD_KEY_T
+#define	__NEED_PTHREAD_MUTEX_T
+#define	__NEED_PTHREAD_MUTEXATTR_T
+#define	__NEED_PTHREAD_ONCE_T
+#define	__NEED_PTHREAD_RWLOCK_T
+#define	__NEED_PTHREAD_RWLOCKATTR_T
+#define	__NEED_PTHREAD_SPINLOCK_T
+#define	__NEED_PTHREAD_T
+#define	__NEED_SIZE_T
+#define	__NEED_SSIZE_T
+#define	__NEED_TIME_T
+#define	__NEED_TIMER_T
+#define	__NEED_UID_T
+
+#include <noa/types.h>
+
+#endif /* !_SYS_TYPES_H_ */

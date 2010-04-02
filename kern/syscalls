@@ -78,3 +78,14 @@ ARG path : const char *
 ARG mode : mode_t
 ARG flag : int
 END
+
+SYSCALL 10 pselect
+PUBLIC
+RET int
+ARG nfds : int
+ART readfds : fd_set *
+ARG writefds : fd_set *
+ARG errorfds : fd_set *
+ARG timeout : const struct timespec *
+ARG sigmask : const sigset_t *
+END

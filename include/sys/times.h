@@ -24,18 +24,23 @@
  * SUCH DAMAGE.
  */
 
-__syscall_bad:
-	movq	%fs:0, %rdx;
-	movq	errno@GOTTPOFF(%rip), %rcx;
-	movl	%eax, (%rdx,%rcx);
-	movq	$-1, %rax;
-	retq;
+#ifndef _SYS_TIMES_H_
+#define	_SYS_TIMES_H_
 
-#define	SYSCALL(num, name) \
-.globl name;					\
-	.type name, @function;			\
-name:						\
-	mov $num, %rax;				\
-	syscall;				\
-	jb __syscall_bad;			\
-	retq;
+#define	__NEED_CLOCK_T
+
+#include <noa/cdefs.h>
+#include <noa/types.h>
+
+struct tms {
+	clock_t	tms_utime;
+	clock_t	tms_stime;
+	clock_t	tms_cutime;
+	clock_t	tms_cstime;
+};
+
+__BEGIN_DECLS
+clock_t	 times(struct tms *);
+__END_DECLS
+
+#endif /* !_SYS_TIMES_H_ */

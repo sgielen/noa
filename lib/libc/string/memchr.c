@@ -30,10 +30,11 @@ void *
 memchr(const void *_b, int c, size_t len)
 {
 	const char *b = _b;
-	const char *max = b + len;
 
-	while (*b != c && b <= max)
+	while (len-- > 0) {
+		if (*b == (char)c)
+			return (__DECONST(void *, b));
 		b++;
-
-	return (b <= max ? __DECONST(void *, b) : 0);
+	}
+	return (NULL);
 }

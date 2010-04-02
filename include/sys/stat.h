@@ -24,8 +24,8 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _SYS_UTSNAME_H_
-#define	_SYS_UTSNAME_H_
+#ifndef _SYS_STAT_H_
+#define	_SYS_STAT_H_
 
 #define	__NEED_DEV_T
 #define	__NEED_GID_T
@@ -56,30 +56,30 @@ struct stat {
 #define	st_mtime	st_mtim.tv_sec
 #define	st_ctime	st_ctim.tv_sec
 
-#define	S_IXOTH		0x00001
-#define	S_IWOTH		0x00002
-#define	S_IROTH		0x00004
+#define	S_IXOTH		0x00000001
+#define	S_IWOTH		0x00000002
+#define	S_IROTH		0x00000004
 #define	S_IRWXO		(S_IXOTH|S_IWOTH|S_IROTH)
-#define	S_IXGRP		0x00008
-#define	S_IWGRP		0x00010
-#define	S_IRGRP		0x00020
+#define	S_IXGRP		0x00000008
+#define	S_IWGRP		0x00000010
+#define	S_IRGRP		0x00000020
 #define	S_IRWXG		(S_IXGRP|S_IWGRP|S_IRGRP)
-#define	S_IXUSR		0x00040
-#define	S_IWUSR		0x00080
-#define	S_IRUSR		0x00100
+#define	S_IXUSR		0x00000040
+#define	S_IWUSR		0x00000080
+#define	S_IRUSR		0x00000100
 #define	S_IRWXU		(S_IXUSR|S_IWUSR|S_IRUSR)
-#define	S_ISVTX		0x00200
-#define	S_ISGID		0x00400
-#define	S_ISUID		0x00800
+#define	S_ISVTX		0x00000200
+#define	S_ISGID		0x00000400
+#define	S_ISUID		0x00000800
 
-#define	S_IFMT		0xf0000
-#define	__S_IFBLK	0x10000
-#define	__S_IFCHR	0x20000
-#define	__S_IFIFO	0x30000
-#define	__S_IFREG	0x40000
-#define	__S_IFDIR	0x50000
-#define	__S_IFLNK	0x60000
-#define	__S_IFSOCK	0x70000
+#define	S_IFMT		0xff000000
+#define	__S_IFBLK	0x01000000
+#define	__S_IFCHR	0x02000000
+#define	__S_IFIFO	0x03000000
+#define	__S_IFREG	0x04000000
+#define	__S_IFDIR	0x05000000
+#define	__S_IFLNK	0x06000000
+#define	__S_IFSOCK	0x07000000
 
 #define	S_ISBLK(m)	(((m) & S_IFMT) == __S_IFBLK)
 #define	S_ISCHR(m)	(((m) & S_IFMT) == __S_IFCHR)

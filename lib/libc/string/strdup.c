@@ -37,7 +37,6 @@ strdup(const char *s)
 	ns = malloc(len);
 	if (ns == NULL)
 		return (NULL);
-
 	memcpy(ns, s, len);
 	return (ns);
 }

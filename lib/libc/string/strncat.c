@@ -29,13 +29,9 @@
 char *
 strncat(char *restrict s1, const char *restrict s2, size_t n)
 {
-	char *s1_end = s1 + strlen(s1);
+	char *s1_end;
 
-	while (*s2 != 0 && n >= 0)
-	{
-		*s1_end++ = *s2++;
-		n--;
-	}
-	*s1_end = '\0';
+	s1_end = s1 + strlen(s1);
+	strncpy(s1_end, s2, n);
 	return (s1);
 }

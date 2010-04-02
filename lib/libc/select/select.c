@@ -24,18 +24,16 @@
  * SUCH DAMAGE.
  */
 
-__syscall_bad:
-	movq	%fs:0, %rdx;
-	movq	errno@GOTTPOFF(%rip), %rcx;
-	movl	%eax, (%rdx,%rcx);
-	movq	$-1, %rax;
-	retq;
+#include <sys/select.h>
+#include <stddef.h>
 
-#define	SYSCALL(num, name) \
-.globl name;					\
-	.type name, @function;			\
-name:						\
-	mov $num, %rax;				\
-	syscall;				\
-	jb __syscall_bad;			\
-	retq;
+int
+select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds,
+    fd_set *restrict errorfds, struct timeval *restrict _timeout)
+{
+	struct timespec timeout;
+
+	timeout.tv_sec = _timeout->tv_sec;
+	timeout.tv_nsec = _timeout->tv_usec * 1000;
+	return (pselect(nfds, readfds, writefds, errorfds, &timeout, NULL));
+}

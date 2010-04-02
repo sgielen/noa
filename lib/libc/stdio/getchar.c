@@ -24,18 +24,11 @@
  * SUCH DAMAGE.
  */
 
-__syscall_bad:
-	movq	%fs:0, %rdx;
-	movq	errno@GOTTPOFF(%rip), %rcx;
-	movl	%eax, (%rdx,%rcx);
-	movq	$-1, %rax;
-	retq;
+#include <stdio.h>
 
-#define	SYSCALL(num, name) \
-.globl name;					\
-	.type name, @function;			\
-name:						\
-	mov $num, %rax;				\
-	syscall;				\
-	jb __syscall_bad;			\
-	retq;
+int
+getchar(void)
+{
+
+	return (fgetc(stdin));
+}

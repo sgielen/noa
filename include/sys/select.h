@@ -24,18 +24,41 @@
  * SUCH DAMAGE.
  */
 
-__syscall_bad:
-	movq	%fs:0, %rdx;
-	movq	errno@GOTTPOFF(%rip), %rcx;
-	movl	%eax, (%rdx,%rcx);
-	movq	$-1, %rax;
-	retq;
+#ifndef _SYS_SELECT_H_
+#define	_SYS_SELECT_H_
 
-#define	SYSCALL(num, name) \
-.globl name;					\
-	.type name, @function;			\
-name:						\
-	mov $num, %rax;				\
-	syscall;				\
-	jb __syscall_bad;			\
-	retq;
+#define	__NEED_SIGSET_T
+#define	__NEED_STRUCT_TIMESPEC
+#define	__NEED_STRUCT_TIMEVAL
+
+#include <noa/cdefs.h>
+#include <noa/types.h>
+
+#define	FD_SETSIZE	1024
+#define	__FD_WORD(b)	((b) / (sizeof(long) * 8))
+#define	__FD_BIT(b)	((b) % (sizeof(long) * 8))
+
+#define	FD_CLR(fd, fdset) \
+	((fdset)->__fd_bits[__FD_WORD(fd)] &= ~__FD_BIT(fd))
+#define	FD_ISSET(fd, fdset) \
+	((fdset)->__fd_bits[__FD_WORD(fd)] & __FD_BIT(fd) != 0)
+#define	FD_SET(fd, fdset) \
+	((fdset)->__fd_bits[__FD_WORD(fd)] |= __FD_BIT(fd))
+#define	FD_ZERO(fdset) do { \
+	unsigned int __i;					\
+	for (__i = 0; __i < __FD_WORD(FD_SETSIZE); __i++)	\
+		fdset->__fd_bits[__i] = 0;			\
+} while (0)
+
+typedef struct {
+	long	__fd_bits[FD_SETSIZE / (sizeof(long) * 8)];
+} fd_set;
+
+__BEGIN_DECLS
+int	 pselect(int, fd_set *restrict, fd_set *restrict, fd_set *restrict,
+	     const struct timespec *restrict, const sigset_t *restrict);
+int	 select(int, fd_set *restrict, fd_set *restrict, fd_set *restrict,
+	     struct timeval *restrict);
+__END_DECLS
+
+#endif /* !_SYS_SELECT_H_ */

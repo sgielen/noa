@@ -10,4 +10,12 @@ NOA_1.0 {
 	memcmp;
 	memcpy;
 	memset;
+	strcat;
+	strchr;
+	strcmp;
+	strcpy;
+	strdup;
+	strlen;
+	strncat;
+	strnlen;
 };

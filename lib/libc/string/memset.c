@@ -27,13 +27,11 @@
 #include <string.h>
 
 void *
-memset(void *b, int c, size_t len)
+memset(void *_b, int c, size_t len)
 {
+	char *b = _b;
 
-	while (len > 0) {
-		*((char *)b + len) = c;
-		len--;
-	}
-
-	return (b);
+	while (len-- > 0)
+		*b++ = c;
+	return (_b);
 }

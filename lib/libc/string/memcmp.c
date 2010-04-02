@@ -29,13 +29,13 @@
 int
 memcmp(const void *_b1, const void *_b2, size_t len)
 {
-	const char *b1 = _b1, *b2 = _b2;
-	const char *max = b1 + len;
+	const unsigned char *b1 = _b1, *b2 = _b2;
 
-	while (*b1 == *b2 && b1 <= max) {
+	while (len-- > 0) {
+		if (*b1 == *b2)
+			return (*b1 - *b2);
 		b1++;
 		b2++;
 	}
-
-	return (b1 <= max ? *b2 - *b1 : 0);
+	return (0);
 }
