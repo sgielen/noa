@@ -3,7 +3,7 @@
 .if ${MACHINE} == "amd64"
 MACHINE=x86_64
 .elif ${MACHINE} == "i386"
-MACHINE=i386
+MACHINE=x86_32
 .endif
 
 CFLAGS+=-std=gnu99 -Wsystem-headers -Werror -Wall -Wno-format-y2k -W \
