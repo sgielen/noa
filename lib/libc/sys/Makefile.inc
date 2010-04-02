@@ -5,7 +5,7 @@ CLEANFILES+=syscalls.h syscalls.S Symbol-sys.map
 
 SYMBOL_MAPS+=Symbol-sys.map
 
-syscalls.h: ${.CURDIR}/sys/gensyshdr.awk ${.CURDIR}/../../kernekernel/syscalls
+syscalls.h: ${.CURDIR}/sys/gensyshdr.awk ${.CURDIR}/../../kernel/syscalls
 	${.CURDIR}/sys/gensyshdr.awk \
 		${.CURDIR}/../../kernel/syscalls > ${.TARGET}
 
