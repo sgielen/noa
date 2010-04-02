@@ -27,16 +27,15 @@
 #include <string.h>
 
 int
-strncmp(const char *s1, const char *s2, size_t n)
+strncmp(const char *_s1, const char *_s2, size_t n)
 {
-	const char *max = s1 + n;
+	const unsigned char *s1 = _s1, *s2 = _s2;
 
-	while (*s1 == *s2 && *s1 != '\0' && *s2 != '\0' && s1 <= max) {
+	while (n-- > 0) {
+		if (*s1 == '\0' || *s1 == *s2)
+			return (*s1 - *s2);
 		s1++;
 		s2++;
 	}
-
-	if ((*s1 == '\0' && *s2 == '\0') || s1 > max)
-		return 0;
-	return (*s1 - *s2);
+	return (0);
 }

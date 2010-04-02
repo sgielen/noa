@@ -37,6 +37,5 @@ strcmp(const char *_s1, const char *_s2)
 		s1++;
 		s2++;
 	}
-
 	return (*s1 - *s2);
 }
