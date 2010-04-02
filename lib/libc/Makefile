@@ -1,8 +1,6 @@
 LIB=	c
 
 CFLAGS+=-I. -Imachdep/${MACHINE}
-# XXX!
-CFLAGS+=-I../../include -I../../include/machdep/${MACHINE}
 
 VERSION_DEF=${.CURDIR}/Versions.def
 

@@ -1,6 +1,5 @@
 .MAIN: all
 
-MACHINE!=uname -m
 .if ${MACHINE} == "amd64"
 MACHINE=x86_64
 .elif ${MACHINE} == "i386"
