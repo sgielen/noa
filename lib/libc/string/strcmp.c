@@ -31,9 +31,7 @@ strcmp(const char *_s1, const char *_s2)
 {
 	const unsigned char *s1 = _s1, *s2 = _s2;
 
-	while (*s1 != '\0') {
-		if (*s1 == *s2)
-			break;
+	while (*s1 != '\0' && *s1 != *s2) {
 		s1++;
 		s2++;
 	}
