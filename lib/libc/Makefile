@@ -1,6 +1,8 @@
 SHLIB_NAME=libc.so
 
-CFLAGS+=-nostdinc -I${.CURDIR}/../../include -std=c99 -I. -Imachdep/amd64
+CFLAGS+=-nostdinc -std=c99 -I. -Imachdep/${MACHINE_ARCH} \
+	-I${.CURDIR}/../../include \
+	-I${.CURDIR}/../../include/machdep/${MACHINE_ARCH}
 
 VERSION_DEF=${.CURDIR}/Versions.def
 

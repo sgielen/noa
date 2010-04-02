@@ -25,7 +25,7 @@
  */
 
 #include <noa/cdefs.h>
-#include <noa/machdep/types.h>
+#include <noa/_types.h>
 
 #if defined(__NEED_NULL) && !defined(NULL)
 #ifdef __cplusplus
