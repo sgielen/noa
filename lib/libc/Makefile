@@ -1,6 +1,6 @@
 LIB=	c
 
-CFLAGS+=-I. -Imachdep/${MACHINE}
+CFLAGS+=-I. -I${.CURDIR}/machdep/${MACHINE}
 
 VERSION_DEF=${.CURDIR}/Versions.def
 

@@ -6,5 +6,7 @@ all: lib${LIB}.so
 
 lib${LIB}.so: ${OBJS}
 
+${OBJS}: ${SRCS:M*.h}
+
 clean:
 	rm -f ${OBJS} ${CLEANFILES}
