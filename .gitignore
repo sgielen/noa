@@ -1,3 +1,4 @@
 *.So
 *.so
 Version.map
+env.sh
