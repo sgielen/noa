@@ -27,11 +27,18 @@
 #include <string.h>
 
 char *
-strncat(char *restrict s1, const char *restrict s2, size_t n)
+strncat(char *restrict _s1, const char *restrict s2, size_t n)
 {
-	char *s1_end;
+	char *s1;
 
-	s1_end = s1 + strlen(s1);
-	strncpy(s1_end, s2, n);
-	return (s1);
+	if (n != 0) {
+		s1 = _s1 + strlen(_s1);
+		do {
+			if ((*s1 = *s2++) == '\0')
+				break;
+			s1++;
+		} while (--n > 0);
+		*s1 = '\0';
+	}
+	return (_s1);
 }
