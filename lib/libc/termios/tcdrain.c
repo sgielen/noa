@@ -34,5 +34,5 @@ int
 tcdrain(int fildes)
 {
 
-	return (sys_ioctl(fildes, TCDRAIN, NULL));
+	return (sys_ioctl(fildes, TTY_DRAIN, NULL));
 }

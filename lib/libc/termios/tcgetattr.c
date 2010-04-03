@@ -33,5 +33,5 @@ int
 tcgetattr(int fildes, struct termios *termios_p)
 {
 
-	return (sys_ioctl(fildes, TCGETA, termios_p));
+	return (sys_ioctl(fildes, TTY_GETA, termios_p));
 }

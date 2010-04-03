@@ -25,16 +25,11 @@
  */
 
 #include <noa/ioctl.h>
-#include <termios.h>
+#include <sys/stat.h>
 
-#include "syscalls.h"
-
-pid_t
-tcgetsid(int fildes)
+int
+fstat(int fildes, struct stat *buf)
 {
-	pid_t sid;
 
-	if (sys_ioctl(fildes, TTY_GETSID, &sid) == -1)
-		return (-1);
-	return (sid);
+	return (sys_ioctl(fildes, FD_STAT, buf));
 }

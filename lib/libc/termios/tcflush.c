@@ -33,5 +33,5 @@ int
 tcflush(int fildes, int queue_selector)
 {
 
-	return (sys_ioctl(fildes, TCFLUSH, &queue_selector));
+	return (sys_ioctl(fildes, TTY_FLUSH, &queue_selector));
 }

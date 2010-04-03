@@ -34,5 +34,5 @@ int
 isatty(int fildes)
 {
 
-	return (sys_ioctl(fildes, TCISATTY, NULL));
+	return (sys_ioctl(fildes, TTY_ISATTY, NULL));
 }

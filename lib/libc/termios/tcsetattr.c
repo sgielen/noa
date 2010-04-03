@@ -36,13 +36,13 @@ tcsetattr(int fildes, int optional_actions, const struct termios *termios_p)
 
 	switch (optional_actions) {
 	case TCSANOW:
-		return (sys_ioctl(fildes, TCSETAN,
+		return (sys_ioctl(fildes, TTY_SETAN,
 		    __DECONST(struct termios *, termios_p)));
 	case TCSADRAIN:
-		return (sys_ioctl(fildes, TCSETAD,
+		return (sys_ioctl(fildes, TTY_SETAD,
 		    __DECONST(struct termios *, termios_p)));
 	case TCSAFLUSH:
-		return (sys_ioctl(fildes, TCSETAF,
+		return (sys_ioctl(fildes, TTY_SETAF,
 		    __DECONST(struct termios *, termios_p)));
 	default:
 		errno = EINVAL;
