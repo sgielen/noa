@@ -24,31 +24,15 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _NOA_IOCTL_H_
-#define	_NOA_IOCTL_H_
+#include <noa/ioctl.h>
+#include <stddef.h>
+#include <unistd.h>
 
-#include <noa/cdefs.h>
+#include "syscalls.h"
 
-#define	_IOC_VOID	0x00000000
-#define	_IOC_IN		0x00000001
-#define	_IOC_OUT	0x00000002
-#define	_IOC_INOUT	(IOC_IN|IOC_OUT)
+int
+isatty(int fildes)
+{
 
-#define	_IOC(inout, size, group, num) \
-	((size) << 17 | (group) << 10 | (num) << 2 | (inout))
-#define	_IO(group, num)		_IOC(_IOC_VOID, 0, (group), (num))
-#define	_IOR(group, num, type)	_IOC(_IOC_OUT, sizeof(type), (group), (num))
-#define	_IOW(group, num, type)	_IOC(_IOC_IN, sizeof(type), (group), (num))
-#define	_IORW(group, num, type)	_IOC(_IOC_INOUT, sizeof(type), (group), (num))
-
-/* TTYs. */
-#define	TCGETA		_IOR('t', 1, struct termios)
-#define	TCSETAN		_IOW('t', 2, struct termios)
-#define	TCSETAD		_IOW('t', 3, struct termios)
-#define	TCSETAF		_IOW('t', 4, struct termios)
-#define	TCDRAIN		 _IO('t', 5)
-#define	TCFLUSH		_IOW('t', 6, int)
-#define	TCGETSID	_IOR('t', 7, pid_t)
-#define	TCISATTY	 _IO('t', 8)
-
-#endif /* !_NOA_IOCTL_H_ */
+	return (sys_ioctl(fildes, TCISATTY, NULL));
+}
