@@ -32,9 +32,11 @@ strncpy(char *restrict _dst, const char *restrict _src, size_t n)
 	char *dst = _dst;
 	const char *src = _src;
 
-	while (n-- > 0 && *src != '\0')
+	while (n > 0 && *src != '\0') {
 		*dst++ = *src++;
-	if (n != 0)
+		n--;
+	}
+	while (n-- != 0)
 		*dst = '\0';
 	return (_dst);
 }
