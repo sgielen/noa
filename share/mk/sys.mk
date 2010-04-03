@@ -1,4 +1,4 @@
-CC?=	cc
+CC?=	clang
 CFLAGS?=-O3
 
 .SUFFIXES: .o .c .S
