@@ -27,8 +27,6 @@
 #ifndef _NOA_IOCTL_H_
 #define	_NOA_IOCTL_H_
 
-#include <noa/cdefs.h>
-
 #define	_IOC_VOID	0x00000000
 #define	_IOC_IN		0x00000001
 #define	_IOC_OUT	0x00000002
