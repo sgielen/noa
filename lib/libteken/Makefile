@@ -1,5 +1,6 @@
 LIB=	teken
 SRCS=	teken.c teken.h teken_state.h
+CLEANFILES=teken_state.h
 
 VERSION_DEF=${.CURDIR}/../libc/Versions.def
 SYMBOL_MAPS=Symbol.map
