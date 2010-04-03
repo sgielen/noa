@@ -1,4 +1,8 @@
 NOA_1.0 {
+	fprintf;
 	getchar;
+	printf;
+	putchar;
 	rename;
+	rewind;
 };
