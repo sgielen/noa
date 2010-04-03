@@ -24,36 +24,22 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _NOA_CDEFS_H_
-#define	_NOA_CDEFS_H_
+#undef assert
 
-#ifdef __cplusplus
-#define	__BEGIN_DECLS	extern "C" {
-#define	__END_DECLS	}
+#ifdef NDEBUG
+#define	assert(e)	((void)0)
 #else
-#define	__BEGIN_DECLS
-#define	__END_DECLS
+#define	assert(e) \
+	((e) ? (void)0 : __assert_failed(__func__, __FILE__, __LINE__, #e))
 #endif
 
-/* XXX */
-#define	__DECONST(type, var) \
-	((type)(unsigned long)(const void *)(var))
+#ifndef _ASSERT_H_
+#define	_ASSERT_H_
 
-#define	__unused		__attribute__((unused))
-#define	__aligned_max		__attribute__((aligned))
+#include <noa/cdefs.h>
 
-#define	__CTASSERT(expr)	___CTASSERT(expr, __LINE__)
-#define	___CTASSERT(expr, line)	____CTASSERT(expr, line)
-#define	____CTASSERT(expr, line) \
-	typedef char __ctassert_## line[(expr) ? 1 : -1];
+__BEGIN_DECLS
+void	 __assert_failed(const char *, const char *, int, const char *);
+__END_DECLS
 
-#define	__ABI_STRUCT(name, size, contents) \
-	struct name {					\
-		union {					\
-			char __pad[(size)];		\
-			struct contents;		\
-		};					\
-	} __aligned_max;				\
-	__CTASSERT(sizeof(struct name) == (size));
-
-#endif /* !_NOA_CDEFS_H_ */
+#endif /* !_ASSERT_H_ */
