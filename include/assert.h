@@ -31,7 +31,7 @@
 	((void)0)
 #else
 #define	assert(e) \
-	((e) ? (void)0 : __assert_failed(__func__, __FILE__, __LINE__, #e))
+	((e) ? (void)0 : __assertion_failed(__func__, __FILE__, __LINE__, #e))
 #endif
 
 #ifndef _ASSERT_H_
@@ -40,7 +40,7 @@
 #include <noa/cdefs.h>
 
 __BEGIN_DECLS
-void	 __assert_failed(const char *, const char *, int, const char *);
+void	 __assertion_failed(const char *, const char *, int, const char *);
 __END_DECLS
 
 #endif /* !_ASSERT_H_ */

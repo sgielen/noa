@@ -29,7 +29,7 @@
 #include <stdlib.h>
 
 void	
-__assert_failed(const char *func, const char *file, int line,
+__assertion_failed(const char *func, const char *file, int line,
     const char *expr)
 {
 
