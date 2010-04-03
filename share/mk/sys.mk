@@ -10,6 +10,8 @@ MACHINE=x86_32
 .SUFFIXES: .o .c .S
 
 .c.o:
-	${CC} ${CFLAGS} -c ${.IMPSRC}
+	@echo CC ${.TARGET}
+	@${CC} ${CFLAGS} -c ${.IMPSRC}
 .S.o:
-	${CC} ${CFLAGS} -c ${.IMPSRC}
+	@echo AS ${.TARGET}
+	@${CC} ${CFLAGS} -c ${.IMPSRC}
