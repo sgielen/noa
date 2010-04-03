@@ -27,6 +27,8 @@
 #include <noa/ioctl.h>
 #include <sys/stat.h>
 
+#include "syscalls.h"
+
 int
 fstat(int fildes, struct stat *buf)
 {
