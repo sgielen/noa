@@ -13,4 +13,7 @@ NOA_1.0 {
 	strncmp;
 	strncpy;
 	strnlen;
+	strpbrk;
+	strtok;
+	strtok_r;
 };
