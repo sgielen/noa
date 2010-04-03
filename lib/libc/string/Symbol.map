@@ -14,6 +14,7 @@ NOA_1.0 {
 	strncpy;
 	strnlen;
 	strpbrk;
+	strrchr;
 	strtok;
 	strtok_r;
 };
