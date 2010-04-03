@@ -18,4 +18,4 @@ lib${LIB}.so: ${OBJS} Version.map
 ${OBJS}: ${SRCS:M*.h}
 
 clean:
-	rm -f ${OBJS} ${CLEANFILES}
+	rm -f lib${LIB}.so Version.map ${OBJS} ${CLEANFILES}

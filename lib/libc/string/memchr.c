@@ -33,7 +33,7 @@ memchr(const void *_b, int c, size_t len)
 
 	while (len-- > 0) {
 		if (*b == (char)c)
-			return (__DECONST(void *, b));
+			return ((void *)b);
 		b++;
 	}
 	return (NULL);

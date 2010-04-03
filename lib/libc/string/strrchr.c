@@ -35,5 +35,5 @@ strrchr(const char *s, int c)
 		if (*s == (char)c)
 			ret = s;
 	} while (*s++ != '\0');
-	return (__DECONST(char *, ret));
+	return ((char *)ret);
 }

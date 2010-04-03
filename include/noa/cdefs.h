@@ -35,10 +35,6 @@
 #define	__END_DECLS
 #endif
 
-/* XXX */
-#define	__DECONST(type, var) \
-	((type)(unsigned long)(const void *)(var))
-
 #define	__unused		__attribute__((unused))
 #define	__aligned_max		__attribute__((aligned))
 
