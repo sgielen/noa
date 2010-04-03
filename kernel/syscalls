@@ -89,3 +89,10 @@ ARG errorfds : fd_set *
 ARG timeout : const struct timespec *
 ARG sigmask : const sigset_t *
 END
+
+SYSCALL 11 ioctl
+RET int
+ARG fildes : int
+ARG request : unsigned long
+ARG arg : void *
+END
