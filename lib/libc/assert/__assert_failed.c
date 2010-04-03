@@ -37,7 +37,8 @@ __assert_failed(const char *func, const char *file, int line,
 		fprintf(stderr, "%s:%d: assertion failed: %s\n",
 		    file, line, expr);
 	else
-		fprintf(stderr, "%s:%d:%s(): assertion failed: %s\n",
+		fprintf(stderr,
+		    "%s:%d, in function %s(): assertion failed: %s\n",
 		    file, line, func, expr);
 	abort();
 }
