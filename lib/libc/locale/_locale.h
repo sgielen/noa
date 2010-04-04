@@ -24,15 +24,21 @@
  * SUCH DAMAGE.
  */
 
-#include "_locale.h"
+#ifndef __LOCALE_H_
+#define	__LOCALE_H_
 
-__thread locale_t per_thread_locale = LC_GLOBAL_LOCALE;
+#include <locale.h>
 
-locale_t
-uselocale(locale_t newloc)
+extern __thread locale_t global_locale;
+extern __thread locale_t per_thread_locale;
+
+static inline locale_t
+getlocale(void)
 {
 
-	if (newloc != NULL)
-		per_thread_locale = newloc;
-	return (per_thread_locale);
+	if (per_thread_locale != LC_GLOBAL_LOCALE)
+		return (per_thread_locale);
+	return (global_locale);
 }
+
+#endif /* !__LOCALE_H_ */

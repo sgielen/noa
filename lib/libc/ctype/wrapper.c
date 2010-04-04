@@ -24,15 +24,24 @@
  * SUCH DAMAGE.
  */
 
+#include <ctype.h>
+
 #include "_locale.h"
 
-__thread locale_t per_thread_locale = LC_GLOBAL_LOCALE;
+#define	WRAP_FUNC(func) \
+	int func(int c) { return (func ## _l(c, getlocale())); }
 
-locale_t
-uselocale(locale_t newloc)
-{
-
-	if (newloc != NULL)
-		per_thread_locale = newloc;
-	return (per_thread_locale);
-}
+WRAP_FUNC(isalnum)
+WRAP_FUNC(isalpha)
+WRAP_FUNC(isblank)
+WRAP_FUNC(iscntrl)
+WRAP_FUNC(isdigit)
+WRAP_FUNC(isgraph)
+WRAP_FUNC(islower)
+WRAP_FUNC(isprint)
+WRAP_FUNC(ispunct)
+WRAP_FUNC(isspace)
+WRAP_FUNC(isupper)
+WRAP_FUNC(isxdigit)
+WRAP_FUNC(tolower)
+WRAP_FUNC(toupper)

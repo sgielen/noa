@@ -3,6 +3,7 @@ LIB=	c
 CFLAGS+=-I. -I${.CURDIR}/machdep/${MACHINE}
 
 .include "${.CURDIR}/assert/Makefile.inc"
+.include "${.CURDIR}/ctype/Makefile.inc"
 .include "${.CURDIR}/dirent/Makefile.inc"
 .include "${.CURDIR}/errno/Makefile.inc"
 .include "${.CURDIR}/fcntl/Makefile.inc"
