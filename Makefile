@@ -1,5 +1,4 @@
 SUBDIR= \
-	lib \
-	kernel
+	lib
 
 .include <noa.subdir.mk>
