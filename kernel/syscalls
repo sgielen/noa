@@ -102,3 +102,11 @@ PUBLIC
 RET int
 ARG oflag : int
 END
+
+SYSCALL 13 unlinkat
+PUBLIC
+RET int
+ARG fd : int
+ARG path : const char *
+ARG flag : int
+END
