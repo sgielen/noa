@@ -4,6 +4,8 @@ NOA_1.0 {
 	isatty;
 	read;
 	readv;
+	rmdir;
+	unlink;
 	write;
 	writev;
 };
