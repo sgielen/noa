@@ -34,7 +34,7 @@
 
 __BEGIN_DECLS
 int	 gettimeofday(struct timeval *restrict, void *restrict);
-int	 utimes(const char *, const struct timeval [2]);
+int	 utimes(const char *, const struct timeval[2]);
 __END_DECLS
 
 #endif /* !_SYS_TIME_H_ */
