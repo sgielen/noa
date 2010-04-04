@@ -4,7 +4,7 @@ CFLAGS+=-fpic
 
 LDFLAGS+=-Wl,--version-script=Version.map -nostdlib -shared -Wl,-x
 
-OBJS+=	${SRCS:N*.h:R:S/$/.o/}
+OBJS+=	${SRCS:N*.h:R:S/$/.o/:O}
 
 SYMBOL_MAPS?=Symbol.map
 
