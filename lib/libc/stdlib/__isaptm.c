@@ -24,35 +24,22 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _NOA_CDEFS_H_
-#define	_NOA_CDEFS_H_
+#include <noa/ioctl.h>
+#include <stdlib.h>
+#include <errno.h>
 
-#ifdef __cplusplus
-#define	__BEGIN_DECLS	extern "C" {
-#define	__END_DECLS	}
-#else
-#define	__BEGIN_DECLS
-#define	__END_DECLS
-#endif
+#include "syscalls.h"
 
-#define	__unused		__attribute__((unused))
-#define	__aligned_max		__attribute__((aligned))
+static int
+__isaptm(int fildes)
+{
+	int ret;
 
-#define	__symbol_alias(from, to) \
-	extern __typeof(from) to __attribute__((alias(#from)))
+	ret = sys_ioctl(fildes, TTY_ISAPTM, NULL);
+	if (ret == -1 && errno == EBADF)
+		errno = EINVAL;
+	return (ret);
+}
 
-#define	__CTASSERT(expr)	___CTASSERT(expr, __LINE__)
-#define	___CTASSERT(expr, line)	____CTASSERT(expr, line)
-#define	____CTASSERT(expr, line) \
-	typedef char __ctassert_## line[(expr) ? 1 : -1];
-
-#define	__ABI_STRUCT(name, size, contents) \
-	struct name {					\
-		union {					\
-			char __pad[(size)];		\
-			struct contents;		\
-		};					\
-	} __aligned_max;				\
-	__CTASSERT(sizeof(struct name) == (size));
-
-#endif /* !_NOA_CDEFS_H_ */
+__symbol_alias(__isaptm, grantpt);
+__symbol_alias(__isaptm, unlockpt);

@@ -63,5 +63,6 @@ struct fd_chown {
 #define	TTY_FLUSH	_IOW('t', 6, int)
 #define	TTY_GETSID	_IOR('t', 7, pid_t)
 #define	TTY_ISATTY	 _IO('t', 8)
+#define	TTY_ISAPTM	 _IO('t', 9)
 
 #endif /* !_NOA_IOCTL_H_ */
