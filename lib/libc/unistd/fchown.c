@@ -24,44 +24,17 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _NOA_IOCTL_H_
-#define	_NOA_IOCTL_H_
+#include <noa/ioctl.h>
+#include <unistd.h>
 
-#define	__NEED_GID_T
-#define	__NEED_UID_T
+#include "syscalls.h"
 
-#include <noa/types.h>
+int
+fchown(int fildes, uid_t owner, gid_t group)
+{
+	struct fd_chown arg;
 
-#define	_IOC_VOID	0x00000000
-#define	_IOC_IN		0x00000001
-#define	_IOC_OUT	0x00000002
-#define	_IOC_INOUT	(IOC_IN|IOC_OUT)
-
-#define	_IOC(inout, size, group, num) \
-	((size) << 17 | (group) << 10 | (num) << 2 | (inout))
-#define	_IO(group, num)		_IOC(_IOC_VOID, 0, (group), (num))
-#define	_IOR(group, num, type)	_IOC(_IOC_OUT, sizeof(type), (group), (num))
-#define	_IOW(group, num, type)	_IOC(_IOC_IN, sizeof(type), (group), (num))
-#define	_IORW(group, num, type)	_IOC(_IOC_INOUT, sizeof(type), (group), (num))
-
-struct fd_chown {
-	uid_t	owner;
-	gid_t	group;
-};
-
-/* File descriptors. */
-#define	FD_STAT		_IOR('f', 1, struct stat)
-#define	FD_CHMOD	_IOW('f', 2, mode_t)
-#define	FD_CHOWN	_IOW('f', 3, struct fd_chown)
-
-/* TTYs. */
-#define	TTY_GETA	_IOR('t', 1, struct termios)
-#define	TTY_SETAN	_IOW('t', 2, struct termios)
-#define	TTY_SETAD	_IOW('t', 3, struct termios)
-#define	TTY_SETAF	_IOW('t', 4, struct termios)
-#define	TTY_DRAIN	 _IO('t', 5)
-#define	TTY_FLUSH	_IOW('t', 6, int)
-#define	TTY_GETSID	_IOR('t', 7, pid_t)
-#define	TTY_ISATTY	 _IO('t', 8)
-
-#endif /* !_NOA_IOCTL_H_ */
+	arg.owner = owner;
+	arg.group = group;
+	return (sys_ioctl(fildes, FD_CHOWN, &arg));
+}

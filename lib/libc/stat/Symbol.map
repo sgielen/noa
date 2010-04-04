@@ -1,5 +1,6 @@
 NOA_1.0 {
 	chmod;
+	fchmod;
 	fstat;
 	lstat;
 	mkdir;

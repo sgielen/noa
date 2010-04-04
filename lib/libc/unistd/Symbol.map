@@ -1,5 +1,6 @@
 NOA_1.0 {
 	dup;
+	fchown;
 	isatty;
 	read;
 	readv;
