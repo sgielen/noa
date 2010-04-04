@@ -73,7 +73,7 @@ typedef int gid_t;
 #endif
 
 #if defined(__NEED_INO_T) && !defined(__HAVE_INO_T)
-typedef unsigned long ino_t;
+typedef __uint64_t ino_t;
 #define	__HAVE_INO_T
 #endif
 

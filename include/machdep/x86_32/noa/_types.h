@@ -30,6 +30,7 @@
 typedef signed int __int32_t;
 typedef unsigned int __uint32_t;
 typedef signed long long __int64_t;
+typedef unsigned long long __uint64_t;
 
 typedef unsigned long __size_t;
 typedef signed long __ssize_t;
