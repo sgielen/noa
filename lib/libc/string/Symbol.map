@@ -2,6 +2,7 @@ NOA_1.0 {
 	memchr;
 	memcmp;
 	memcpy;
+	memmove;
 	memset;
 	strcat;
 	strchr;

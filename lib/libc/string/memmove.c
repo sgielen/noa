@@ -27,12 +27,19 @@
 #include <string.h>
 
 void *
-memcpy(void *_s1, const void *_s2, size_t n)
+memmove(void *_s1, const void *_s2, size_t n)
 {
 	char *s1 = _s1;
 	const char *s2 = _s2;
 
-	while (n-- > 0)
-		*s1++ = *s2++;
+	if (s1 < s2) {
+		while (n-- > 0)
+			*s1++ = *s2++;
+	} else {
+		s1 += n;
+		s2 += n;
+		while (n-- > 0)
+			*--s1 = *--s2;
+	}
 	return (_s1);
 }
