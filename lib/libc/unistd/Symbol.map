@@ -2,9 +2,12 @@ NOA_1.0 {
 	dup;
 	fchown;
 	isatty;
+	link;
 	read;
+	readlink;
 	readv;
 	rmdir;
+	symlink;
 	unlink;
 	write;
 	writev;
