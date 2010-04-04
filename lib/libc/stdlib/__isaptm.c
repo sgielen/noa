@@ -25,8 +25,8 @@
  */
 
 #include <noa/ioctl.h>
-#include <stdlib.h>
 #include <errno.h>
+#include <stddef.h>
 
 #include "syscalls.h"
 
