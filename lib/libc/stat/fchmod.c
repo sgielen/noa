@@ -26,12 +26,17 @@
 
 #include <noa/ioctl.h>
 #include <sys/stat.h>
+#include <errno.h>
 
 #include "syscalls.h"
 
 int
 fchmod(int fildes, mode_t mode)
 {
+	int ret;
 
-	return (sys_ioctl(fildes, FD_CHMOD, &mode));
+	ret = sys_ioctl(fildes, FD_CHMOD, &mode);
+	if (ret == -1 && errno == ENOTTY)
+		errno = EINVAL;
+	return (ret);
 }

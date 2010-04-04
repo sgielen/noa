@@ -25,6 +25,7 @@
  */
 
 #include <noa/ioctl.h>
+#include <errno.h>
 #include <unistd.h>
 
 #include "syscalls.h"
@@ -33,8 +34,12 @@ int
 fchown(int fildes, uid_t owner, gid_t group)
 {
 	struct fd_chown arg;
+	int ret;
 
 	arg.owner = owner;
 	arg.group = group;
-	return (sys_ioctl(fildes, FD_CHOWN, &arg));
+	ret = sys_ioctl(fildes, FD_CHOWN, &arg);
+	if (ret == -1 && errno == ENOTTY)
+		errno = EINVAL;
+	return (ret);
 }
