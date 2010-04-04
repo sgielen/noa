@@ -6,7 +6,8 @@ LDFLAGS+=-Wl,--version-script=Version.map -nostdlib -shared -Wl,-x
 
 OBJS+=	${SRCS:N*.h:R:S/$/.o/:O}
 
-SYMBOL_MAPS?=Symbol.map
+SYMBOL_MAPS?=${.CURDIR}/Symbol.map
+VERSION_DEF?=${.CURDIR}/Versions.def
 
 all: lib${LIB}.so
 
