@@ -32,7 +32,7 @@
 
 #include <noa/types.h>
 
-__ABI_STRUCT(locale, 128, {
+__ABI_STRUCT(lconv, 128, {
 	char	*currency_symbol;
 	char	*decimal_point;
 	char	 frac_digits;
