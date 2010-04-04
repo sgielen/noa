@@ -1,0 +1,8 @@
+NOA_1.0 {
+	duplocale;
+	freelocale;
+	localeconv;
+	newlocale;
+	setlocale;
+	uselocale;
+};

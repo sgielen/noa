@@ -6,6 +6,7 @@ CFLAGS+=-I. -I${.CURDIR}/machdep/${MACHINE}
 .include "${.CURDIR}/dirent/Makefile.inc"
 .include "${.CURDIR}/errno/Makefile.inc"
 .include "${.CURDIR}/fcntl/Makefile.inc"
+.include "${.CURDIR}/locale/Makefile.inc"
 .include "${.CURDIR}/select/Makefile.inc"
 .include "${.CURDIR}/stat/Makefile.inc"
 .include "${.CURDIR}/stdio/Makefile.inc"
