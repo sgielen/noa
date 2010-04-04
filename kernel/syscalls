@@ -96,3 +96,9 @@ ARG fildes : int
 ARG request : unsigned long
 ARG arg : void *
 END
+
+SYSCALL 12 posix_openpt
+PUBLIC
+RET int
+ARG oflag : int
+END
