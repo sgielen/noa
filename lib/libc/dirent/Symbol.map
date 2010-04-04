@@ -1,0 +1,11 @@
+NOA_1.0 {
+	alphasort;
+	closedir;
+	dirfd;
+	fdopendir;
+	opendir;
+	readdir;
+	readdir_r;
+	rewinddir;
+	scandir;
+};

@@ -24,35 +24,34 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _NOA_CDEFS_H_
-#define	_NOA_CDEFS_H_
+#ifndef _DIRENT_H_
+#define	_DIRENT_H_
 
-#ifdef __cplusplus
-#define	__BEGIN_DECLS	extern "C" {
-#define	__END_DECLS	}
-#else
-#define	__BEGIN_DECLS
-#define	__END_DECLS
-#endif
+#define	__NEED_INO_T
 
-#define	__unused		__attribute__((unused))
-#define	__aligned_max		__attribute__((aligned))
+#include <noa/types.h>
 
-#define	__symbol_alias(from, to) \
-	extern __typeof(from) to __attribute__((alias(#from)))
+typedef struct __DIR DIR;
 
-#define	__CTASSERT(expr)	___CTASSERT(expr, __LINE__)
-#define	___CTASSERT(expr, line)	____CTASSERT(expr, line)
-#define	____CTASSERT(expr, line) \
-	typedef char __ctassert_## line[(expr) ? 1 : -1]
+__ABI_STRUCT(dirent, 64, {
+	ino_t	d_ino;
+	char	d_name[32];
+})
 
-#define	__ABI_STRUCT(name, size, contents) \
-	struct name {					\
-		union {					\
-			char __pad[(size)];		\
-			struct contents;		\
-		};					\
-	} __aligned_max;				\
-	__CTASSERT(sizeof(struct name) == (size));
+__BEGIN_DECLS
+int	 alphasort(const struct dirent **, const struct dirent **);
+int	 closedir(DIR *);
+int	 dirfd(DIR *);
+DIR	*fdopendir(int);
+DIR	*opendir(const char *);
+struct dirent *
+	 readdir(DIR *);
+int	 readdir_r(DIR *restrict, struct dirent *restrict,
+	     struct dirent **restrict);
+void	 rewinddir(DIR *);
+int	 scandir(const char *, struct dirent ***,
+	     int (*)(const struct dirent *),
+	     int (*)(const struct dirent **, const struct dirent **));
+__END_DECLS
 
-#endif /* !_NOA_CDEFS_H_ */
+#endif /* !_DIRENT_H_ */
