@@ -1,4 +1,6 @@
 NOA_1.0 {
+	gettimeofday;
 	nanosleep;
 	time;
+	utimes;
 };

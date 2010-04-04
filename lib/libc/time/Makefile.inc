@@ -1,5 +1,5 @@
 .PATH: ${.CURDIR}/time
 
-SRCS+=	nanosleep.c time.c
+SRCS+=	gettimeofday.c nanosleep.c time.c utimes.c
 
 SYMBOL_MAPS+=${.CURDIR}/time/Symbol.map
