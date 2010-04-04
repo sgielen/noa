@@ -1,5 +1,5 @@
 .PATH: ${.CURDIR}/dirent
 
-SRCS+=	alphasort.c
+SRCS+=	alphasort.c dirfd.c fdopendir.c opendir.c
 
 SYMBOL_MAPS+=${.CURDIR}/dirent/Symbol.map
