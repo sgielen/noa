@@ -13,7 +13,7 @@ LDADD+=	-lz
 
 YACC=	bison
 
-SRCS = \
+SRCS= \
 	ansidecl.h archive.cc archive.h argv.c bfdver.h binary-io.h \
 	binary.cc binary.h common.cc common.h compressed_output.cc \
 	compressed_output.h copy-relocs.cc copy-relocs.h cp-demangle.c \
