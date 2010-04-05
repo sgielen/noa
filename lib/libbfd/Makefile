@@ -29,4 +29,4 @@ SRCS = \
 	\
 	config.h
 
-.include <bsd.lib.mk>
+.include <noa.lib.mk>
