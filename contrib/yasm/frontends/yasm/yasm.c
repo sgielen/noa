@@ -637,7 +637,7 @@ main(int argc, char *argv[])
     /* If not already specified, default to bin as the object format. */
     if (!cur_objfmt_module) {
         if (!objfmt_keyword)
-            objfmt_keyword = yasm__xstrdup("bin");
+            objfmt_keyword = yasm__xstrdup("elf64");
         cur_objfmt_module = yasm_load_objfmt(objfmt_keyword);
         if (!cur_objfmt_module) {
             print_error(_("%s: could not load default %s"), _("FATAL"),
@@ -670,7 +670,7 @@ main(int argc, char *argv[])
 
     /* Default to NASM as the parser */
     if (!cur_parser_module) {
-        cur_parser_module = yasm_load_parser("nasm");
+        cur_parser_module = yasm_load_parser("gas");
         if (!cur_parser_module) {
             print_error(_("%s: could not load default %s"), _("FATAL"),
                         _("parser"));
@@ -716,7 +716,7 @@ main(int argc, char *argv[])
 
     /* If not already specified, default to null as the debug format. */
     if (!cur_dbgfmt_module) {
-        cur_dbgfmt_module = yasm_load_dbgfmt("null");
+        cur_dbgfmt_module = yasm_load_dbgfmt("dwarf2");
         if (!cur_dbgfmt_module) {
             print_error(_("%s: could not load default %s"), _("FATAL"),
                         _("debug format"));
