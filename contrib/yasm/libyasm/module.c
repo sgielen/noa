@@ -40,6 +40,7 @@ typedef struct module {
 extern yasm_arch_module yasm_x86_LTX_arch;
 extern yasm_parser_module yasm_gas_LTX_parser;
 extern yasm_parser_module yasm_gnu_LTX_parser;
+extern yasm_preproc_module yasm_raw_LTX_preproc;
 extern yasm_dbgfmt_module yasm_dwarf2_LTX_dbgfmt;
 extern yasm_objfmt_module yasm_elf_LTX_objfmt;
 extern yasm_objfmt_module yasm_elf32_LTX_objfmt;
@@ -68,6 +69,7 @@ static module parser_modules[] = {
 };
 
 static module preproc_modules[] = {
+    {"raw", &yasm_raw_LTX_preproc},
 };
 
 static struct {
