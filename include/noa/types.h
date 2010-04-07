@@ -113,6 +113,16 @@ typedef __intmax_t pid_t;
 #define	__HAVE_PID_T
 #endif
 
+#if defined(__NEED_PTHREAD_ATTR_T) && !defined(__HAVE_PTHREAD_ATTR_T)
+typedef struct __pthread_attr_t *pthread_attr_t;
+#define	__HAVE_PTHREAD_ATTR_T
+#endif
+
+#if defined(__NEED_PTHREAD_T) && !defined(__HAVE_PTHREAD_T)
+typedef struct __pthread_t *pthread_t;
+#define	__HAVE_PTHREAD_T
+#endif
+
 #if defined(__NEED_SIGSET_T) && !defined(__HAVE_SIGSET_T)
 typedef struct {
 	long bogus[1];

@@ -25,6 +25,8 @@
  */
 
 #include <sys/wait.h>
+#include <signal.h>
+#include <stddef.h>
 #include <unistd.h>
 
 pid_t
@@ -47,10 +49,26 @@ waitpid(pid_t pid, int *stat_loc, int options)
 		id = pid;
 	}
 
+	options |= WEXITED;
 	if (waitid(idt, id, &si, options) == -1)
 		return (-1);
 
-	/* XXX: convert siginfo_t to stat_loc! */
-	*stat_loc = 0;
+	if (stat_loc != NULL) {
+		switch (si.si_code) {
+		case CLD_EXITED:
+			*stat_loc = __WIFEXITED;
+			break;
+		case CLD_STOPPED:
+			*stat_loc = __WIFSTOPPED;
+			break;
+		case CLD_CONTINUED:
+			*stat_loc = __WIFCONTINUED;
+			break;
+		default:
+			*stat_loc = __WIFSIGNALED;
+			break;
+		}
+		*stat_loc |= si.si_status << 8;
+	}
 	return (si.si_pid);
 }

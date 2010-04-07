@@ -72,7 +72,14 @@
 #define	SIGXCPU		23
 #define	SIGXFSZ		24
 
-__ABI_STRUCT(sigevent, 16, {
+#define	CLD_EXITED	1
+#define	CLD_KILLED	2
+#define	CLD_DUMPED	3
+#define	CLD_TRAPPED	4
+#define	CLD_STOPPED	5
+#define	CLD_CONTINUED	6
+
+__ABI_STRUCT(sigevent, 32, {
 	int		 sigev_notify;
 	int		 sigev_signo;
 	union sigval	 sigev_value;
@@ -80,7 +87,7 @@ __ABI_STRUCT(sigevent, 16, {
 	pthread_attr_t	*sigev_notify_attributes;
 })
 
-__ABI_STRUCT(sigaction, 16, {
+__ABI_STRUCT(sigaction, 32, {
 	void	(*sa_handler)(int);
 	sigset_t sa_mask;
 	int	 sa_flags;
@@ -99,7 +106,6 @@ int	 raise(int);
 int	 sigaction(int, const struct sigaction *restrict,
 	     struct sigaction *restrict);
 int	 sigaddset(sigset_t *, int);
-int	 sigaltstack(const stack_t *restrict, stack_t *restrict);
 int	 sigdelset(sigset_t *, int);
 int	 sigemptyset(sigset_t *);
 int	 sigfillset(sigset_t *);

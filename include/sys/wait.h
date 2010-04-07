@@ -33,6 +33,28 @@
 
 #include <noa/types.h>
 
+#define	__WTYPE(s)		((s) & 0xff)
+#define	__WVALUE(s)		((s) >> 8)
+#define	__WIFEXITED		0x1
+#define	__WIFSIGNALED		0x2
+#define	__WIFSTOPPED		0x8
+#define	__WIFCONTINUED		0x4
+
+#define	WIFEXITED(s)		(__WTYPE(s) == __WIFEXITED)
+#define	WEXITSTATUS(s)		__WVALUE(s)
+#define	WIFSIGNALED(s)		(__WTYPE(s) == __WIFSIGNALED)
+#define	WTERMSIG(s)		__WVALUE(s)
+#define	WIFSTOPPED(s)		(__WTYPE(s) == __WIFSTOPPED)
+#define	WSTOPSIG(s)		__WVALUE(s)
+#define	WIFCONTINUED(s)		(__WTYPE(s) == __WIFCONTINUED)
+
+#define	WCONTINUED		0x01
+#define	WNOHANG			0x02
+#define	WUNTRACED		0x04
+#define	WEXITED			0x08
+#define	WNOWAIT			0x10
+#define	WSTOPPED		0x20
+
 typedef enum { P_ALL, P_PGID, P_PID } idtype_t;
 
 __BEGIN_DECLS
