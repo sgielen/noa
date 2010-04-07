@@ -39,6 +39,12 @@
  * Dependencies.
  */
 
+#ifdef __NEED_SIGINFO_T
+#define	__NEED_PID_T
+#define	__NEED_UID_T
+#define	__NEED_UNION_SIGVAL
+#endif
+
 #ifdef __NEED_STRUCT_TIMESPEC
 #define	__NEED_TIME_T
 #endif
@@ -70,6 +76,11 @@ typedef __uintmax_t dev_t;
 #if defined(__NEED_GID_T) && !defined(__HAVE_GID_T)
 typedef __intmax_t gid_t;
 #define	__HAVE_GID_T
+#endif
+
+#if defined(__NEED_ID_T) && !defined(__HAVE_ID_T)
+typedef __intmax_t id_t;
+#define	__HAVE_ID_T
 #endif
 
 #if defined(__NEED_INO_T) && !defined(__HAVE_INO_T)
@@ -152,6 +163,28 @@ typedef __int32_t wchar_t;
 /*
  * Structures.
  */
+
+#if defined(__NEED_UNION_SIGVAL) && !defined(__HAVE_UNION_SIGVAL)
+union sigval {
+	int	 sival_int;
+	void	*sival_ptr;
+};
+#define	__HAVE_UNION_SIGVAL
+#endif
+
+#if defined(__NEED_SIGINFO_T) && !defined(__HAVE_SIGINFO_T)
+__ABI_STRUCT(__siginfo_t, 64, {
+	int		 si_signo;
+	int		 si_code;
+	pid_t		 si_pid;
+	uid_t		 si_uid;
+	void		*si_addr;
+	int		 si_status;
+	union sigval	 si_value;
+})
+typedef struct __siginfo_t siginfo_t;
+#define	__HAVE_SIGINFO_T
+#endif
 
 #if defined(__NEED_STRUCT_TIMESPEC) && !defined(__HAVE_STRUCT_TIMESPEC)
 __ABI_STRUCT(timespec, 16, {

@@ -30,10 +30,12 @@
 #define	__NEED_PID_T
 #define	__NEED_PTHREAD_ATTR_T
 #define	__NEED_PTHREAD_T
+#define	__NEED_SIGINFO_T
 #define	__NEED_SIGSET_T
 #define	__NEED_SIZE_T
 #define	__NEED_STRUCT_TIMESPEC
 #define	__NEED_UID_T
+#define	__NEED_UNION_SIGVAL
 
 #include <noa/types.h>
 
@@ -77,11 +79,6 @@ __ABI_STRUCT(sigevent, 16, {
 	void		(*sigev_notify_function)(union sigval);
 	pthread_attr_t	*sigev_notify_attributes;
 })
-
-union sigval {
-	int    sival_int;
-	void  *sival_ptr;
-};
 
 __ABI_STRUCT(sigaction, 16, {
 	void	(*sa_handler)(int);

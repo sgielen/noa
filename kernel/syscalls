@@ -110,3 +110,12 @@ ARG fd : int
 ARG path : const char *
 ARG flag : int
 END
+
+SYSCALL 14 waitid
+PUBLIC
+RET int
+ARG idtype : idtype_t
+ARG id : id_t
+ARG infop : siginfo_t *
+ARG options : int
+END

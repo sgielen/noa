@@ -17,5 +17,6 @@ CFLAGS+=-I. -I${.CURDIR}/machdep/${MACHINE}
 .include "${.CURDIR}/termios/Makefile.inc"
 .include "${.CURDIR}/time/Makefile.inc"
 .include "${.CURDIR}/unistd/Makefile.inc"
+.include "${.CURDIR}/wait/Makefile.inc"
 
 .include <noa.lib.mk>
