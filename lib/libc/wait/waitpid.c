@@ -42,14 +42,14 @@ waitpid(pid_t pid, int *stat_loc, int options)
 		return (-1);
 	}
 
-	if (pid == -1) {
+	if (pid < -1) {
+		idt = P_PGID;
+		id = -pid;
+	} else if (pid == -1) {
 		idt = P_ALL;
 	} else if (pid == 0) {
 		idt = P_PGID;
 		id = getpgrp();
-	} else if (pid < 0) {
-		idt = P_PGID;
-		id = -pid;
 	} else {
 		idt = P_PID;
 		id = pid;
