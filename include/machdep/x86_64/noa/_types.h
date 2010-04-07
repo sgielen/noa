@@ -28,9 +28,9 @@
 #define	_MACHDEP_NOA_TYPES_H_
 
 typedef signed int __int32_t;
-typedef unsigned int __uint32_t;
-typedef signed long __int64_t;
-typedef unsigned long __uint64_t;
+
+typedef unsigned long __uintmax_t;
+typedef signed long __intmax_t;
 
 typedef unsigned long __size_t;
 typedef signed long __ssize_t;

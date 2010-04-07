@@ -53,7 +53,7 @@
  */
 
 #if defined(__NEED_CLOCK_T) && !defined(__HAVE_CLOCK_T)
-typedef __int64_t clock_t;
+typedef __uintmax_t clock_t;
 #define	__HAVE_CLOCK_T
 #endif
 
@@ -63,17 +63,17 @@ typedef int clockid_t;
 #endif
 
 #if defined(__NEED_DEV_T) && !defined(__HAVE_DEV_T)
-typedef unsigned long dev_t;
+typedef __uintmax_t dev_t;
 #define	__HAVE_DEV_T
 #endif
 
 #if defined(__NEED_GID_T) && !defined(__HAVE_GID_T)
-typedef int gid_t;
+typedef __intmax_t gid_t;
 #define	__HAVE_GID_T
 #endif
 
 #if defined(__NEED_INO_T) && !defined(__HAVE_INO_T)
-typedef __uint64_t ino_t;
+typedef __uintmax_t ino_t;
 #define	__HAVE_INO_T
 #endif
 
@@ -83,22 +83,22 @@ typedef struct __locale_t *locale_t;
 #endif
 
 #if defined(__NEED_MODE_T) && !defined(__HAVE_MODE_T)
-typedef __uint32_t mode_t;
+typedef __uintmax_t mode_t;
 #define	__HAVE_MODE_T
 #endif
 
 #if defined(__NEED_NLINK_T) && !defined(__HAVE_NLINK_T)
-typedef unsigned int nlink_t;
+typedef __uintmax_t nlink_t;
 #define	__HAVE_NLINK_T
 #endif
 
 #if defined(__NEED_OFF_T) && !defined(__HAVE_OFF_T)
-typedef __int64_t off_t;
+typedef __uintmax_t off_t;
 #define	__HAVE_OFF_T
 #endif
 
 #if defined(__NEED_PID_T) && !defined(__HAVE_PID_T)
-typedef int pid_t;
+typedef __intmax_t pid_t;
 #define	__HAVE_PID_T
 #endif
 
@@ -125,12 +125,12 @@ typedef __int32_t suseconds_t;
 #endif
 
 #if defined(__NEED_TIME_T) && !defined(__HAVE_TIME_T)
-typedef __int64_t time_t;
+typedef __intmax_t time_t;
 #define	__HAVE_TIME_T
 #endif
 
 #if defined(__NEED_UID_T) && !defined(__HAVE_UID_T)
-typedef int uid_t;
+typedef __intmax_t uid_t;
 #define	__HAVE_UID_T
 #endif
 
