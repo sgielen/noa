@@ -25,6 +25,7 @@
  */
 
 #include <sys/wait.h>
+#include <errno.h>
 #include <signal.h>
 #include <stddef.h>
 #include <unistd.h>
@@ -35,6 +36,11 @@ waitpid(pid_t pid, int *stat_loc, int options)
 	idtype_t idt;
 	id_t id;
 	siginfo_t si;
+
+	if (options & ~(WCONTINUED|WNOHANG|WUNTRACED)) {
+		errno = EINVAL;
+		return (-1);
+	}
 
 	if (pid == -1) {
 		idt = P_ALL;
