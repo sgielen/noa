@@ -111,9 +111,9 @@
 #define	TCOOFF		0x4
 #define	TCOON		0x8
 
-typedef unsigned long	tcflag_t;
-typedef unsigned char	cc_t;
-typedef unsigned long	speed_t;
+typedef unsigned long tcflag_t;
+typedef unsigned char cc_t;
+typedef unsigned long speed_t;
 
 __ABI_STRUCT(termios, 64, {
 	tcflag_t	c_iflag;
