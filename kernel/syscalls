@@ -119,3 +119,13 @@ ARG id : id_t
 ARG infop : siginfo_t *
 ARG options : int
 END
+
+SYSCALL 15 linkat
+PUBLIC
+RET int
+ARG fd1 : int
+ARG path1 : const char *
+ARG fd2 : int
+ARG path2 : const char *
+ARG flat : int
+END
