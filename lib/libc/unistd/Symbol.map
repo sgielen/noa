@@ -2,6 +2,7 @@ NOA_1.0 {
 	chown;
 	dup;
 	fchown;
+	getpgrp;
 	isatty;
 	lchown;
 	link;
