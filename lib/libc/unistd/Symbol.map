@@ -1,7 +1,9 @@
 NOA_1.0 {
+	chown;
 	dup;
 	fchown;
 	isatty;
+	lchown;
 	link;
 	read;
 	readlink;
