@@ -1,6 +1,8 @@
 NOA_1.0 {
 	difftime;
 	gettimeofday;
+	gmtime;
+	localtime;
 	nanosleep;
 	time;
 	utimes;
