@@ -51,25 +51,25 @@
 #define	F_UNLCK			2
 #define	F_WRLCK			3
 
-#define	O_CREAT			0x00001
-#define	O_EXCL			0x00002
-#define	O_NOCTTY		0x00004
-#define	O_TRUNC			0x00008
-#define	O_TTY_INIT		0x00010
-#define	O_APPEND		0x00020
-#define	O_DSYNC			0x00040
-#define	O_NONBLOCK		0x00080
-#define	O_RSYNC			0x00100
-#define	O_SYNC			0x00200
 #define	O_ACCMODE		(O_EXEC|O_RDWR|O_SEARCH)
-#define	O_EXEC			0x00400
-#define	O_RDONLY		0x00800
+#define	O_APPEND		0x00001
+#define	O_CLOEXEC		0x00002
+#define	O_CREAT			0x00004
+#define	O_DIRECTORY		0x00008
+#define	O_DSYNC			0x00010
+#define	O_EXCL			0x00020
+#define	O_EXEC			0x00040
+#define	O_NOCTTY		0x00080
+#define	O_NOFOLLOW		0x00100
+#define	O_NONBLOCK		0x00200
+#define	O_RDONLY		0x00400
 #define	O_RDWR			(O_RDONLY|O_WRONLY)
+#define	O_RSYNC			0x00800
 #define	O_SEARCH		0x01000
-#define	O_WRONLY		0x02000
-#define	O_CLOEXEC		0x04000
-#define	O_DIRECTORY		0x08000
-#define	O_NOFOLLOW		0x10000
+#define	O_SYNC			0x02000
+#define	O_TRUNC			0x04000
+#define	O_TTY_INIT		0x08000
+#define	O_WRONLY		0x10000
 
 #define	AT_FDCWD		(-1)
 
