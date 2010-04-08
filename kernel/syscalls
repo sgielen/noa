@@ -156,3 +156,12 @@ ARG owner : uid_t
 ARG group : gid_t
 ARG flag : int
 END
+
+SYSCALL 18 utimensat
+PUBLIC
+RET int
+ARG fd : int
+ARG path : const char *
+ARG times : const struct timespec *
+ARG flag : int
+END
