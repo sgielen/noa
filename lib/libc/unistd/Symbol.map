@@ -8,6 +8,8 @@ NOA_1.0 {
 	readv;
 	rmdir;
 	symlink;
+	tcgetpgrp;
+	tcsetpgrp;
 	unlink;
 	write;
 	writev;
