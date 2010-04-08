@@ -129,3 +129,30 @@ ARG fd2 : int
 ARG path2 : const char *
 ARG flat : int
 END
+
+SYSCALL 16 symlinkat
+PUBLIC
+RET int
+ARG path1 : const char *
+ARG fd : int
+ARG path2 : const char *
+END
+
+SYSCALL 16 readlinkat
+PUBLIC
+RET ssize_t
+ARG fd : int
+ARG path : const char *
+ARG buf : char *
+ARG bufsize : size_t
+END
+
+SYSCALL 17 fchownat
+PUBLIC
+RET int
+ARG fd : int
+ARG path : const char *
+ARG owner : uid_t
+ARG group : gid_t
+ARG flag : int
+END
