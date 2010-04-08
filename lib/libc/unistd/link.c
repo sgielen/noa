@@ -31,6 +31,5 @@ int
 link(const char *path1, const char *path2)
 {
 
-	return (linkat(AT_FDCWD, path1, AT_FDCWD, path2,
-	    AT_SYMLINK_FOLLOW));
+	return (linkat(AT_FDCWD, path1, AT_FDCWD, path2, AT_SYMLINK_FOLLOW));
 }
