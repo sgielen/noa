@@ -240,3 +240,36 @@ RET int
 ARG addr : void *
 ARG len : size_t
 END
+
+SYSCALL 31 mlock
+PUBLIC
+RET int
+ARG addr : const void *
+ARG len : size_t
+END
+
+SYSCALL 32 munlock
+PUBLIC
+RET int
+ARG addr : const void *
+ARG len : size_t
+END
+
+SYSCALL 33 mlockall
+PUBLIC
+RET int
+ARG flags : int
+END
+
+SYSCALL 34 munlockall
+PUBLIC
+RET int
+END
+
+SYSCALL 35 mprotect
+PUBLIC
+RET int
+ARG addr : const void *
+ARG len : size_t
+ARG prot : int
+END
