@@ -118,6 +118,11 @@ typedef struct __pthread_attr_t *pthread_attr_t;
 #define	__HAVE_PTHREAD_ATTR_T
 #endif
 
+#if defined(__NEED_PTHREAD_MUTEX_T) && !defined(__HAVE_PTHREAD_MUTEX_T)
+typedef struct __pthread_mutex_t *pthread_mutex_t;
+#define	__HAVE_PTHREAD_MUTEX_T
+#endif
+
 #if defined(__NEED_PTHREAD_T) && !defined(__HAVE_PTHREAD_T)
 typedef struct __pthread_t *pthread_t;
 #define	__HAVE_PTHREAD_T

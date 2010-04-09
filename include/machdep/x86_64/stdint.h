@@ -56,4 +56,10 @@ typedef uint32_t uint_fast32_t;
 typedef int64_t int_fast64_t;
 typedef uint64_t uint_fast64_t;
 
+typedef int64_t intptr_t;
+typedef uint64_t uintptr_t;
+
+typedef int64_t intmax_t;
+typedef uint64_t uintmax_t;
+
 #endif /* !_STDINT_H_ */

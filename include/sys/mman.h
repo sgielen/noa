@@ -41,6 +41,7 @@
 #define	MAP_FIXED		0x1
 #define	MAP_PRIVATE		0x2
 #define	MAP_SHARED		0x4
+#define	__MAP_ANON		0x8
 
 #define	MS_ASYNC		1
 #define	MS_INVALIDATE		2
@@ -48,6 +49,8 @@
 
 #define	MCL_CURRENT		1
 #define	MCL_FUTURE		2
+
+#define	MAP_FAILED		(void *)-1
 
 #define	POSIX_MADV_DONTNEED	1
 #define	POSIX_MADV_NORMAL	3
