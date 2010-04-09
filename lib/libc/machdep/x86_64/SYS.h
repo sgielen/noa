@@ -24,6 +24,8 @@
  * SUCH DAMAGE.
  */
 
+	.text;
+	.p2align 4,0x90;
 __syscall_bad:
 	movq	%fs:0, %rdx;
 	movq	errno@GOTTPOFF(%rip), %rcx;
@@ -32,6 +34,8 @@ __syscall_bad:
 	retq;
 
 #define	SYSCALL(num, name) \
+	.text;					\
+	.p2align 4,0x90;			\
 .globl name;					\
 	.type name, @function;			\
 name:						\

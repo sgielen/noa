@@ -165,3 +165,9 @@ ARG path : const char *
 ARG times : const struct timespec *
 ARG flag : int
 END
+
+SYSCALL 19 getpgid
+PUBLIC
+RET pid_t
+ARG pid : pid_t
+END
