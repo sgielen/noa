@@ -192,3 +192,33 @@ SYSCALL 24 setsid
 PUBLIC
 RET pid_t
 END
+
+SYSCALL 25 clock_gettime
+PUBLIC
+RET int
+ARG clock_id : clockid_t
+ARG tp : struct timespec *
+END
+
+SYSCALL 26 clock_settime
+PUBLIC
+RET int
+ARG clock_id : clockid_t
+ARG tp : const struct timespec *
+END
+
+SYSCALL 27 clock_getres
+PUBLIC
+RET int
+ARG clock_id : clockid_t
+ARG res : struct timespec *
+END
+
+SYSCALL 28 clock_nanosleep
+PUBLIC
+RET int
+ARG clock_id : clockid_t
+ARG flags : int
+ARG rqtp : const struct timespec *
+ARG rmtp : struct timespec *
+END
