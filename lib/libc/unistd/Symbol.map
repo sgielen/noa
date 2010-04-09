@@ -1,4 +1,5 @@
 NOA_1.0 {
+	_exit;
 	chown;
 	dup;
 	dup2;
