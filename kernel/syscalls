@@ -171,3 +171,24 @@ PUBLIC
 RET pid_t
 ARG pid : pid_t
 END
+
+SYSCALL 20 getpid
+PUBLIC
+RET pid_t
+END
+
+SYSCALL 21 getppid
+PUBLIC
+RET pid_t
+END
+
+SYSCALL 23 getsid
+PUBLIC
+RET pid_t
+ARG pid : pid_t
+END
+
+SYSCALL 24 setsid
+PUBLIC
+RET pid_t
+END
