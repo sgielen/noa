@@ -1,0 +1,7 @@
+NOA_1.0 {
+	ffs;
+	strcasecmp;
+	strcasecmp_l;
+	strncasecmp;
+	strncasecmp_l;
+};

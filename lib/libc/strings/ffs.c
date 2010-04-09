@@ -24,20 +24,15 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _STRINGS_H_
-#define	_STRINGS_H_
+#include <strings.h>
 
-#define	__NEED_LOCALE_T
-#define	__NEED_SIZE_T
+int
+ffs(int i)
+{
+	int b;
 
-#include <noa/types.h>
-
-__BEGIN_DECLS
-int	 ffs(int);
-int	 strcasecmp(const char *, const char *);
-int	 strcasecmp_l(const char *, const char *, locale_t);
-int	 strncasecmp(const char *, const char *, size_t);
-int	 strncasecmp_l(const char *, const char *, size_t, locale_t);
-__END_DECLS
-
-#endif /* !_STRINGS_H_ */
+	if (i == 0)
+		return (0);
+	for (b = 1; (i & 1) == 0; b++, i >>= 1);
+	return (b);
+}
