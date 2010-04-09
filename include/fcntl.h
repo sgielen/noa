@@ -35,15 +35,16 @@
 
 #define	F_DUPFD			1
 #define	F_DUPFD_CLOEXEC		2
-#define	F_GETFD			3
-#define	F_SETFD			4
-#define	F_GETFL			5
-#define	F_SETFL			6
-#define	F_GETLK			7
-#define	F_SETLK			8
-#define	F_SETLKW		9
-#define	F_GETOWN		10
-#define	F_SETOWN		11
+#define	__F_DUP2FD		3
+#define	F_GETFD			4
+#define	F_SETFD			5
+#define	F_GETFL			6
+#define	F_SETFL			7
+#define	F_GETLK			8
+#define	F_SETLK			9
+#define	F_SETLKW		10
+#define	F_GETOWN		11
+#define	F_SETOWN		12
 
 #define	FD_CLOEXEC		0x1
 

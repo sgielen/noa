@@ -1,6 +1,7 @@
 NOA_1.0 {
 	chown;
 	dup;
+	dup2;
 	execv;
 	fchown;
 	getpgrp;
