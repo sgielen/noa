@@ -30,11 +30,8 @@
 #include "syscalls.h"
 
 ssize_t
-read(int fildes, void *buf, size_t nbyte)
+preadv(int fildes, const struct iovec *iov, int iovcnt, off_t offset)
 {
-	struct iovec iov;
 
-	iov.iov_base = buf;
-	iov.iov_len = nbyte;
-	return (sys_read(fildes, &iov, 1, 0, SEEK_CUR));
+	return (sys_read(fildes, iov, iovcnt, offset, SEEK_SET));
 }

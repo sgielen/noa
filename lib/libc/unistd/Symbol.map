@@ -1,22 +1,22 @@
 NOA_1.0 {
 	_exit;
 	chown;
-	dup;
 	dup2;
+	dup;
 	execv;
 	fchown;
 	getpgrp;
 	isatty;
 	lchown;
 	link;
+	pread;
+	pwrite;
 	read;
 	readlink;
-	readv;
 	rmdir;
 	symlink;
 	tcgetpgrp;
 	tcsetpgrp;
 	unlink;
 	write;
-	writev;
 };

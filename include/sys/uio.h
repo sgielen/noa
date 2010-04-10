@@ -27,6 +27,7 @@
 #ifndef _SYS_UIO_H_
 #define	_SYS_UIO_H_
 
+#define	__NEED_OFF_T
 #define	__NEED_SIZE_T
 #define	__NEED_SSIZE_T
 
@@ -38,6 +39,8 @@ __ABI_STRUCT(iovec, 32, {
 })
 
 __BEGIN_DECLS
+ssize_t	 preadv(int, const struct iovec *, int, off_t);
+ssize_t	 pwritev(int, const struct iovec *, int, off_t);
 ssize_t	 readv(int, const struct iovec *, int);
 ssize_t	 writev(int, const struct iovec *, int);
 __END_DECLS

@@ -25,12 +25,16 @@
  */
 
 #include <sys/uio.h>
+#include <unistd.h>
 
 #include "syscalls.h"
 
 ssize_t
-writev(int fildes, const struct iovec *iov, int iovcnt)
+pwrite(int fildes, const void *buf, size_t nbyte, off_t offset)
 {
+	struct iovec iov;
 
-	return (sys_write(fildes, iov, iovcnt, 0, 0));
+	iov.iov_base = (void *)buf;
+	iov.iov_len = nbyte;
+	return (sys_write(fildes, &iov, 1, offset, SEEK_SET));
 }

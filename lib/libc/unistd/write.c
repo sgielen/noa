@@ -36,5 +36,5 @@ write(int fildes, const void *buf, size_t nbyte)
 
 	iov.iov_base = (void *)buf;
 	iov.iov_len = nbyte;
-	return (sys_write(fildes, &iov, 1, 0, 0));
+	return (sys_write(fildes, &iov, 1, 0, SEEK_CUR));
 }

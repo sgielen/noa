@@ -25,12 +25,13 @@
  */
 
 #include <sys/uio.h>
+#include <unistd.h>
 
 #include "syscalls.h"
 
 ssize_t
-readv(int fildes, const struct iovec *iov, int iovcnt)
+pwritev(int fildes, const struct iovec *iov, int iovcnt, off_t offset)
 {
 
-	return (sys_read(fildes, iov, iovcnt, 0, 0));
+	return (sys_write(fildes, iov, iovcnt, offset, SEEK_SET));
 }

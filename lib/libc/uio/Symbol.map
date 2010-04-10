@@ -1,0 +1,6 @@
+NOA_1.0 {
+	preadv;
+	pwritev;
+	readv;
+	writev;
+};

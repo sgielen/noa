@@ -9,7 +9,7 @@ ARG fildes : int
 ARG iov : const struct iovec *
 ARG iovcnt : int
 ARG offset : off_t
-ARG flags : int
+ARG whence : int
 END
 
 SYSCALL 2 write
@@ -18,7 +18,7 @@ ARG fildes : int
 ARG iov : const struct iovec *
 ARG iovcnt : int
 ARG offset : off_t
-ARG flags : int
+ARG whence : int
 END
 
 SYSCALL 3 openat

@@ -34,12 +34,15 @@
 
 #include <noa/types.h>
 
-typedef struct __FILE FILE;
-typedef off_t fpos_t;
-
+/* XXX: <unistd.h>. */
+#ifndef SEEK_CUR
 #define	SEEK_CUR	1
 #define	SEEK_END	2
 #define	SEEK_SET	3
+#endif
+
+typedef struct __FILE FILE;
+typedef off_t fpos_t;
 
 __BEGIN_DECLS
 extern FILE *stderr;
