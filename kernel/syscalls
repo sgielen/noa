@@ -273,3 +273,9 @@ ARG addr : const void *
 ARG len : size_t
 ARG prot : int
 END
+
+SYSCALL 36 _Exit
+PUBLIC
+RET void
+ARG status : int
+END
