@@ -27,9 +27,6 @@
 #ifndef _SYS_TIME_H_
 #define	_SYS_TIME_H_
 
-#define	__NEED_STRUCT_TIMEVAL
-
-#include <noa/types.h>
 #include <sys/select.h>
 
 __BEGIN_DECLS
