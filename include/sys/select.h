@@ -34,8 +34,9 @@
 #include <noa/types.h>
 
 #define	FD_SETSIZE	1024
-#define	__FD_WORD(b)	((b) / (sizeof(long) * 8))
-#define	__FD_BIT(b)	((b) % (sizeof(long) * 8))
+#define	__FD_BPW	(sizeof(long) * 8)
+#define	__FD_WORD(b)	((b) / __FD_BPW)
+#define	__FD_BIT(b)	((b) % __FD_BPW)
 
 #define	FD_CLR(fd, fdset) \
 	((fdset)->__fd_bits[__FD_WORD(fd)] &= ~__FD_BIT(fd))
@@ -50,7 +51,7 @@
 } while (0)
 
 typedef struct {
-	long	__fd_bits[FD_SETSIZE / (sizeof(long) * 8)];
+	long	__fd_bits[(FD_SETSIZE + __FD_BPW - 1) / __FD_BPW];
 } fd_set;
 
 __BEGIN_DECLS
