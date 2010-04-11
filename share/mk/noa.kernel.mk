@@ -1,7 +1,5 @@
 .include <noa.sys.mk>
 
-#CFLAGS+=-fpic
-
 LD=ld
 LDFLAGS+=-Bdynamic -warn-common -export-dynamic -dynamic-linker /red/herring
 LDFLAGS+=-X
