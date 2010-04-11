@@ -107,8 +107,10 @@
 #define	EWOULDBLOCK	76
 #define	EXDEV		77
 
+#ifndef _KERNEL
 __BEGIN_DECLS
 extern __thread int errno;
 __END_DECLS
+#endif
 
 #endif /* !_ERRNO_H_ */
