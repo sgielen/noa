@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2010 The Noa Project, http://noaproject.org/
+ * Copyright (c) 2010 The Noa Project, http://noap __unusedroject.org/
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,42 +24,63 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _SYS_WAIT_H_
-#define	_SYS_WAIT_H_
+#include <errno.h>
 
-#define	__NEED_IDTYPE_T
-#define	__NEED_ID_T
-#define	__NEED_PID_T
-#define	__NEED_SIGINFO_T
+#include "syscalls.h"
 
-#include <noa/types.h>
+int
+sys_mmap(struct thread *td __unused,
+    struct sys_mmap_args *ap __unused)
+{
 
-#define	__WTYPE(s)		((s) & 0xff)
-#define	__WVALUE(s)		((s) >> 8)
-#define	__WIFEXITED		0x1
-#define	__WIFSIGNALED		0x2
-#define	__WIFSTOPPED		0x8
-#define	__WIFCONTINUED		0x4
+	return (ENOSYS);
+}
 
-#define	WIFEXITED(s)		(__WTYPE(s) == __WIFEXITED)
-#define	WEXITSTATUS(s)		__WVALUE(s)
-#define	WIFSIGNALED(s)		(__WTYPE(s) == __WIFSIGNALED)
-#define	WTERMSIG(s)		__WVALUE(s)
-#define	WIFSTOPPED(s)		(__WTYPE(s) == __WIFSTOPPED)
-#define	WSTOPSIG(s)		__WVALUE(s)
-#define	WIFCONTINUED(s)		(__WTYPE(s) == __WIFCONTINUED)
+int
+sys_munmap(struct thread *td __unused,
+    struct sys_munmap_args *ap __unused)
+{
 
-#define	WCONTINUED		0x01
-#define	WNOHANG			0x02
-#define	WUNTRACED		0x04
-#define	WEXITED			0x08
-#define	WNOWAIT			0x10
-#define	WSTOPPED		0x20
+	return (ENOSYS);
+}
 
-__BEGIN_DECLS
-pid_t	 wait(int *);
-int	 waitid(idtype_t, id_t, siginfo_t *, int);
-pid_t	 waitpid(pid_t, int *, int);
-__END_DECLS
+int
+sys_mlock(struct thread *td __unused,
+    struct sys_mlock_args *ap __unused)
+{
 
-#endif /* !_SYS_WAIT_H_ */
+	return (ENOSYS);
+}
+
+int
+sys_munlock(struct thread *td __unused,
+    struct sys_munlock_args *ap __unused)
+{
+
+	return (ENOSYS);
+}
+
+int
+sys_mlockall(struct thread *td __unused,
+    struct sys_mlockall_args *ap __unused)
+{
+
+	return (ENOSYS);
+}
+
+int
+sys_munlockall(struct thread *td __unused,
+    struct sys_munlockall_args *ap __unused)
+{
+
+	return (ENOSYS);
+}
+
+int
+sys_mprotect(struct thread *td __unused,
+    struct sys_mprotect_args *ap __unused)
+{
+
+	return (ENOSYS);
+}
+
