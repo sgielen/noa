@@ -30,9 +30,9 @@ BEGIN {
 
 /^END/ {
 	printf "};\n";
-	printf "int sys_%s(struct thread *, struct sys_%s_args *);\n", name, name;
+	printf "int sys_%s(struct thread *, struct sys_%s_args *);\n\n", name, name;
 }
 
 END {
-	printf "\n#endif /* !_SYSCALLS_H_ */\n";
+	printf "#endif /* !_SYSCALLS_H_ */\n";
 }
