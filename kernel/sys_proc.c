@@ -29,56 +29,40 @@
 #include "syscalls.h"
 
 int
-sys_mmap(struct thread *td __unused,
-    struct sys_mmap_args *ap __unused)
+sys_getpid(struct thread *td __unused,
+    struct sys_getpid_args *ap __unused)
 {
 
 	return (ENOSYS);
 }
 
 int
-sys_munmap(struct thread *td __unused,
-    struct sys_munmap_args *ap __unused)
+sys_getppid(struct thread *td __unused,
+    struct sys_getppid_args *ap __unused)
 {
 
 	return (ENOSYS);
 }
 
 int
-sys_mlock(struct thread *td __unused,
-    struct sys_mlock_args *ap __unused)
+sys_getpgid(struct thread *td __unused,
+    struct sys_getpgid_args *ap __unused)
 {
 
 	return (ENOSYS);
 }
 
 int
-sys_munlock(struct thread *td __unused,
-    struct sys_munlock_args *ap __unused)
+sys_getsid(struct thread *td __unused,
+    struct sys_getsid_args *ap __unused)
 {
 
 	return (ENOSYS);
 }
 
 int
-sys_mlockall(struct thread *td __unused,
-    struct sys_mlockall_args *ap __unused)
-{
-
-	return (ENOSYS);
-}
-
-int
-sys_munlockall(struct thread *td __unused,
-    struct sys_munlockall_args *ap __unused)
-{
-
-	return (ENOSYS);
-}
-
-int
-sys_mprotect(struct thread *td __unused,
-    struct sys_mprotect_args *ap __unused)
+sys_setsid(struct thread *td __unused,
+    struct sys_setsid_args *ap __unused)
 {
 
 	return (ENOSYS);
