@@ -2,14 +2,16 @@
 
 #CFLAGS+=-fpic
 
-#LDFLAGS+=-Wl,--version-script=Version.map -nostdlib -shared -Wl,-x
+LD=ld
+LDFLAGS+=-Bdynamic -warn-common -export-dynamic -dynamic-linker /red/herring
+LDFLAGS+=-X
 
 OBJS+=	${SRCS:N*.h:R:S/$/.o/}
 
 all: kernel
 
 kernel: ${OBJS}
-	${CC} ${LDFLAGS} -o ${.TARGET} ${OBJS}
+	${LD} ${LDFLAGS} -o ${.TARGET} ${OBJS}
 
 ${OBJS}: ${SRCS:M*.h}
 
