@@ -1,6 +1,6 @@
 LIB=	c
 
-SRCS+=	sys_clock.c sys_mman.c sys_proc.c
+SRCS+=	sys_clock.c sys_fildes.c sys_mman.c sys_proc.c
 
 SRCS+=	syscallvec.c syscalls.h
 CLEAN_FILES+=syscallvec.c syscalls.h
