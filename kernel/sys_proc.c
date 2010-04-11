@@ -67,3 +67,19 @@ sys_setsid(struct thread *td __unused,
 
 	return (ENOSYS);
 }
+
+int
+sys_waitid(struct thread *td __unused,
+    struct sys_waitid_args *ap __unused)
+{
+
+	return (ENOSYS);
+}
+
+int
+sys__Exit(struct thread *td __unused,
+    struct sys__Exit_args *ap __unused)
+{
+
+	return (ENOSYS);
+}
