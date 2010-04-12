@@ -52,7 +52,7 @@ struct fd_chown {
 
 struct fd_rw {
 	const struct iovec *iov;
-	int	iovcnt;
+	size_t	iovcnt;
 	off_t	offset;
 	int	whence;
 };
