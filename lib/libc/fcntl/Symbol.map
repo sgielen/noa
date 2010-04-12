@@ -1,4 +1,5 @@
 NOA_1.0 {
 	creat;
 	open;
+	posix_fadvise;
 };

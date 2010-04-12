@@ -46,6 +46,12 @@
 #define	_FDIO(group, num, itype, otype) \
 	_FDC(sizeof(itype), sizeof(otype), (group), (num))
 
+struct fd_advise {
+	off_t	offset;
+	off_t	len;
+	int	advice;
+};
+
 struct fd_chown {
 	uid_t	owner;
 	gid_t	group;
@@ -59,12 +65,13 @@ struct fd_rw {
 };
 
 /* File descriptors. */
-#define	FD_CHMOD	 _FDI('f', 1, mode_t)
-#define	FD_CHOWN	 _FDI('f', 2, struct fd_chown)
-#define	FD_READ		_FDIO('f', 3, struct fd_rw, size_t)
-#define	FD_STAT		 _FDO('f', 4, struct stat)
-#define	FD_SYNC		  _FD('f', 5)
-#define	FD_WRITE	_FDIO('f', 6, struct fd_rw, size_t)
+#define	FD_ADVISE	 _FDI('f', 1, struct fd_advise)
+#define	FD_CHMOD	 _FDI('f', 2, mode_t)
+#define	FD_CHOWN	 _FDI('f', 3, struct fd_chown)
+#define	FD_READ		_FDIO('f', 4, struct fd_rw, size_t)
+#define	FD_STAT		 _FDO('f', 5, struct stat)
+#define	FD_SYNC		  _FD('f', 6)
+#define	FD_WRITE	_FDIO('f', 7, struct fd_rw, size_t)
 
 /* TTYs. */
 #define	TTY_DRAIN	  _FD('t', 1)
