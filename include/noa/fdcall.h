@@ -59,24 +59,24 @@ struct fd_rw {
 };
 
 /* File descriptors. */
-#define	FD_STAT		 _FDO('f', 1, struct stat)
-#define	FD_CHMOD	 _FDI('f', 2, mode_t)
-#define	FD_CHOWN	 _FDI('f', 3, struct fd_chown)
-#define	FD_READ		_FDIO('f', 4, struct fd_rw, size_t)
-#define	FD_WRITE	_FDIO('f', 5, struct fd_rw, size_t)
-#define	FD_SYNC		  _FD('f', 6)
+#define	FD_CHMOD	 _FDI('f', 1, mode_t)
+#define	FD_CHOWN	 _FDI('f', 2, struct fd_chown)
+#define	FD_READ		_FDIO('f', 3, struct fd_rw, size_t)
+#define	FD_STAT		 _FDO('f', 4, struct stat)
+#define	FD_SYNC		  _FD('f', 5)
+#define	FD_WRITE	_FDIO('f', 6, struct fd_rw, size_t)
 
 /* TTYs. */
-#define	TTY_GETA	 _FDO('t', 1, struct termios)
-#define	TTY_SETAN	 _FDI('t', 2, struct termios)
-#define	TTY_SETAD	 _FDI('t', 3, struct termios)
-#define	TTY_SETAF	 _FDI('t', 4, struct termios)
-#define	TTY_DRAIN	  _FD('t', 5)
-#define	TTY_FLUSH	 _FDI('t', 6, int)
-#define	TTY_GETSID	 _FDO('t', 7, pid_t)
-#define	TTY_ISATTY	  _FD('t', 8)
-#define	TTY_ISAPTM	  _FD('t', 9)
-#define	TTY_GETPGRP	 _FDO('t', 10, pid_t)
+#define	TTY_DRAIN	  _FD('t', 1)
+#define	TTY_FLUSH	 _FDI('t', 2, int)
+#define	TTY_GETA	 _FDO('t', 3, struct termios)
+#define	TTY_GETPGRP	 _FDO('t', 4, pid_t)
+#define	TTY_GETSID	 _FDO('t', 5, pid_t)
+#define	TTY_ISAPTM	  _FD('t', 6)
+#define	TTY_ISATTY	  _FD('t', 7)
+#define	TTY_SETAD	 _FDI('t', 8, struct termios)
+#define	TTY_SETAF	 _FDI('t', 9, struct termios)
+#define	TTY_SETAN	 _FDI('t', 10, struct termios)
 #define	TTY_SETPGRP	 _FDI('t', 11, pid_t)
 
 #endif /* !_NOA_FDCALL_H_ */
