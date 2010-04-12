@@ -29,6 +29,7 @@
 
 #define	__NEED_NULL
 #define	__NEED_PID_T
+#define	__NEED_STRUCT_TIMESPEC
 
 #include <noa/types.h>
 
