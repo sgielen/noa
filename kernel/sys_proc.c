@@ -68,11 +68,23 @@ sys_getpgid(struct thread *td, struct sys_getpgid_args *ap)
 }
 
 int
-sys_getsid(struct thread *td __unused,
-    struct sys_getsid_args *ap __unused)
+sys_getsid(struct thread *td, struct sys_getsid_args *ap)
 {
+	struct process *p;
 
-	return (ENOSYS);
+	mutex_lock(&process_layout);
+	if (ap->pid == 0) {
+		p = td->td_process;
+	} else {
+		p = process_lookup(ap->pid);
+		if (p == NULL) {
+			mutex_unlock(&process_layout);
+			return (ESRCH);
+		}
+	}
+	td->td_retval = p->p_group->pg_session->s_id;
+	mutex_unlock(&process_layout);
+	return (0);
 }
 
 int
