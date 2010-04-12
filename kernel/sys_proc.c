@@ -30,8 +30,7 @@
 #include "syscalls.h"
 
 int
-sys_getpid(struct thread *td __unused,
-    struct sys_getpid_args *ap __unused)
+sys_getpid(struct thread *td, struct sys_getpid_args *ap __unused)
 {
 
 	td->td_retval = td->td_process->p_id;
@@ -39,8 +38,7 @@ sys_getpid(struct thread *td __unused,
 }
 
 int
-sys_getppid(struct thread *td __unused,
-    struct sys_getppid_args *ap __unused)
+sys_getppid(struct thread *td, struct sys_getppid_args *ap __unused)
 {
 
 	mutex_lock(&process_layout);
@@ -50,8 +48,7 @@ sys_getppid(struct thread *td __unused,
 }
 
 int
-sys_getpgid(struct thread *td __unused,
-    struct sys_getpgid_args *ap __unused)
+sys_getpgid(struct thread *td, struct sys_getpgid_args *ap)
 {
 	struct process *p;
 
