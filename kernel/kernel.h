@@ -46,6 +46,8 @@ struct session;
 struct thread;
 struct timespec;
 
+typedef unsigned long refcount_t;
+
 struct cond {
 	void		*cv_dummy;
 };
@@ -53,6 +55,7 @@ struct cond {
 struct filedescriptor {
 	struct process	*fd_service;
 	cookie_t	 fd_cookie;
+	refcount_t	 fd_refcount;
 };
 
 struct mutex {
