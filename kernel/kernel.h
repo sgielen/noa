@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2010 The Noa Project, http://noap __unusedroject.org/
+ * Copyright (c) 2010 The Noa Project, http://noaproject.org/
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,80 +24,65 @@
  * SUCH DAMAGE.
  */
 
-#include <errno.h>
-#include <kernel.h>
+#ifndef _KERNEL_H_
+#define	_KERNEL_H_
 
-#include "syscalls.h"
+#define	__NEED_NULL
+#define	__NEED_PID_T
 
-int
-sys_getpid(struct thread *td __unused,
-    struct sys_getpid_args *ap __unused)
-{
+#include <noa/types.h>
 
-	td->td_retval = td->td_process->p_id;
-	return (0);
-}
+/*
+ * Kernel data structures.
+ */
 
-int
-sys_getppid(struct thread *td __unused,
-    struct sys_getppid_args *ap __unused)
-{
+struct mutex;
+struct process;
+struct processgroup;
+struct session;
+struct thread;
 
-	mutex_lock(&process_layout);
-	td->td_retval = td->td_process->p_parent->p_id;
-	mutex_unlock(&process_layout);
-	return (0);
-}
+struct mutex {
+	void		*m_dummy;
+};
 
-int
-sys_getpgid(struct thread *td __unused,
-    struct sys_getpgid_args *ap __unused)
-{
-	struct process *p;
+struct process {
+	struct process	*p_parent;
+	struct processgroup *p_group;
+	pid_t		 p_id;
+};
 
-	mutex_lock(&process_layout);
-	if (ap->pid == 0) {
-		p = td->td_process;
-	} else {
-		p = process_lookup(ap->pid);
-		if (p == NULL) {
-			mutex_unlock(&process_layout);
-			return (ESRCH);
-		}
-	}
-	td->td_retval = p->p_group->pg_id;
-	mutex_unlock(&process_layout);
-	return (0);
-}
+struct processgroup {
+	struct session	*pg_session;
+	pid_t		 pg_id;
+};
 
-int
-sys_getsid(struct thread *td __unused,
-    struct sys_getsid_args *ap __unused)
-{
+struct session {
+	pid_t		 s_id;
+};
 
-	return (ENOSYS);
-}
+struct thread {
+	struct process	*td_process;
+	unsigned long	 td_retval;
+};
 
-int
-sys_setsid(struct thread *td __unused,
-    struct sys_setsid_args *ap __unused)
-{
+/*
+ * Kernel subroutines.
+ */
 
-	return (ENOSYS);
-}
+void	 mutex_assert(struct mutex *);
+void	 mutex_destroy(struct mutex *);
+void	 mutex_init(struct mutex *);
+void	 mutex_lock(struct mutex *);
+void	 mutex_unlock(struct mutex *);
 
-int
-sys_waitid(struct thread *td __unused,
-    struct sys_waitid_args *ap __unused)
-{
+struct process *
+	 process_lookup(pid_t);
 
-	return (ENOSYS);
-}
+/*
+ * Global variables.
+ */
 
-int
-sys__Exit(struct thread *td __unused,
-    struct sys__Exit_args *ap __unused)
-{
+extern struct mutex process_layout;
 
-	return (ENOSYS);
-}
+#endif /* !_KERNEL_H_ */

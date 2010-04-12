@@ -24,80 +24,13 @@
  * SUCH DAMAGE.
  */
 
-#include <errno.h>
 #include <kernel.h>
 
-#include "syscalls.h"
+struct mutex process_layout;
 
-int
-sys_getpid(struct thread *td __unused,
-    struct sys_getpid_args *ap __unused)
+struct process *
+process_lookup(pid_t pid __unused)
 {
 
-	td->td_retval = td->td_process->p_id;
-	return (0);
-}
-
-int
-sys_getppid(struct thread *td __unused,
-    struct sys_getppid_args *ap __unused)
-{
-
-	mutex_lock(&process_layout);
-	td->td_retval = td->td_process->p_parent->p_id;
-	mutex_unlock(&process_layout);
-	return (0);
-}
-
-int
-sys_getpgid(struct thread *td __unused,
-    struct sys_getpgid_args *ap __unused)
-{
-	struct process *p;
-
-	mutex_lock(&process_layout);
-	if (ap->pid == 0) {
-		p = td->td_process;
-	} else {
-		p = process_lookup(ap->pid);
-		if (p == NULL) {
-			mutex_unlock(&process_layout);
-			return (ESRCH);
-		}
-	}
-	td->td_retval = p->p_group->pg_id;
-	mutex_unlock(&process_layout);
-	return (0);
-}
-
-int
-sys_getsid(struct thread *td __unused,
-    struct sys_getsid_args *ap __unused)
-{
-
-	return (ENOSYS);
-}
-
-int
-sys_setsid(struct thread *td __unused,
-    struct sys_setsid_args *ap __unused)
-{
-
-	return (ENOSYS);
-}
-
-int
-sys_waitid(struct thread *td __unused,
-    struct sys_waitid_args *ap __unused)
-{
-
-	return (ENOSYS);
-}
-
-int
-sys__Exit(struct thread *td __unused,
-    struct sys__Exit_args *ap __unused)
-{
-
-	return (ENOSYS);
+	return (NULL);
 }
