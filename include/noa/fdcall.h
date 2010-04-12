@@ -52,6 +52,11 @@ struct fd_advise {
 	int	advice;
 };
 
+struct fd_allocate {
+	off_t	offset;
+	off_t	len;
+};
+
 struct fd_chown {
 	uid_t	owner;
 	gid_t	group;
@@ -66,12 +71,13 @@ struct fd_rw {
 
 /* File descriptors. */
 #define	FD_ADVISE	 _FDI('f', 1, struct fd_advise)
-#define	FD_CHMOD	 _FDI('f', 2, mode_t)
-#define	FD_CHOWN	 _FDI('f', 3, struct fd_chown)
-#define	FD_READ		_FDIO('f', 4, struct fd_rw, size_t)
-#define	FD_STAT		 _FDO('f', 5, struct stat)
-#define	FD_SYNC		  _FD('f', 6)
-#define	FD_WRITE	_FDIO('f', 7, struct fd_rw, size_t)
+#define	FD_ALLOCATE	 _FDI('f', 2, struct fd_allocate)
+#define	FD_CHMOD	 _FDI('f', 3, mode_t)
+#define	FD_CHOWN	 _FDI('f', 4, struct fd_chown)
+#define	FD_READ		_FDIO('f', 5, struct fd_rw, size_t)
+#define	FD_STAT		 _FDO('f', 6, struct stat)
+#define	FD_SYNC		  _FD('f', 7)
+#define	FD_WRITE	_FDIO('f', 8, struct fd_rw, size_t)
 
 /* TTYs. */
 #define	TTY_DRAIN	  _FD('t', 1)

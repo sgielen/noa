@@ -32,15 +32,14 @@
 #include "syscalls.h"
 
 int
-posix_fadvise(int fd, off_t offset, off_t len, int advice)
+posix_fallocate(int fd, off_t offset, off_t len)
 {
-	struct fd_advise fop;
+	struct fd_allocate fop;
 	int ret;
 
 	fop.offset = offset;
 	fop.len = len;
-	fop.advice = advice;
-	ret = sys_fdcall(fd, FD_ADVISE, &fop, NULL);
+	ret = sys_fdcall(fd, FD_ALLOCATE, &fop, NULL);
 	if (ret == -1 && errno == ENOTTY)
 		errno = ESPIPE;
 	return (ret);
