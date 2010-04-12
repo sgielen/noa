@@ -63,7 +63,6 @@ struct session {
 
 struct thread {
 	struct process	*td_process;
-	unsigned long	 td_retval;
 };
 
 /*

@@ -22,6 +22,10 @@ BEGIN {
 	printf "struct sys_%s_args {\n", name;
 }
 
+/^RET/ {
+	printf "\t%s retval;\n", substr($0, 4, length);
+}
+
 /^ARG/ {
 	split($0, a, " : ");
 

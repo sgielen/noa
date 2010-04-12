@@ -30,19 +30,19 @@
 #include "syscalls.h"
 
 int
-sys_getpid(struct thread *td, struct sys_getpid_args *ap __unused)
+sys_getpid(struct thread *td, struct sys_getpid_args *ap)
 {
 
-	td->td_retval = td->td_process->p_id;
+	ap->retval = td->td_process->p_id;
 	return (0);
 }
 
 int
-sys_getppid(struct thread *td, struct sys_getppid_args *ap __unused)
+sys_getppid(struct thread *td, struct sys_getppid_args *ap)
 {
 
 	mutex_lock(&process_layout);
-	td->td_retval = td->td_process->p_parent->p_id;
+	ap->retval = td->td_process->p_parent->p_id;
 	mutex_unlock(&process_layout);
 	return (0);
 }
@@ -62,7 +62,7 @@ sys_getpgid(struct thread *td, struct sys_getpgid_args *ap)
 			return (ESRCH);
 		}
 	}
-	td->td_retval = p->p_group->pg_id;
+	ap->retval = p->p_group->pg_id;
 	mutex_unlock(&process_layout);
 	return (0);
 }
@@ -82,7 +82,7 @@ sys_getsid(struct thread *td, struct sys_getsid_args *ap)
 			return (ESRCH);
 		}
 	}
-	td->td_retval = p->p_group->pg_session->s_id;
+	ap->retval = p->p_group->pg_session->s_id;
 	mutex_unlock(&process_layout);
 	return (0);
 }

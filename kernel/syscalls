@@ -271,6 +271,5 @@ END
 
 SYSCALL 36 _Exit
 PUBLIC
-RET void
 ARG status : int
 END
