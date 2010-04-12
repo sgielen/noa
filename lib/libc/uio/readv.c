@@ -33,7 +33,7 @@
 ssize_t
 readv(int fildes, const struct iovec *iov, int iovcnt)
 {
-	struct fd_rw_in iop;
+	struct fd_rw iop;
 	size_t nbytes;
 
 	iop.iov = iov;

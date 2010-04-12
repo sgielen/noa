@@ -33,7 +33,7 @@
 ssize_t
 read(int fildes, void *buf, size_t nbyte)
 {
-	struct fd_rw_in iop;
+	struct fd_rw iop;
 	struct iovec iov;
 	size_t nbytes;
 

@@ -50,7 +50,7 @@ struct fd_chown {
 	gid_t	group;
 };
 
-struct fd_rw_in {
+struct fd_rw {
 	const struct iovec *iov;
 	int	iovcnt;
 	off_t	offset;
@@ -61,8 +61,8 @@ struct fd_rw_in {
 #define	FD_STAT		 _FDO('f', 1, struct stat)
 #define	FD_CHMOD	 _FDI('f', 2, mode_t)
 #define	FD_CHOWN	 _FDI('f', 3, struct fd_chown)
-#define	FD_READ		_FDIO('f', 4, struct fd_rw_in, size_t)
-#define	FD_WRITE	_FDIO('f', 5, struct fd_rw_in, size_t)
+#define	FD_READ		_FDIO('f', 4, struct fd_rw, size_t)
+#define	FD_WRITE	_FDIO('f', 5, struct fd_rw, size_t)
 
 /* TTYs. */
 #define	TTY_GETA	 _FDO('t', 1, struct termios)

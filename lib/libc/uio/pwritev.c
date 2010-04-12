@@ -33,7 +33,7 @@
 ssize_t
 pwritev(int fildes, const struct iovec *iov, int iovcnt, off_t offset)
 {
-	struct fd_rw_in iop;
+	struct fd_rw iop;
 	size_t nbytes;
 
 	iop.iov = iov;

@@ -33,7 +33,7 @@
 ssize_t
 pwrite(int fildes, const void *buf, size_t nbyte, off_t offset)
 {
-	struct fd_rw_in iop;
+	struct fd_rw iop;
 	struct iovec iov;
 	size_t nbytes;
 
