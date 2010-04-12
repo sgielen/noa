@@ -64,6 +64,7 @@ struct fd_rw {
 #define	FD_CHOWN	 _FDI('f', 3, struct fd_chown)
 #define	FD_READ		_FDIO('f', 4, struct fd_rw, size_t)
 #define	FD_WRITE	_FDIO('f', 5, struct fd_rw, size_t)
+#define	FD_SYNC		  _FD('f', 6)
 
 /* TTYs. */
 #define	TTY_GETA	 _FDO('t', 1, struct termios)

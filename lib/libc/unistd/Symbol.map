@@ -5,6 +5,7 @@ NOA_1.0 {
 	dup;
 	execv;
 	fchown;
+	fsync;
 	getpgrp;
 	isatty;
 	lchown;
