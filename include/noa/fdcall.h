@@ -34,8 +34,8 @@
 #include <noa/types.h>
 
 #define	_FDC(isiz, osiz, group, num) \
-	(((uint64_t)isiz) << 48 | ((uint64_t)osiz) << 32 | \
-	((uint64_t)group) << 16 | ((uint64_t)num))
+	(((uint64_t)isiz) << 40 | ((uint64_t)osiz) << 16 | \
+	((uint64_t)group) << 8 | ((uint64_t)num))
 #define	_FD(group, num) \
 	_FDC(0, 0, (group), (num))
 #define	_FDI(group, num, itype) \
