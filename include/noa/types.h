@@ -83,6 +83,11 @@ typedef __intmax_t id_t;
 #define	__HAVE_ID_T
 #endif
 
+#if defined(__NEED_IDTYPE_T) && !defined(__HAVE_IDTYPE_T)
+typedef enum { P_ALL, P_PGID, P_PID } idtype_t;
+#define	__HAVE_IDTYPE_T
+#endif
+
 #if defined(__NEED_INO_T) && !defined(__HAVE_INO_T)
 typedef __uintmax_t ino_t;
 #define	__HAVE_INO_T

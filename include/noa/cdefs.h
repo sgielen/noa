@@ -27,12 +27,14 @@
 #ifndef _NOA_CDEFS_H_
 #define	_NOA_CDEFS_H_
 
+#ifndef _KERNEL
 #ifdef __cplusplus
 #define	__BEGIN_DECLS	extern "C" {
 #define	__END_DECLS	}
 #else
 #define	__BEGIN_DECLS
 #define	__END_DECLS
+#endif
 #endif
 
 #define	__unused		__attribute__((unused))

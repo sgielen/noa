@@ -24,42 +24,33 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _SYS_WAIT_H_
-#define	_SYS_WAIT_H_
+#ifndef _GRP_H_
+#define	_GRP_H_
 
-#define	__NEED_IDTYPE_T
-#define	__NEED_ID_T
-#define	__NEED_PID_T
-#define	__NEED_SIGINFO_T
+#define	__NEED_GID_T
+#define	__NEED_UID_T
 
 #include <noa/types.h>
 
-#define	__WTYPE(s)		((s) & 0xff)
-#define	__WVALUE(s)		((s) >> 8)
-#define	__WIFEXITED		0x1
-#define	__WIFSIGNALED		0x2
-#define	__WIFSTOPPED		0x8
-#define	__WIFCONTINUED		0x4
-
-#define	WIFEXITED(s)		(__WTYPE(s) == __WIFEXITED)
-#define	WEXITSTATUS(s)		__WVALUE(s)
-#define	WIFSIGNALED(s)		(__WTYPE(s) == __WIFSIGNALED)
-#define	WTERMSIG(s)		__WVALUE(s)
-#define	WIFSTOPPED(s)		(__WTYPE(s) == __WIFSTOPPED)
-#define	WSTOPSIG(s)		__WVALUE(s)
-#define	WIFCONTINUED(s)		(__WTYPE(s) == __WIFCONTINUED)
-
-#define	WCONTINUED		0x01
-#define	WNOHANG			0x02
-#define	WUNTRACED		0x04
-#define	WEXITED			0x08
-#define	WNOWAIT			0x10
-#define	WSTOPPED		0x20
+__ABI_STRUCT(group, 32, {
+	char	*gr_name;
+	gid_t	 gr_gid;
+	char	**gr_mem;
+})
 
 __BEGIN_DECLS
-pid_t	 wait(int *);
-int	 waitid(idtype_t, id_t, siginfo_t *, int);
-pid_t	 waitpid(pid_t, int *, int);
+void	 endgrent(void);
+struct group *
+	 getgrent(void);
+struct group *
+	 getgrgid(gid_t);
+int	 getgrgid_r(gid_t, struct group *, char *, size_t,
+	     struct group **);
+struct group *
+	 getgrnam(const char *);
+int	 getgrnam_r(const char *, struct group *, char *, size_t,
+	     struct group **);
+void	 setgrent(void);
 __END_DECLS
 
-#endif /* !_SYS_WAIT_H_ */
+#endif /* !_GRP_H_ */

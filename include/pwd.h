@@ -24,42 +24,37 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _SYS_WAIT_H_
-#define	_SYS_WAIT_H_
+#ifndef _PWD_H_
+#define	_PWD_H_
 
-#define	__NEED_IDTYPE_T
-#define	__NEED_ID_T
-#define	__NEED_PID_T
-#define	__NEED_SIGINFO_T
+#define	__NEED_GID_T
+#define	__NEED_SIZE_T
+#define	__NEED_UID_T
 
 #include <noa/types.h>
 
-#define	__WTYPE(s)		((s) & 0xff)
-#define	__WVALUE(s)		((s) >> 8)
-#define	__WIFEXITED		0x1
-#define	__WIFSIGNALED		0x2
-#define	__WIFSTOPPED		0x8
-#define	__WIFCONTINUED		0x4
-
-#define	WIFEXITED(s)		(__WTYPE(s) == __WIFEXITED)
-#define	WEXITSTATUS(s)		__WVALUE(s)
-#define	WIFSIGNALED(s)		(__WTYPE(s) == __WIFSIGNALED)
-#define	WTERMSIG(s)		__WVALUE(s)
-#define	WIFSTOPPED(s)		(__WTYPE(s) == __WIFSTOPPED)
-#define	WSTOPSIG(s)		__WVALUE(s)
-#define	WIFCONTINUED(s)		(__WTYPE(s) == __WIFCONTINUED)
-
-#define	WCONTINUED		0x01
-#define	WNOHANG			0x02
-#define	WUNTRACED		0x04
-#define	WEXITED			0x08
-#define	WNOWAIT			0x10
-#define	WSTOPPED		0x20
+__ABI_STRUCT(passwd, 64, {
+	char	*pw_name;
+	uid_t	 pw_uid;
+	gid_t	 pw_gid;
+	char	*pw_dir;
+	char	*pw_shell;
+})
 
 __BEGIN_DECLS
-pid_t	 wait(int *);
-int	 waitid(idtype_t, id_t, siginfo_t *, int);
-pid_t	 waitpid(pid_t, int *, int);
+void
+	 endpwent(void);
+struct passwd *
+	 getpwent(void);
+struct passwd *
+	 getpwnam(const char *);
+int	 getpwnam_r(const char *, struct passwd *, char *, size_t,
+	     struct passwd **);
+struct passwd *
+	 getpwuid(uid_t);
+int	 getpwuid_r(uid_t, struct passwd *, char *, size_t,
+	     struct passwd **);
+void	 setpwent(void);
 __END_DECLS
 
-#endif /* !_SYS_WAIT_H_ */
+#endif /* !_PWD_H_ */
