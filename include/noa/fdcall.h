@@ -29,6 +29,7 @@
 
 #define	__NEED_GID_T
 #define	__NEED_OFF_T
+#define	__NEED_SIZE_T
 #define	__NEED_UID_T
 
 #include <noa/types.h>
