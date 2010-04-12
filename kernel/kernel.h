@@ -36,11 +36,16 @@
  * Kernel data structures.
  */
 
+struct cond;
 struct mutex;
 struct process;
 struct processgroup;
 struct session;
 struct thread;
+
+struct cond {
+	void		*cv_dummy;
+};
 
 struct mutex {
 	void		*m_dummy;
@@ -68,6 +73,15 @@ struct thread {
 /*
  * Kernel subroutines.
  */
+
+#define	COND_ONE	0x1
+#define	COND_SIG	0x2
+
+void	 cond_init(struct cond *);
+void	 cond_destroy(struct cond *);
+void	 cond_signal(struct cond *, int);
+void	 cond_wait(struct cond *, struct mutex *,
+	     const struct timespec *, int);
 
 void	 mutex_assert(struct mutex *);
 void	 mutex_destroy(struct mutex *);
