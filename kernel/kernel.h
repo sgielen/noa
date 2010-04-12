@@ -27,6 +27,7 @@
 #ifndef _KERNEL_H_
 #define	_KERNEL_H_
 
+#define	__NEED_COOKIE_T
 #define	__NEED_NULL
 #define	__NEED_PID_T
 
@@ -37,6 +38,7 @@
  */
 
 struct cond;
+struct filedescriptor;
 struct mutex;
 struct process;
 struct processgroup;
@@ -46,6 +48,11 @@ struct timespec;
 
 struct cond {
 	void		*cv_dummy;
+};
+
+struct filedescriptor {
+	struct process	*fd_service;
+	cookie_t	 fd_cookie;
 };
 
 struct mutex {

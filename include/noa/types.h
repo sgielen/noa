@@ -68,6 +68,11 @@ typedef int clockid_t;
 #define	__HAVE_CLOCKID_T
 #endif
 
+#if defined(__NEED_COOKIE_T) && !defined(__HAVE_COOKIE_T)
+typedef __uintmax_t cookie_t;
+#define	__HAVE_COOKIE_T
+#endif
+
 #if defined(__NEED_DEV_T) && !defined(__HAVE_DEV_T)
 typedef __uintmax_t dev_t;
 #define	__HAVE_DEV_T
