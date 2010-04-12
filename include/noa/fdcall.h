@@ -24,47 +24,57 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _NOA_IOCTL_H_
-#define	_NOA_IOCTL_H_
+#ifndef _NOA_FDCALL_H_
+#define	_NOA_FDCALL_H_
 
 #define	__NEED_GID_T
+#define	__NEED_OFF_T
 #define	__NEED_UID_T
 
 #include <noa/types.h>
 
-#define	_IOC_VOID	0x00000000
-#define	_IOC_IN		0x00000001
-#define	_IOC_OUT	0x00000002
-#define	_IOC_INOUT	(IOC_IN|IOC_OUT)
-
-#define	_IOC(inout, size, group, num) \
-	((size) << 17 | (group) << 10 | (num) << 2 | (inout))
-#define	_IO(group, num)		_IOC(_IOC_VOID, 0, (group), (num))
-#define	_IOR(group, num, type)	_IOC(_IOC_OUT, sizeof(type), (group), (num))
-#define	_IOW(group, num, type)	_IOC(_IOC_IN, sizeof(type), (group), (num))
-#define	_IORW(group, num, type)	_IOC(_IOC_INOUT, sizeof(type), (group), (num))
+#define	_FDC(isiz, osiz, group, num) \
+	(((uint64_t)isiz) << 48 | ((uint64_t)osiz) << 32 | \
+	((uint64_t)group) << 16 | ((uint64_t)num))
+#define	_FD(group, num) \
+	_FDC(0, 0, (group), (num))
+#define	_FDI(group, num, itype) \
+	_FDC(sizeof(itype), 0, (group), (num))
+#define	_FDO(group, num, otype) \
+	_FDC(0, sizeof(otype), (group), (num))
+#define	_FDIO(group, num, itype, otype) \
+	_FDC(sizeof(itype), sizeof(otype), (group), (num))
 
 struct fd_chown {
 	uid_t	owner;
 	gid_t	group;
 };
 
+struct fd_rw_in {
+	const struct iovec *iov;
+	int	iovcnt;
+	off_t	offset;
+	int	whence;
+};
+
 /* File descriptors. */
-#define	FD_STAT		_IOR('f', 1, struct stat)
-#define	FD_CHMOD	_IOW('f', 2, mode_t)
-#define	FD_CHOWN	_IOW('f', 3, struct fd_chown)
+#define	FD_STAT		 _FDO('f', 1, struct stat)
+#define	FD_CHMOD	 _FDI('f', 2, mode_t)
+#define	FD_CHOWN	 _FDI('f', 3, struct fd_chown)
+#define	FD_READ		_FDIO('f', 4, struct fd_rw_in, size_t)
+#define	FD_WRITE	_FDIO('f', 5, struct fd_rw_in, size_t)
 
 /* TTYs. */
-#define	TTY_GETA	_IOR('t', 1, struct termios)
-#define	TTY_SETAN	_IOW('t', 2, struct termios)
-#define	TTY_SETAD	_IOW('t', 3, struct termios)
-#define	TTY_SETAF	_IOW('t', 4, struct termios)
-#define	TTY_DRAIN	 _IO('t', 5)
-#define	TTY_FLUSH	_IOW('t', 6, int)
-#define	TTY_GETSID	_IOR('t', 7, pid_t)
-#define	TTY_ISATTY	 _IO('t', 8)
-#define	TTY_ISAPTM	 _IO('t', 9)
-#define	TTY_GETPGRP	 _IOR('t', 10, pid_t)
-#define	TTY_SETPGRP	 _IOW('t', 11, pid_t)
+#define	TTY_GETA	 _FDO('t', 1, struct termios)
+#define	TTY_SETAN	 _FDI('t', 2, struct termios)
+#define	TTY_SETAD	 _FDI('t', 3, struct termios)
+#define	TTY_SETAF	 _FDI('t', 4, struct termios)
+#define	TTY_DRAIN	  _FD('t', 5)
+#define	TTY_FLUSH	 _FDI('t', 6, int)
+#define	TTY_GETSID	 _FDO('t', 7, pid_t)
+#define	TTY_ISATTY	  _FD('t', 8)
+#define	TTY_ISAPTM	  _FD('t', 9)
+#define	TTY_GETPGRP	 _FDO('t', 10, pid_t)
+#define	TTY_SETPGRP	 _FDI('t', 11, pid_t)
 
-#endif /* !_NOA_IOCTL_H_ */
+#endif /* !_NOA_FDCALL_H_ */

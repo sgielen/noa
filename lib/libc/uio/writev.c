@@ -24,6 +24,7 @@
  * SUCH DAMAGE.
  */
 
+#include <noa/fdcall.h>
 #include <sys/uio.h>
 #include <unistd.h>
 
@@ -32,6 +33,14 @@
 ssize_t
 writev(int fildes, const struct iovec *iov, int iovcnt)
 {
+	struct fd_rw_in iop;
+	size_t nbytes;
 
-	return (sys_write(fildes, iov, iovcnt, 0, SEEK_CUR));
+	iop.iov = iov;
+	iop.iovcnt = iovcnt;
+	iop.offset = 0;
+	iop.whence = SEEK_CUR;
+	if (sys_fdcall(fildes, FD_WRITE, &iop, &nbytes) == -1)
+		return (-1);
+	return (nbytes);
 }

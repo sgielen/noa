@@ -24,7 +24,8 @@
  * SUCH DAMAGE.
  */
 
-#include <noa/ioctl.h>
+#include <noa/fdcall.h>
+#include <stddef.h>
 #include <termios.h>
 
 #include "syscalls.h"
@@ -33,5 +34,5 @@ int
 tcflush(int fildes, int queue_selector)
 {
 
-	return (sys_ioctl(fildes, TTY_FLUSH, &queue_selector));
+	return (sys_fdcall(fildes, TTY_FLUSH, &queue_selector, NULL));
 }

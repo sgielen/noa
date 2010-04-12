@@ -24,7 +24,7 @@
  * SUCH DAMAGE.
  */
 
-#include <noa/ioctl.h>
+#include <noa/fdcall.h>
 #include <stddef.h>
 #include <unistd.h>
 
@@ -34,5 +34,5 @@ int
 isatty(int fildes)
 {
 
-	return (sys_ioctl(fildes, TTY_ISATTY, NULL));
+	return (sys_fdcall(fildes, TTY_ISATTY, NULL, NULL));
 }

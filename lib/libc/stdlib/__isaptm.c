@@ -24,7 +24,7 @@
  * SUCH DAMAGE.
  */
 
-#include <noa/ioctl.h>
+#include <noa/fdcall.h>
 #include <errno.h>
 #include <stddef.h>
 
@@ -35,7 +35,7 @@ __isaptm(int fildes)
 {
 	int ret;
 
-	ret = sys_ioctl(fildes, TTY_ISAPTM, NULL);
+	ret = sys_fdcall(fildes, TTY_ISAPTM, NULL, NULL);
 	if (ret == -1 && errno == EBADF)
 		errno = EINVAL;
 	return (ret);

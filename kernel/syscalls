@@ -2,24 +2,7 @@ STRUCT iovec
 
 TYPE off_t
 TYPE ssize_t
-
-SYSCALL 1 read
-RET ssize_t
-ARG fildes : int
-ARG iov : const struct iovec *
-ARG iovcnt : int
-ARG offset : off_t
-ARG whence : int
-END
-
-SYSCALL 2 write
-RET ssize_t
-ARG fildes : int
-ARG iov : const struct iovec *
-ARG iovcnt : int
-ARG offset : off_t
-ARG whence : int
-END
+TYPE uint64_t
 
 SYSCALL 3 openat
 PUBLIC
@@ -90,11 +73,12 @@ ARG timeout : const struct timespec *
 ARG sigmask : const sigset_t *
 END
 
-SYSCALL 11 ioctl
+SYSCALL 11 fdcall
 RET int
 ARG fildes : int
-ARG request : unsigned long
-ARG arg : void *
+ARG request : uint64_t
+ARG in : const void *
+ARG out : void *
 END
 
 SYSCALL 12 posix_openpt

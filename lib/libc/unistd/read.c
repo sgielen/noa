@@ -24,6 +24,7 @@
  * SUCH DAMAGE.
  */
 
+#include <noa/fdcall.h>
 #include <sys/uio.h>
 #include <unistd.h>
 
@@ -32,9 +33,17 @@
 ssize_t
 read(int fildes, void *buf, size_t nbyte)
 {
+	struct fd_rw_in iop;
 	struct iovec iov;
+	size_t nbytes;
 
+	iop.iov = &iov;
+	iop.iovcnt = 1;
+	iop.offset = 0;
+	iop.whence = SEEK_CUR;
 	iov.iov_base = buf;
 	iov.iov_len = nbyte;
-	return (sys_read(fildes, &iov, 1, 0, SEEK_CUR));
+	if (sys_fdcall(fildes, FD_READ, &iop, &nbytes) == -1)
+		return (-1);
+	return (nbytes);
 }

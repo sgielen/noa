@@ -24,8 +24,9 @@
  * SUCH DAMAGE.
  */
 
-#include <noa/ioctl.h>
+#include <noa/fdcall.h>
 #include <sys/stat.h>
+#include <stddef.h>
 
 #include "syscalls.h"
 
@@ -33,5 +34,5 @@ int
 fstat(int fildes, struct stat *buf)
 {
 
-	return (sys_ioctl(fildes, FD_STAT, buf));
+	return (sys_fdcall(fildes, FD_STAT, NULL, buf));
 }

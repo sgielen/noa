@@ -24,7 +24,8 @@
  * SUCH DAMAGE.
  */
 
-#include <noa/ioctl.h>
+#include <noa/fdcall.h>
+#include <stddef.h>
 #include <unistd.h>
 
 #include "syscalls.h"
@@ -34,7 +35,7 @@ tcgetpgrp(int fildes)
 {
 	pid_t pgrp;
 
-	if (sys_ioctl(fildes, TTY_GETPGRP, &pgrp) == -1)
+	if (sys_fdcall(fildes, TTY_GETPGRP, NULL, &pgrp) == -1)
 		return (-1);
 	return (pgrp);
 }

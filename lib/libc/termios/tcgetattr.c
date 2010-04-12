@@ -24,7 +24,8 @@
  * SUCH DAMAGE.
  */
 
-#include <noa/ioctl.h>
+#include <noa/fdcall.h>
+#include <stddef.h>
 #include <termios.h>
 
 #include "syscalls.h"
@@ -33,5 +34,5 @@ int
 tcgetattr(int fildes, struct termios *termios_p)
 {
 
-	return (sys_ioctl(fildes, TTY_GETA, termios_p));
+	return (sys_fdcall(fildes, TTY_GETA, NULL, termios_p));
 }

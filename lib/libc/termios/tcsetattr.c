@@ -24,8 +24,9 @@
  * SUCH DAMAGE.
  */
 
-#include <noa/ioctl.h>
+#include <noa/fdcall.h>
 #include <errno.h>
+#include <stddef.h>
 #include <termios.h>
 
 #include "syscalls.h"
@@ -36,14 +37,11 @@ tcsetattr(int fildes, int optional_actions, const struct termios *termios_p)
 
 	switch (optional_actions) {
 	case TCSANOW:
-		return (sys_ioctl(fildes, TTY_SETAN,
-		    (struct termios *)termios_p));
+		return (sys_fdcall(fildes, TTY_SETAN, termios_p, NULL));
 	case TCSADRAIN:
-		return (sys_ioctl(fildes, TTY_SETAD,
-		    (struct termios *)termios_p));
+		return (sys_fdcall(fildes, TTY_SETAD, termios_p, NULL));
 	case TCSAFLUSH:
-		return (sys_ioctl(fildes, TTY_SETAF,
-		    (struct termios *)termios_p));
+		return (sys_fdcall(fildes, TTY_SETAF, termios_p, NULL));
 	default:
 		errno = EINVAL;
 		return (-1);

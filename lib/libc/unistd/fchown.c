@@ -24,8 +24,9 @@
  * SUCH DAMAGE.
  */
 
-#include <noa/ioctl.h>
+#include <noa/fdcall.h>
 #include <errno.h>
+#include <stddef.h>
 #include <unistd.h>
 
 #include "syscalls.h"
@@ -38,7 +39,7 @@ fchown(int fildes, uid_t owner, gid_t group)
 
 	arg.owner = owner;
 	arg.group = group;
-	ret = sys_ioctl(fildes, FD_CHOWN, &arg);
+	ret = sys_fdcall(fildes, FD_CHOWN, &arg, NULL);
 	if (ret == -1 && errno == ENOTTY)
 		errno = EINVAL;
 	return (ret);

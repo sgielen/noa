@@ -160,6 +160,11 @@ typedef __intmax_t uid_t;
 #define	__HAVE_UID_T
 #endif
 
+#if defined(__NEED_UINT64_T) && !defined(__HAVE_UINT64_T)
+typedef __uint64_t uint64_t;
+#define	__HAVE_UINT64_T
+#endif
+
 #if defined(__NEED_TIMER_T) && !defined(__HAVE_TIMER_T)
 typedef int timer_t;
 #define	__HAVE_TIMER_T

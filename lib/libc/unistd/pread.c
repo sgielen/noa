@@ -24,6 +24,7 @@
  * SUCH DAMAGE.
  */
 
+#include <noa/fdcall.h>
 #include <sys/uio.h>
 #include <unistd.h>
 
@@ -32,9 +33,17 @@
 ssize_t
 pread(int fildes, void *buf, size_t nbyte, off_t offset)
 {
+	struct fd_rw_in iop;
 	struct iovec iov;
+	size_t nbytes;
 
+	iop.iov = &iov;
+	iop.iovcnt = 1;
+	iop.offset = offset;
+	iop.whence = SEEK_SET;
 	iov.iov_base = buf;
 	iov.iov_len = nbyte;
-	return (sys_read(fildes, &iov, 1, offset, SEEK_SET));
+	if (sys_fdcall(fildes, FD_READ, &iop, &nbytes) == -1)
+		return (-1);
+	return (nbytes);
 }

@@ -24,7 +24,7 @@
  * SUCH DAMAGE.
  */
 
-#include <noa/ioctl.h>
+#include <noa/fdcall.h>
 #include <stddef.h>
 #include <termios.h>
 
@@ -34,5 +34,5 @@ int
 tcdrain(int fildes)
 {
 
-	return (sys_ioctl(fildes, TTY_DRAIN, NULL));
+	return (sys_fdcall(fildes, TTY_DRAIN, NULL, NULL));
 }

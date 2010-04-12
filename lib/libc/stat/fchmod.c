@@ -24,9 +24,10 @@
  * SUCH DAMAGE.
  */
 
-#include <noa/ioctl.h>
+#include <noa/fdcall.h>
 #include <sys/stat.h>
 #include <errno.h>
+#include <stddef.h>
 
 #include "syscalls.h"
 
@@ -35,7 +36,7 @@ fchmod(int fildes, mode_t mode)
 {
 	int ret;
 
-	ret = sys_ioctl(fildes, FD_CHMOD, &mode);
+	ret = sys_fdcall(fildes, FD_CHMOD, &mode, NULL);
 	if (ret == -1 && errno == ENOTTY)
 		errno = EINVAL;
 	return (ret);

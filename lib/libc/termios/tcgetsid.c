@@ -24,7 +24,8 @@
  * SUCH DAMAGE.
  */
 
-#include <noa/ioctl.h>
+#include <noa/fdcall.h>
+#include <stddef.h>
 #include <termios.h>
 
 #include "syscalls.h"
@@ -34,7 +35,7 @@ tcgetsid(int fildes)
 {
 	pid_t sid;
 
-	if (sys_ioctl(fildes, TTY_GETSID, &sid) == -1)
+	if (sys_fdcall(fildes, TTY_GETSID, NULL, &sid) == -1)
 		return (-1);
 	return (sid);
 }
