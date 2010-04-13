@@ -1,8 +1,8 @@
 .include <noa.sys.mk>
 
-CFLAGS+=-D_KERNEL
+CFLAGS+=-D_KERNEL -fpic
 LD=ld
-LDFLAGS+=-e kinit -warn-common -X
+LDFLAGS+=-warn-common -X -T ${.CURDIR}/ldscript.${MACHINE}
 
 OBJS+=	${SRCS:N*.h:R:S/$/.o/}
 
