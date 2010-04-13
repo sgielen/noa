@@ -69,6 +69,11 @@ struct fd_rw {
 	int	whence;
 };
 
+struct fd_seek {
+	off_t	offset;
+	int	whence;
+};
+
 /* File descriptors. */
 #define	FD_ADVISE	 _FDI('f', 1, struct fd_advise)
 #define	FD_ALLOCATE	 _FDI('f', 2, struct fd_allocate)
@@ -77,7 +82,8 @@ struct fd_rw {
 #define	FD_READ		_FDIO('f', 5, struct fd_rw, size_t)
 #define	FD_STAT		 _FDO('f', 6, struct stat)
 #define	FD_SYNC		  _FD('f', 7)
-#define	FD_WRITE	_FDIO('f', 8, struct fd_rw, size_t)
+#define	FD_SEEK		_FDIO('f', 8, struct fd_seek, off_t)
+#define	FD_WRITE	_FDIO('f', 9, struct fd_rw, size_t)
 
 /* TTYs. */
 #define	TTY_DRAIN	  _FD('t', 1)

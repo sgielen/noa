@@ -10,6 +10,7 @@ NOA_1.0 {
 	isatty;
 	lchown;
 	link;
+	lseek;
 	pread;
 	pwrite;
 	read;
