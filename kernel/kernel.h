@@ -30,6 +30,7 @@
 #define	__NEED_COOKIE_T
 #define	__NEED_NULL
 #define	__NEED_PID_T
+#define	__NEED_SIZE_T
 
 #include <noa/types.h>
 #include <limits.h>
@@ -88,6 +89,10 @@ struct session {
 	char		 s_login[LOGIN_NAME_MAX]; /* (l) User name. */
 };
 
+struct slab {
+	void		*s_dummy;
+};
+
 struct thread {
 	struct process	*td_process;	/* (c) Process. */
 	pid_t		 t_id;		/* (c) Thread identifier. */
@@ -117,6 +122,12 @@ void	 mutex_unlock(struct mutex *);
 
 struct process *
 	 process_lookup(pid_t);
+
+void	*slab_alloc(struct slab *);
+void	 slab_free(struct slab *, void *);
+void	 _slab_init(struct slab *, size_t, void (*)(void *));
+#define	slab_init(s, t, c) \
+	_slab_init((s), sizeof(t), (void *)(c))
 
 /*
  * Global variables.
