@@ -24,13 +24,28 @@
  * SUCH DAMAGE.
  */
 
+#include <noa/atomic.h>
 #include <kernel.h>
 
-struct mutex process_layout;
+/*
+ * Cookies.
+ *
+ * Cookies are random identifiers used throughout the kernel for various
+ * objects, such as processes, threads and file descriptors.  Numbers
+ * are allocated from a single namespace.
+ *
+ * Cookies are allocated using cookie_get() and are returned to the pool
+ * using cookie_put().  This implementation never actually recycles
+ * cookie numbers, which means cookie_put() is effectively a no-op.
+ * Cookies are at least 64 bits.  Overflowing cookie_next will take at
+ * least centuries on common hardware.
+ */
 
-struct process *
-process_lookup(cookie_t pid __unused)
+static cookie_t cookie_next = 0;
+
+cookie_t
+cookie_get(void)
 {
 
-	return (NULL);
+	return (atomic_fetchadd_intmax_t(&cookie_next, 1));
 }

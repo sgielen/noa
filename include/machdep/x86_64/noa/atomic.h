@@ -24,13 +24,23 @@
  * SUCH DAMAGE.
  */
 
-#include <kernel.h>
+#ifndef _NOA_ATOMIC_H_
+#define	_NOA_ATOMIC_H_
 
-struct mutex process_layout;
+/*
+ * s = *a;
+ * *a += b;
+ * return (s);
+ */
 
-struct process *
-process_lookup(cookie_t pid __unused)
+static inline long
+atomic_fetchadd_long(volatile long *a, long b)
 {
 
-	return (NULL);
+	asm volatile ("lock xaddq %0, %1" : "+r" (b), "=m" (*a) : "m" (*a));
+	return (b);
 }
+
+#define	atomic_fetchadd_intmax_t(a, b)	atomic_fetchadd_long(a, b)
+
+#endif /* !_NOA_ATOMIC_H_ */

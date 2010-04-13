@@ -29,7 +29,6 @@
 
 #define	__NEED_COOKIE_T
 #define	__NEED_NULL
-#define	__NEED_PID_T
 #define	__NEED_SIZE_T
 
 #include <noa/types.h>
@@ -75,16 +74,16 @@ struct mutex {
 struct process {
 	struct process	*p_parent;	/* (l) Parent process. */
 	struct processgroup *p_group;	/* (l) Process group. */
-	pid_t		 p_id;		/* (c) Process identifier. */
+	cookie_t	 p_id;		/* (c) Process identifier. */
 };
 
 struct processgroup {
 	struct session	*pg_session;	/* (c) Session. */
-	pid_t		 pg_id;		/* (c) Process group identifier. */
+	cookie_t	 pg_id;		/* (c) Process group identifier. */
 };
 
 struct session {
-	pid_t		 s_id;		/* (c) Session identifier. */
+	cookie_t	 s_id;		/* (c) Session identifier. */
 	refcount_t	 s_refcount;	/* (a) Number of process groups. */
 	char		 s_login[LOGIN_NAME_MAX]; /* (l) User name. */
 };
@@ -95,7 +94,7 @@ struct slab {
 
 struct thread {
 	struct process	*td_process;	/* (c) Process. */
-	pid_t		 t_id;		/* (c) Thread identifier. */
+	cookie_t	 t_id;		/* (c) Thread identifier. */
 };
 
 /*
@@ -121,7 +120,7 @@ void	 mutex_lock(struct mutex *);
 void	 mutex_unlock(struct mutex *);
 
 struct process *
-	 process_lookup(pid_t);
+	 process_lookup(cookie_t);
 
 void	*slab_alloc(struct slab *);
 void	 slab_free(struct slab *, void *);

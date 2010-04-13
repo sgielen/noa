@@ -1,4 +1,4 @@
-SRCS+=	mutex.c process.c sys_clock.c sys_fildes.c sys_mman.c \
+SRCS+=	cookie.c mutex.c process.c sys_clock.c sys_fildes.c sys_mman.c \
 	sys_proc.c sys_tty.c sys_vfs.c
 
 SRCS+=	syscallvec.c syscalls.h
