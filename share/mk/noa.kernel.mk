@@ -2,7 +2,7 @@
 
 CFLAGS+=-D_KERNEL
 LD=ld
-LDFLAGS+=-e kinit -warn-common -X
+LDFLAGS+=-e kinit -warn-common -X --image-base 0xffffffff80000000
 
 OBJS+=	${SRCS:N*.h:R:S/$/.o/}
 
