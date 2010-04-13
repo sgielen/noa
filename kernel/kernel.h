@@ -106,6 +106,9 @@ void	 cond_signal(struct cond *, int);
 void	 cond_wait(struct cond *, struct mutex *,
 	     const struct timespec *, int);
 
+cookie_t cookie_get(void);
+void	 cookie_put(cookie_t);
+
 void	 mutex_assert(struct mutex *);
 void	 mutex_destroy(struct mutex *);
 void	 mutex_init(struct mutex *);
