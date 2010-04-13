@@ -49,6 +49,14 @@ struct timespec;
 
 typedef unsigned long refcount_t;
 
+/*
+ * Locking of kernel data structures.
+ *
+ * (a) Atomic operations.
+ * (c) Constant.
+ * (l) Locked by process_layout.
+ */
+
 struct cond {
 	void		*cv_dummy;
 };
@@ -62,14 +70,6 @@ struct filedescriptor {
 struct mutex {
 	void		*m_dummy;
 };
-
-/*
- * Locking of process related structures.
- *
- * (a) Atomic operations.
- * (c) Constant.
- * (l) Locked by process_layout.
- */
 
 struct process {
 	struct process	*p_parent;	/* (l) Parent process. */
