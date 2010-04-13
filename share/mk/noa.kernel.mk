@@ -2,7 +2,7 @@
 
 CFLAGS+=-D_KERNEL
 LD=ld
-LDFLAGS+=-Bdynamic -warn-common -export-dynamic -dynamic-linker /red/herring
+LDFLAGS+=-e kinit -warn-common
 LDFLAGS+=-X
 
 OBJS+=	${SRCS:N*.h:R:S/$/.o/}
