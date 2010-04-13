@@ -32,6 +32,7 @@
 #define	__NEED_PID_T
 
 #include <noa/types.h>
+#include <limits.h>
 
 /*
  * Kernel data structures.
@@ -62,23 +63,33 @@ struct mutex {
 	void		*m_dummy;
 };
 
+/*
+ * Locking of process related structures.
+ *
+ * (a) Atomic operations.
+ * (c) Constant.
+ * (l) Locked by process_layout.
+ */
+
 struct process {
-	struct process	*p_parent;
-	struct processgroup *p_group;
-	pid_t		 p_id;
+	struct process	*p_parent;	/* (l) Parent process. */
+	struct processgroup *p_group;	/* (l) Process group. */
+	pid_t		 p_id;		/* (c) Process identifier. */
 };
 
 struct processgroup {
-	struct session	*pg_session;
-	pid_t		 pg_id;
+	struct session	*pg_session;	/* (c) Session. */
+	pid_t		 pg_id;		/* (c) Process group identifier. */
 };
 
 struct session {
-	pid_t		 s_id;
+	pid_t		 s_id;		/* (c) Session identifier. */
+	refcount_t	 s_refcount;	/* (a) Number of process groups. */
+	char		 s_login[LOGIN_NAME_MAX]; /* (l) User name. */
 };
 
 struct thread {
-	struct process	*td_process;
+	struct process	*td_process;	/* (c) Process. */
 };
 
 /*
