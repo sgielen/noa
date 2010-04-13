@@ -2,8 +2,7 @@
 
 CFLAGS+=-D_KERNEL
 LD=ld
-LDFLAGS+=-e kinit -warn-common
-LDFLAGS+=-X
+LDFLAGS+=-e kinit -warn-common -X
 
 OBJS+=	${SRCS:N*.h:R:S/$/.o/}
 
