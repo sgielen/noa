@@ -83,7 +83,8 @@ struct fd_seek {
 #define	FD_STAT		 _FDO('f', 6, struct stat)
 #define	FD_SYNC		  _FD('f', 7)
 #define	FD_SEEK		_FDIO('f', 8, struct fd_seek, off_t)
-#define	FD_WRITE	_FDIO('f', 9, struct fd_rw, size_t)
+#define	FD_TRUNCATE	 _FDI('f', 9, off_t)
+#define	FD_WRITE	_FDIO('f', 10, struct fd_rw, size_t)
 
 /* TTYs. */
 #define	TTY_DRAIN	  _FD('t', 1)
