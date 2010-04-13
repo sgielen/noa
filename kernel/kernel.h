@@ -112,7 +112,7 @@ void	 cond_wait(struct cond *, struct mutex *,
 	     const struct timespec *, int);
 
 cookie_t cookie_get(void);
-void	 cookie_put(cookie_t);
+#define	cookie_put(c)	((void)0)
 
 void	 mutex_assert(struct mutex *);
 void	 mutex_destroy(struct mutex *);
