@@ -90,6 +90,7 @@ struct session {
 
 struct thread {
 	struct process	*td_process;	/* (c) Process. */
+	pid_t		 t_id;		/* (c) Thread identifier. */
 };
 
 /*
