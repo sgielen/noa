@@ -32,5 +32,7 @@ struct process *
 process_lookup(cookie_t pid __unused)
 {
 
+	mutex_assert(&process_layout);
+
 	return (NULL);
 }
