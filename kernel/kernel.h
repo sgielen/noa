@@ -124,12 +124,12 @@ void	 cond_wait(struct cond *, struct mutex *,
 	     const struct timespec *, int);
 
 cookie_t cookie_get(void);
-#define	cookie_put(c)	((void)0)
+#define	cookie_put(c)		((void)0)
 
 #ifdef NO_SMP
-#define	mutex_assert(m)
-#define	mutex_destroy(m)
-#define	mutex_init(m)
+#define	mutex_assert(m)		((void)0)
+#define	mutex_destroy(m)	((void)0)
+#define	mutex_init(m)		((void)0)
 #define	mutex_slock(m)		cpu_critical_enter()
 #define	mutex_sunlock(m)	cpu_critical_leave()
 #define	mutex_xlock(m)		cpu_critical_enter()
