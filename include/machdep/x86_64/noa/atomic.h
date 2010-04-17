@@ -31,7 +31,7 @@
  * There is no need to use "lock" when we don't do SMP, since a single
  * CPU is always consistent with its own cache.
  */
-#if defined(_KERNEL) && !defined(SMP)
+#if defined(_KERNEL) && defined(NO_SMP)
 #define	_LOCK	""
 #else
 #define	_LOCK	"lock;"

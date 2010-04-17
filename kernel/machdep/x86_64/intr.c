@@ -24,7 +24,7 @@
  * SUCH DAMAGE.
  */
 
-#include <kernel_machdep.h>
+#include <kernel.h>
 
 void
 cpu_critical_enter(void)

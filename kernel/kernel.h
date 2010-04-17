@@ -105,6 +105,12 @@ struct thread {
 };
 
 /*
+ * Machine-dependent subroutines.
+ */
+void	 cpu_critical_enter(void);
+void	 cpu_critical_leave(void);
+
+/*
  * Kernel subroutines.
  */
 
@@ -120,6 +126,15 @@ void	 cond_wait(struct cond *, struct mutex *,
 cookie_t cookie_get(void);
 #define	cookie_put(c)	((void)0)
 
+#ifdef NO_SMP
+#define	mutex_assert(m)
+#define	mutex_destroy(m)
+#define	mutex_init(m)
+#define	mutex_slock(m)		cpu_critical_enter()
+#define	mutex_sunlock(m)	cpu_critical_leave()
+#define	mutex_xlock(m)		cpu_critical_enter()
+#define	mutex_xunlock(m)	cpu_critical_leave()
+#else /* !NO_SMP */
 void	 mutex_assert(struct mutex *);
 void	 mutex_destroy(struct mutex *);
 void	 mutex_init(struct mutex *);
@@ -127,6 +142,7 @@ void	 mutex_slock(struct mutex *);
 void	 mutex_sunlock(struct mutex *);
 void	 mutex_xlock(struct mutex *);
 void	 mutex_xunlock(struct mutex *);
+#endif /* NO_SMP */
 
 struct process *
 	 process_lookup(cookie_t);
