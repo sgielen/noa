@@ -28,6 +28,45 @@
 #define	_NOA_ATOMIC_H_
 
 /*
+ * There is no need to use "lock" when we don't do SMP, since a single
+ * CPU is always consistent with its own cache.
+ */
+#if defined(_KERNEL) && !defined(SMP)
+#define	_LOCK	""
+#else
+#define	_LOCK	"lock;"
+#endif
+
+/*
+ * *a += b;
+ */
+static inline void
+atomic_add_long(volatile long *a, long b)
+{
+
+	asm volatile (_LOCK "addq %1, %0" : "=m" (*a) : "ir" (b), "m" (*a));
+}
+
+/*
+ * if (*a == b) {
+ * 	*a = c;
+ * 	return (1);
+ * } else {
+ * 	return (0);
+ * }
+ */
+
+static inline long
+atomic_cmpset_long(volatile long *a, long b, long c)
+{
+	char ret;
+
+	asm volatile(_LOCK "cmpxchgq %2, %1; sete %0; 1:"
+	    : "=a" (ret), "=m" (*a) : "r" (c), "a" (b), "m" (*a) : "memory");
+	return (ret);
+}
+
+/*
  * s = *a;
  * *a += b;
  * return (s);
@@ -37,7 +76,7 @@ static inline long
 atomic_fetchadd_long(volatile long *a, long b)
 {
 
-	asm volatile ("lock xaddq %0, %1" : "+r" (b), "=m" (*a) : "m" (*a));
+	asm volatile (_LOCK "xaddq %0, %1" : "+r" (b), "=m" (*a) : "m" (*a));
 	return (b);
 }
 
@@ -51,7 +90,7 @@ static inline long
 atomic_fetchstore_long(volatile long *a, long b)
 {
 
-	asm volatile ("lock xchg %0, %1" : "+r" (b), "=m" (*a) : "m" (*a));
+	asm volatile (_LOCK "xchg %0, %1" : "+r" (b), "=m" (*a) : "m" (*a));
 	return (b);
 }
 
