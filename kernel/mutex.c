@@ -28,8 +28,9 @@
 #include <kernel.h>
 #include <kernel_machdep.h>
 
-#define	M_RLOCKMASK	0x80000000
-#define	M_WLOCK		(~M_RLOCKMASK)
+#ifdef SMP
+#define	M_WLOCK		0x80000000
+#endif
 
 void
 mutex_assert(struct mutex *m __unused)
@@ -60,7 +61,7 @@ mutex_slock(struct mutex *m __unused)
 	cpu_critical_enter();
 #ifdef SMP
 	do {
-		flags = m->m_flags & M_RLOCKMASK;
+		flags = m->m_flags & ~M_WLOCK;
 	} while (!atomic_cmpset_long(&m->m_flags, flags, flags + 1));
 #endif
 }
