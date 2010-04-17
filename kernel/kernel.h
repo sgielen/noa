@@ -113,8 +113,8 @@ void	 cpu_critical_leave(void);
  * Kernel subroutines.
  */
 
-#define	COND_ONE	0x1
-#define	COND_SIG	0x2
+#define	COND_ONE		0x1
+#define	COND_SIG		0x2
 
 void	 cond_init(struct cond *);
 void	 cond_destroy(struct cond *);
