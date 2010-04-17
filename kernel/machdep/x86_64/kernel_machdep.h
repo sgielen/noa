@@ -24,73 +24,10 @@
  * SUCH DAMAGE.
  */
 
-#include <noa/atomic.h>
-#include <kernel.h>
-#include <kernel_machdep.h>
+#ifndef _KERNEL_MACHDEP_H_
+#define	_KERNEL_MACHDEP_H_
 
-#define	M_RLOCKMASK	0x80000000
-#define	M_WLOCK		(~M_RLOCKMASK)
+void	 cpu_critical_enter(void);
+void	 cpu_critical_leave(void);
 
-void
-mutex_assert(struct mutex *m __unused)
-{
-}
-
-void
-mutex_destroy(struct mutex *m __unused)
-{
-}
-
-void
-mutex_init(struct mutex *m __unused)
-{
-
-#ifdef SMP
-	m->m_flags = 0;
-#endif
-}
-
-void
-mutex_slock(struct mutex *m __unused)
-{
-#ifdef SMP
-	long flags;
-#endif
-
-	cpu_critical_enter();
-#ifdef SMP
-	do {
-		flags = m->m_flags & M_RLOCKMASK;
-	} while (!atomic_cmpset_long(&m->m_flags, flags, flags + 1));
-#endif
-}
-
-void
-mutex_sunlock(struct mutex *m __unused)
-{
-
-#ifdef SMP
-	atomic_add_long(&m->m_flags, -1);
-#endif
-	cpu_critical_leave();
-}
-
-void
-mutex_xlock(struct mutex *m __unused)
-{
-
-	cpu_critical_enter();
-#ifdef SMP
-	while (!atomic_cmpset_long(&m->m_flags, 0, M_WLOCK));
-#endif
-}
-
-void
-mutex_xunlock(struct mutex *m __unused)
-{
-
-#ifdef SMP
-	m->m_flags = 0;
-#endif
-	cpu_critical_leave();
-}
+#endif /* !_KERNEL_MACHDEP_H_ */

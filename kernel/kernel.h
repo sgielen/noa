@@ -71,7 +71,9 @@ struct filedescriptor {
 };
 
 struct mutex {
-	void		*m_dummy;
+#ifdef SMP
+	volatile unsigned long m_flags;
+#endif
 };
 
 struct process {

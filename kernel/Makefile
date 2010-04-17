@@ -4,7 +4,7 @@ SRCS+=	cookie.c mutex.c process.c sys_clock.c sys_fildes.c sys_mman.c \
 SRCS+=	syscallvec.c syscalls.h
 CLEANFILES+=syscallvec.c syscalls.h
 
-CFLAGS+=-I${.CURDIR}
+CFLAGS+=-I${.CURDIR} -DSMP
 
 .include "${.CURDIR}/machdep/${MACHINE}/Makefile.inc"
 

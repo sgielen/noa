@@ -1,3 +1,5 @@
 .PATH: ${.CURDIR}/machdep/${MACHINE}
 
-SRCS+=	kinit.S kstartup.c
+CFLAGS+=-I${.CURDIR}/machdep/${MACHINE}
+
+SRCS+=	kinit.S kstartup.c intr.c
