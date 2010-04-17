@@ -276,5 +276,6 @@ END
 
 SYSCALL 37 umask
 PUBLIC
+RET mode_t
 ARG cmask : mode_t
 END
