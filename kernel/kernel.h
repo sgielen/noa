@@ -100,7 +100,7 @@ struct slab {
 
 struct thread {
 	struct process	*td_process;	/* (c) Process. */
-	cookie_t	 t_id;		/* (c) Thread identifier. */
+	cookie_t	 td_id;		/* (c) Thread identifier. */
 };
 
 /*
