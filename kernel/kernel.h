@@ -71,7 +71,7 @@ struct filedescriptor {
 };
 
 struct mutex {
-#ifdef SMP
+#ifndef NO_SMP
 	volatile unsigned long m_flags;
 #endif
 };
