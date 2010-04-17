@@ -40,14 +40,14 @@ mutex_destroy(struct mutex *m __unused)
 }
 
 void
-mutex_init(struct mutex *m __unused)
+mutex_init(struct mutex *m)
 {
 
 	m->m_flags = 0;
 }
 
 void
-mutex_slock(struct mutex *m __unused)
+mutex_slock(struct mutex *m)
 {
 	long flags;
 
@@ -58,7 +58,7 @@ mutex_slock(struct mutex *m __unused)
 }
 
 void
-mutex_sunlock(struct mutex *m __unused)
+mutex_sunlock(struct mutex *m)
 {
 
 	atomic_add_long(&m->m_flags, -1);
@@ -66,7 +66,7 @@ mutex_sunlock(struct mutex *m __unused)
 }
 
 void
-mutex_xlock(struct mutex *m __unused)
+mutex_xlock(struct mutex *m)
 {
 
 	cpu_critical_enter();
@@ -74,7 +74,7 @@ mutex_xlock(struct mutex *m __unused)
 }
 
 void
-mutex_xunlock(struct mutex *m __unused)
+mutex_xunlock(struct mutex *m)
 {
 
 	m->m_flags = 0;
