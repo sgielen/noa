@@ -67,6 +67,7 @@ __ABI_STRUCT(stat, 128, {
 #define	S_ISGID		0x00000400
 #define	S_ISUID		0x00000800
 #define	__S_IRWXA	(S_IRWXO|S_IRWXG|S_IRWXU)
+#define	__S_IPERM	(__SIRWXA|S_ISVTX|S_ISGID|S_ISUID)
 
 #define	S_IFMT		0xff000000
 #define	__S_IFBLK	0x01000000

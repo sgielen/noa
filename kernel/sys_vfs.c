@@ -133,6 +133,6 @@ sys_umask(struct thread *td, struct sys_umask_args *ap)
 {
 
 	ap->retval = atomic_fetchstore_intmax_t(&td->td_process->p_umask,
-	    ap->cmask & __S_IRWXA);
+	    ap->cmask & __S_IPERM);
 	return (0);
 }
