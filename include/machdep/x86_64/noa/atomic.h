@@ -41,6 +41,21 @@ atomic_fetchadd_long(volatile long *a, long b)
 	return (b);
 }
 
-#define	atomic_fetchadd_intmax_t(a, b)	atomic_fetchadd_long(a, b)
+/*
+ * s = *a;
+ * *a = b;
+ * return (s);
+ */
+
+static inline long
+atomic_fetchstore_long(volatile long *a, long b)
+{
+
+	asm volatile ("lock xchg %0, %1" : "+r" (b), "=m" (*a) : "m" (*a));
+	return (b);
+}
+
+#define	atomic_fetchadd_intmax_t(a, b)		atomic_fetchadd_long(a, b)
+#define	atomic_fetchstore_intmax_t(a, b)	atomic_fetchstore_long(a, b)
 
 #endif /* !_NOA_ATOMIC_H_ */

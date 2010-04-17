@@ -41,9 +41,9 @@ int
 sys_getppid(struct thread *td, struct sys_getppid_args *ap)
 {
 
-	mutex_lock(&process_layout);
+	mutex_slock(&process_layout);
 	ap->retval = td->td_process->p_parent->p_id;
-	mutex_unlock(&process_layout);
+	mutex_sunlock(&process_layout);
 	return (0);
 }
 
@@ -52,18 +52,18 @@ sys_getpgid(struct thread *td, struct sys_getpgid_args *ap)
 {
 	struct process *p;
 
-	mutex_lock(&process_layout);
+	mutex_slock(&process_layout);
 	if (ap->pid == 0) {
 		p = td->td_process;
 	} else {
 		p = process_lookup(ap->pid);
 		if (p == NULL) {
-			mutex_unlock(&process_layout);
+			mutex_sunlock(&process_layout);
 			return (ESRCH);
 		}
 	}
 	ap->retval = p->p_group->pg_id;
-	mutex_unlock(&process_layout);
+	mutex_sunlock(&process_layout);
 	return (0);
 }
 
@@ -72,18 +72,18 @@ sys_getsid(struct thread *td, struct sys_getsid_args *ap)
 {
 	struct process *p;
 
-	mutex_lock(&process_layout);
+	mutex_slock(&process_layout);
 	if (ap->pid == 0) {
 		p = td->td_process;
 	} else {
 		p = process_lookup(ap->pid);
 		if (p == NULL) {
-			mutex_unlock(&process_layout);
+			mutex_sunlock(&process_layout);
 			return (ESRCH);
 		}
 	}
 	ap->retval = p->p_group->pg_session->s_id;
-	mutex_unlock(&process_layout);
+	mutex_sunlock(&process_layout);
 	return (0);
 }
 

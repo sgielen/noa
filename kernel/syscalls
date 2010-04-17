@@ -273,3 +273,8 @@ SYSCALL 36 _Exit
 PUBLIC
 ARG status : int
 END
+
+SYSCALL 37 umask
+PUBLIC
+ARG cmask : mode_t
+END

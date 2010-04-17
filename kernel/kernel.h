@@ -28,6 +28,7 @@
 #define	_KERNEL_H_
 
 #define	__NEED_COOKIE_T
+#define	__NEED_MODE_T
 #define	__NEED_NULL
 #define	__NEED_SIZE_T
 
@@ -55,6 +56,8 @@ typedef unsigned long refcount_t;
  * (a) Atomic operations.
  * (c) Constant.
  * (l) Locked by process_layout.
+ * (p) Locked by p_lock.
+ * (!) Not locked.
  */
 
 struct cond {
@@ -74,7 +77,9 @@ struct mutex {
 struct process {
 	struct process	*p_parent;	/* (l) Parent process. */
 	struct processgroup *p_group;	/* (l) Process group. */
+	struct mutex	 p_lock;	/* Per-process lock. */
 	cookie_t	 p_id;		/* (c) Process identifier. */
+	mode_t		 p_umask;	/* (!) File mode creation mask. */
 };
 
 struct processgroup {
@@ -116,8 +121,10 @@ cookie_t cookie_get(void);
 void	 mutex_assert(struct mutex *);
 void	 mutex_destroy(struct mutex *);
 void	 mutex_init(struct mutex *);
-void	 mutex_lock(struct mutex *);
-void	 mutex_unlock(struct mutex *);
+void	 mutex_slock(struct mutex *);
+void	 mutex_sunlock(struct mutex *);
+void	 mutex_xlock(struct mutex *);
+void	 mutex_xunlock(struct mutex *);
 
 struct process *
 	 process_lookup(cookie_t);

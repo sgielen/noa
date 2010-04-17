@@ -42,11 +42,21 @@ mutex_init(struct mutex *m __unused)
 }
 
 void
-mutex_lock(struct mutex *m __unused)
+mutex_slock(struct mutex *m __unused)
 {
 }
 
 void
-mutex_unlock(struct mutex *m __unused)
+mutex_sunlock(struct mutex *m __unused)
+{
+}
+
+void
+mutex_xlock(struct mutex *m __unused)
+{
+}
+
+void
+mutex_xunlock(struct mutex *m __unused)
 {
 }

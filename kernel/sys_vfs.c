@@ -24,7 +24,10 @@
  * SUCH DAMAGE.
  */
 
+#include <noa/atomic.h>
+#include <sys/stat.h>
 #include <errno.h>
+#include <kernel.h>
 
 #include "syscalls.h"
 
@@ -123,4 +126,12 @@ sys_utimensat(struct thread *td __unused,
 {
 
 	return (ENOSYS);
+}
+
+int
+sys_umask(struct thread *td, struct sys_umask_args *ap)
+{
+
+	return (atomic_fetchstore_intmax_t(&td->td_process->p_umask,
+	    ap->cmask & __S_IRWXA));
 }

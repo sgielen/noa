@@ -51,10 +51,6 @@ __ABI_STRUCT(stat, 128, {
 	struct timespec	st_ctim;
 })
 
-#define	st_atime	st_atim.tv_sec
-#define	st_mtime	st_mtim.tv_sec
-#define	st_ctime	st_ctim.tv_sec
-
 #define	S_IXOTH		0x00000001
 #define	S_IWOTH		0x00000002
 #define	S_IROTH		0x00000004
@@ -70,6 +66,7 @@ __ABI_STRUCT(stat, 128, {
 #define	S_ISVTX		0x00000200
 #define	S_ISGID		0x00000400
 #define	S_ISUID		0x00000800
+#define	__S_IRWXA	(S_IRWXO|S_IRWXG|S_IRWXU)
 
 #define	S_IFMT		0xff000000
 #define	__S_IFBLK	0x01000000
@@ -79,6 +76,12 @@ __ABI_STRUCT(stat, 128, {
 #define	__S_IFDIR	0x05000000
 #define	__S_IFLNK	0x06000000
 #define	__S_IFSOCK	0x07000000
+
+#ifndef _KERNEL
+
+#define	st_atime	st_atim.tv_sec
+#define	st_mtime	st_mtim.tv_sec
+#define	st_ctime	st_ctim.tv_sec
 
 #define	S_ISBLK(m)	(((m) & S_IFMT) == __S_IFBLK)
 #define	S_ISCHR(m)	(((m) & S_IFMT) == __S_IFCHR)
@@ -110,5 +113,7 @@ int	 stat(const char *restrict, struct stat *restrict);
 mode_t	 umask(mode_t);
 int	 utimensat(int, const char *, const struct timespec[2], int);
 __END_DECLS
+
+#endif /* !_KERNEL */
 
 #endif /* !_SYS_STAT_H_ */
