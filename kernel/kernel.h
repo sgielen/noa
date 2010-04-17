@@ -57,7 +57,6 @@ typedef unsigned long refcount_t;
  * (c) Constant.
  * (l) Locked by process_layout.
  * (p) Locked by p_lock.
- * (!) Not locked.
  */
 
 struct cond {
@@ -81,7 +80,7 @@ struct process {
 	struct processgroup *p_group;	/* (l) Process group. */
 	struct mutex	 p_lock;	/* Per-process lock. */
 	cookie_t	 p_id;		/* (c) Process identifier. */
-	mode_t		 p_umask;	/* (!) File mode creation mask. */
+	mode_t		 p_umask;	/* (a) File mode creation mask. */
 };
 
 struct processgroup {
