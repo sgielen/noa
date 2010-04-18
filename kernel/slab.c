@@ -82,7 +82,7 @@ slab_alloc_nowait(struct slab *sl)
 		sl->sl_ctor(se->se_data);
 
 		/* Store the page back in the free space table. */
-		if (left > 0) {
+		if (left >= sizeof(struct slabpage)) {
 			sp->sp_left = left;
 			log = log2floor(sp->sp_left);
 			ASTACK_INSERT_HEAD(&slabpagelist[log], sp, sp_next);
