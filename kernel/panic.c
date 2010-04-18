@@ -28,9 +28,9 @@
 #include <assert.h>
 
 void
-__assertion_failed(const char *func __unused, const char *file __unused,
-    int line __unused, const char *e __unused)
+__assertion_failed(const char *func, const char *file, int line, const char *e)
 {
 
-	/* TODO */
+	printf("\n\nAssertion failed: %s\nFile: %s:%d\nFunction: %s", e, file, line, func);
+	for(;;);
 }
