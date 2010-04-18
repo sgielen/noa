@@ -40,12 +40,12 @@
 
 #define	ASTACK_HEAD(name, type)						\
 struct name {								\
-	signed long	 ash_first;					\
+	volatile signed long ash_first;					\
 }
 
 #define	ASTACK_ENTRY(type)						\
 struct {								\
-	struct type	*ase_next;					\
+	volatile struct type *ase_next;					\
 }
 
 #define	_ASTACK_NEXT(elm, field)	((elm)->field.ase_next)
