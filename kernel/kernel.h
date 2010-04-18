@@ -47,7 +47,8 @@ struct mutex;
 struct process;
 struct processgroup;
 struct session;
-struct slab_entry;
+struct slab;
+struct slabentry;
 struct thread;
 struct timespec;
 
