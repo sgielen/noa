@@ -114,7 +114,7 @@ void	 cpu_critical_enter(void);
 void	 cpu_critical_leave(void);
 
 /*
- * Kernel subroutines.
+ * Kernel interfaces.
  */
 
 #define	COND_ONE		0x1
@@ -156,6 +156,12 @@ void	 slab_free(struct slab *, void *);
 void	 _slab_init(struct slab *, size_t, void (*)(void *));
 #define	slab_init(s, t, c) \
 	_slab_init((s), sizeof(t), (void *)(c))
+
+/*
+ * Kernel utility functions.
+ */
+int	 log2ceil(long);
+int	 log2floor(long);
 
 /*
  * Global variables.

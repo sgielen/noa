@@ -24,6 +24,7 @@
  * SUCH DAMAGE.
  */
 
+#include <noa/vmparam.h>
 #include <assert.h>
 #include <kernel.h>
 
@@ -38,16 +39,41 @@ struct slabpage {
 	char		 sp_data[];
 };
 
+static ASTACK_HEAD(, slabpage) slabpagelist[PAGE_SHIFT + 1];
+
 void *
 slab_alloc_nowait(struct slab *sl)
 {
 	struct slabentry *se;
+	struct slabpage *sp;
+	size_t left;
+	unsigned int log;
 
+	/* Allocate from the slab's free list. */
 	ASTACK_REMOVE_HEAD(&sl->sl_freelist, se, se_next);
 	if (se != NULL)
 		return (se->se_data);
-	
-	/* XXX: Use new pages! */
+
+	for (log = log2ceil(sl->sl_size); log <= PAGE_SHIFT; log++) {
+		/* Get partially filled or empty page. */
+		ASTACK_REMOVE_HEAD(&slabpagelist[log], sp, sp_next);
+		if (sp == NULL)
+			continue;
+
+		/* Allocate new instance in this page. */
+		assert(sp->sp_left >= sl->sl_size);
+		left = sp->sp_left -= sl->sl_size;
+		se = (struct slabentry *)((char *)sp + sp->sp_left);
+		sl->sl_ctor(se->se_data);
+
+		/* Store the page back in the free space table. */
+		if (left > 0) {
+			log = log2floor(left);
+			ASTACK_INSERT_HEAD(&slabpagelist[log], sp, sp_next);
+		}
+
+		return (se->se_data);
+	}
 	return (NULL);
 }
 
@@ -86,6 +112,7 @@ _slab_init(struct slab *sl, size_t size, void (*ctor)(void *))
 
 	ASTACK_INIT(&sl->sl_freelist);
 	/* Reserve additional space for the free list pointer. */
+	/* XXX: ROUND UP TO MAXIMUM ALIGNMENT! */
 	sl->sl_size = size + sizeof(struct slabentry);
 	assert(sl->sl_size > sizeof(struct slabentry) /* &&
 	    sl->sl_size <= PAGESIZE */);
