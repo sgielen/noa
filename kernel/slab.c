@@ -27,7 +27,7 @@
 #include <kernel.h>
 
 struct slabentry {
-	DUMPQ_ENTRY(slabentry) se_next;
+	astack_entry_t	 se_next;
 	char		 se_data[];
 };
 
@@ -36,7 +36,7 @@ slab_alloc(struct slab *sl)
 {
 	struct slabentry *se;
 
-	DUMPQ_REMOVE_HEAD(&sl->sl_freelist, se, se_next);
+	se = ASTACK_POP(&sl->sl_freelist, slabentry, se_next);
 	if (se != NULL)
 		return (se->se_data);
 	
@@ -50,14 +50,14 @@ slab_free(struct slab *sl, void *addr)
 	struct slabentry *se;
 
 	se = __container_of(addr, slabentry, se_data);
-	DUMPQ_INSERT_HEAD(&sl->sl_freelist, se, se_next);
+	ASTACK_PUSH(&sl->sl_freelist, se, se_next);
 }
 
 void
 _slab_init(struct slab *sl, size_t size, void (*ctor)(void *))
 {
 
-	DUMPQ_INIT(&sl->sl_freelist);
+	ASTACK_INIT(&sl->sl_freelist);
 	sl->sl_size = size;
 	sl->sl_ctor = ctor;
 }

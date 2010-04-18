@@ -24,32 +24,73 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _NOA_QUEUE_H_
-#define	_NOA_QUEUE_H_
+#ifndef _NOA_ASTACK_H_
+#define	_NOA_ASTACK_H_
+
+#define	__NEED_SIZE_T
 
 #include <noa/atomic.h>
+#include <noa/types.h>
 
-#define	DUMPQ_HEAD(name, type) \
-struct name {								\
-	volatile struct type *dqh_first;				\
+typedef struct {
+	void		*ash_first;
+	unsigned long	 ash_cnt;
+} astack_head_t;
+
+typedef struct {
+	void		*ash_next;
+} astack_entry_t;
+
+static inline void
+__astack_init(astack_head_t *head)
+{
+
+	head->ash_first = NULL;
+	head->ash_cnt = 0;
 }
 
-#define	DUMPQ_ENTRY(type) \
-struct {								\
-	volatile struct type *dqe_next;					\
+static inline void *
+__astack_pop(astack_head_t *head __unused, size_t offset __unused)
+{
+#if 0
+	astack_head_t ohead, nhead;
+	void *ret;
+
+	do {
+		atomic(ohead = nhead = *head);
+		ret = nhead.ash_first
+		if (ret == NULL)
+			return (NULL);
+		nhead.ash_first = ret.ash_next;
+		nhead.ash_cnt++;
+	} while (!atomic(head, ohead, nhead));
+
+	return (ret);
+#endif
+	return (NULL);
 }
 
-#define	DUMPQ_INIT(head) do { \
-	(head)->dqh_first = NULL;					\
-} while (0)
+static inline void
+__astack_push(astack_head_t *head __unused, void *elm __unused, size_t offset __unused)
+{
+#if 0
+	astack_head_t ohead, nhead;
 
-#define	DUMPQ_INSERT_HEAD(head, elm, field) do { \
-	(elm)->field.dqe_next = (head)->dqh_first;			\
-} while (!atomic_cmpset_ptr(&(head)->dqh_first, (elm)->field.dqe_next, (elm)))
+	do {
+		atomic(ohead = nhead = *head);
+		elm->next = ohead.first;
+		nhead.ash_first = elm;
+		nhead.ash_cnt++;
+	} while (!atomic(head, ohead, nhead));
+#endif
+}
 
-#define	DUMPQ_REMOVE_HEAD(head, elm, field) do { \
-	elm = (void *)(head)->dqh_first;				\
-} while (elm != NULL && !atomic_cmpset_ptr(&(head)->dqh_first,		\
-    (elm)->field.dqe_next, (elm)))
+#define	ASTACK_INIT(head) \
+	__astack_init(head)
+#define	ASTACK_POP(head, type, field) \
+	(struct type *)__astack_pop(head,				\
+	    (char *)&(((struct type *)0)->field) - (char *)0)
+#define	ASTACK_PUSH(head, elm, field) \
+	__astack_push(head, (elm), (char *)&((elm)->field) - (char *)(elm))
 
-#endif /* !_NOA_QUEUE_H_ */
+#endif /* !_NOA_ASTACK_H_ */

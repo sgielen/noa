@@ -32,7 +32,7 @@
 #define	__NEED_NULL
 #define	__NEED_SIZE_T
 
-#include <noa/queue.h>
+#include <noa/astack.h>
 #include <noa/types.h>
 #include <limits.h>
 
@@ -97,7 +97,7 @@ struct session {
 };
 
 struct slab {
-	DUMPQ_HEAD(, slabentry) sl_freelist; /* (a) Free list. */
+	astack_head_t	 sl_freelist;	/* (a) Free list. */
 	size_t		 sl_size;	/* (c) Allocation size. */
 	void		(*sl_ctor)(void *); /* (c) Constructor. */
 };

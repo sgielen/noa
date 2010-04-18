@@ -94,10 +94,6 @@ atomic_fetchstore_long(volatile long *a, long b)
 	return (b);
 }
 
-#define	atomic_cmpset_ptr(a, b, c) \
-	(void *)atomic_cmpset_long((volatile long *)a, (long)b, (long)c)
-
-
 #define	atomic_fetchadd_intmax_t(a, b)		atomic_fetchadd_long(a, b)
 #define	atomic_fetchstore_intmax_t(a, b)	atomic_fetchstore_long(a, b)
 
