@@ -169,6 +169,7 @@ struct thread *
 /*
  * Kernel utility functions.
  */
+
 unsigned int
 	 log2ceil(unsigned long);
 unsigned int
