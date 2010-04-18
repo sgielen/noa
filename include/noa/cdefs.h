@@ -40,7 +40,7 @@
 #define	__unused		__attribute__((unused))
 #define	__aligned_max		__attribute__((aligned))
 
-#define	__container_of(p, type, member) \
+#define	__containerof(p, type, member) \
 	(struct type *)((char *)(p) - (char *)((const struct type *)0)->member)
 
 #define	__symbol_alias(from, to) \

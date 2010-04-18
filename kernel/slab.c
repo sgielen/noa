@@ -49,7 +49,7 @@ slab_free(struct slab *sl, void *addr)
 {
 	struct slabentry *se;
 
-	se = __container_of(addr, slabentry, se_data);
+	se = __containerof(addr, slabentry, se_data);
 	ASTACK_INSERT_HEAD(&sl->sl_freelist, se, se_next);
 }
 
