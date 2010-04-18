@@ -163,6 +163,7 @@ void	 _slab_init(struct slab *, size_t, void (*)(void *));
  */
 int	 log2ceil(long);
 int	 log2floor(long);
+void	 putchar(char);
 
 /*
  * Global variables.

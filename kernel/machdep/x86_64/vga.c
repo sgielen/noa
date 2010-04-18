@@ -26,15 +26,30 @@
 
 #include <kernel.h>
 
-void kstartup(void);
+#define	NROWS	25
+#define	NCOLS	80
+
+static int position = 0;
 
 void
-kstartup(void)
+putchar(char c)
 {
+	char *vga = (char *)0xb8000;
+	unsigned int i;
 
-	putchar('N');
-	putchar('o');
-	putchar('a');
+	switch (c) {
+	case '\n':
+		position = ((position / NCOLS) + 1) * NCOLS;
+		break;
+	default:
+		vga[position * 2] = 'c';
+		vga[position * 2 + 1] = 2;
+		break;
+	}
 
-	for (;;);
+	if (++position >= NROWS * NCOLS) {
+		for (i = 0; i < 2 * (NROWS - 1) * NCOLS; i++)
+			vga[i] = vga[i + NCOLS];
+		position = (NROWS - 1) * NCOLS;
+	}
 }
