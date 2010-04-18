@@ -32,8 +32,14 @@ struct slabentry {
 	char		 se_data[];
 };
 
+struct slabpage {
+	ASTACK_ENTRY(slabpage) sp_next;
+	size_t		 sp_left;
+	char		 sp_data[];
+};
+
 void *
-slab_alloc(struct slab *sl)
+slab_alloc_nowait(struct slab *sl)
 {
 	struct slabentry *se;
 
@@ -43,6 +49,26 @@ slab_alloc(struct slab *sl)
 	
 	/* XXX: Use new pages! */
 	return (NULL);
+}
+
+void *
+slab_alloc_waitok(struct slab *sl)
+{
+	void *ret;
+
+	ret = slab_alloc_nowait(sl);
+	if (ret != NULL)
+		return (ret);
+	
+#if 0
+	mutex_lock(&slab_nospace_lock);
+	while ((ret = slab_alloc_nowait(sl)) == NULL)
+		cond_wait(&slab_nospace_block, &slab_nospace_lock, NULL, 0);
+	mutex_unlock(&slab_nospace_lock);
+	return (ret);
+#else
+	return (NULL);
+#endif
 }
 
 void

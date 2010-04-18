@@ -150,7 +150,8 @@ void	 mutex_xunlock(struct mutex *);
 struct process *
 	 process_lookup(cookie_t);
 
-void	*slab_alloc(struct slab *);
+void	*slab_alloc_nowait(struct slab *);
+void	*slab_alloc_waitok(struct slab *);
 void	 slab_free(struct slab *, void *);
 void	 _slab_init(struct slab *, size_t, void (*)(void *));
 #define	slab_init(s, t, c) \
