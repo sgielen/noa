@@ -27,10 +27,7 @@
 #ifndef _NOA_ASTACK_H_
 #define	_NOA_ASTACK_H_
 
-#define	__NEED_NULL
-
 #include <noa/atomic.h>
-#include <noa/types.h>
 
 /*
  * An atomic stack implementation for x86-64.
