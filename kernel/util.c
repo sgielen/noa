@@ -39,3 +39,12 @@ log2floor(long i __unused)
 
 	return (0);
 }
+
+void
+printf(const char *restrict format, ...)
+{
+
+	/* XXX! */
+	while (*format != '\0')
+		putchar(*format++);
+}

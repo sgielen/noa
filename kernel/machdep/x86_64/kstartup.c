@@ -32,9 +32,7 @@ void
 kstartup(void)
 {
 
-	putchar('N');
-	putchar('o');
-	putchar('a');
+	printf("Noa\nHello world!\n");
 
 	for (;;);
 }

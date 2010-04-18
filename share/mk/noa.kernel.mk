@@ -1,6 +1,6 @@
 .include <noa.sys.mk>
 
-CFLAGS+=-D_KERNEL -fpic
+CFLAGS+=-D_KERNEL -fpic -ffreestanding
 LD=ld
 LDFLAGS+=-warn-common -X -T ${.CURDIR}/ldscript.${MACHINE}
 
