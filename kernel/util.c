@@ -42,11 +42,13 @@ log2floor(unsigned long i)
 {
 	unsigned int l = 0, s;
 
-	for (s = sizeof i * 4; s > 0; s /= 2) {
+	for (s = sizeof i * 4; ; s /= 2) {
 		if (i >= 1UL << s) {
 			i >>= s;
 			l += s;
 		}
+		if (s == 0)
+			break;
 	}
 	return (l);
 }
