@@ -32,6 +32,7 @@
 #define	__NEED_NULL
 #define	__NEED_SIZE_T
 
+#include <noa/queue.h>
 #include <noa/types.h>
 #include <limits.h>
 
@@ -45,6 +46,7 @@ struct mutex;
 struct process;
 struct processgroup;
 struct session;
+struct slab_entry;
 struct thread;
 struct timespec;
 
@@ -95,7 +97,9 @@ struct session {
 };
 
 struct slab {
-	void		*s_dummy;
+	DUMPQ_HEAD(, slabentry) sl_freelist; /* (a) Free list. */
+	size_t		 sl_size;	/* (c) Allocation size. */
+	void		(*sl_ctor)(void *); /* (c) Constructor. */
 };
 
 struct thread {
