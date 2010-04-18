@@ -36,7 +36,7 @@ slab_alloc(struct slab *sl)
 {
 	struct slabentry *se;
 
-	DUMPQ_REMOVE_HEAD(se, &sl->sl_freelist, se_next);
+	DUMPQ_REMOVE_HEAD(&sl->sl_freelist, se, se_next);
 	if (se != NULL)
 		return (se->se_data);
 	

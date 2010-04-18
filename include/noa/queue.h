@@ -47,7 +47,7 @@ struct {								\
 	(elm)->field.dqe_next = (head)->dqh_first;			\
 } while (!atomic_cmpset_ptr(&(head)->dqh_first, (elm)->field.dqe_next, (elm)))
 
-#define	DUMPQ_REMOVE_HEAD(elm, head, field) do { \
+#define	DUMPQ_REMOVE_HEAD(head, elm, field) do { \
 	elm = (void *)(head)->dqh_first;				\
 } while (elm != NULL && !atomic_cmpset_ptr(&(head)->dqh_first,		\
     (elm)->field.dqe_next, (elm)))
