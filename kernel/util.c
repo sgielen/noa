@@ -26,18 +26,38 @@
 
 #include <kernel.h>
 
-int
-log2ceil(long i __unused)
-{
+__CTASSERT(sizeof(unsigned long) == 8);
 
-	return (0);
+unsigned int
+log2ceil(unsigned long i)
+{
+	unsigned int l;
+
+	l = log2floor(i);
+	if (i > (1UL << l))
+		l++;
+	return (l);
 }
 
-int
-log2floor(long i __unused)
+unsigned int
+log2floor(unsigned long i)
 {
+	unsigned int l = 0;
 
-	return (0);
+#define	STEP(s) do {							\
+	if (i >= 1UL << (s)) {						\
+		i >>= (s);						\
+		l += (s);						\
+	}								\
+} while (0)
+	STEP(32);
+	STEP(16);
+	STEP(8);
+	STEP(4);
+	STEP(2);
+	STEP(1);
+#undef STEP
+	return (l);
 }
 
 void

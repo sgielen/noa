@@ -161,8 +161,10 @@ void	 _slab_init(struct slab *, size_t, void (*)(void *));
 /*
  * Kernel utility functions.
  */
-int	 log2ceil(long);
-int	 log2floor(long);
+unsigned int
+	 log2ceil(unsigned long);
+unsigned int
+	 log2floor(unsigned long);
 void	 printf(const char *restrict, ...);
 void	 putchar(char);
 
