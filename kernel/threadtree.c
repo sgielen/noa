@@ -24,89 +24,66 @@
  * SUCH DAMAGE.
  */
 
-#include <errno.h>
 #include <kernel.h>
 
-#include "syscalls.h"
+/*
+ * Thread red-black tree.
+ */
 
-int
-sys_getpid(struct thread *td, struct sys_getpid_args *ap)
+static inline int
+thread_idcmp(struct thread *td, cookie_t tid)
 {
 
-	ap->retval = td->td_process->p_id;
+	if (td->td_id > tid)
+		return (-1);
+	else if (td->td_id < tid)
+		return (1);
 	return (0);
 }
 
-int
-sys_getppid(struct thread *td, struct sys_getppid_args *ap)
-{
+RBTREE_HEAD(thread_rbhead, thread);
+RBTREE_FUNCS(thread_rbtree, thread_rbhead, thread, td_tree,
+    thread_idcmp, cookie_t);
 
-	mutex_slock(&threadtopo);
-	ap->retval = td->td_process->p_parent->p_id;
-	mutex_sunlock(&threadtopo);
-	return (0);
-}
+struct mutex threadtopo;
+static struct thread_rbhead threadtree;
 
-int
-sys_getpgid(struct thread *td, struct sys_getpgid_args *ap)
+struct process *
+process_lookup(cookie_t pid)
 {
+	struct thread *td;
 	struct process *p;
 
-	mutex_slock(&threadtopo);
-	if (ap->pid == 0) {
-		p = td->td_process;
-	} else {
-		p = process_lookup(ap->pid);
-		if (p == NULL) {
-			mutex_sunlock(&threadtopo);
-			return (ESRCH);
-		}
-	}
-	ap->retval = p->p_group->pg_id;
-	mutex_sunlock(&threadtopo);
-	return (0);
+	td = thread_lookup(pid);
+	if (td == NULL)
+		return (NULL);
+	p = td->td_process;
+	if (p->p_id != pid)
+		return (NULL);
+	return (p);
 }
 
-int
-sys_getsid(struct thread *td, struct sys_getsid_args *ap)
+struct processgroup *
+processgroup_lookup(cookie_t pgid)
 {
 	struct process *p;
+	struct processgroup *pg;
 
-	mutex_slock(&threadtopo);
-	if (ap->pid == 0) {
-		p = td->td_process;
-	} else {
-		p = process_lookup(ap->pid);
-		if (p == NULL) {
-			mutex_sunlock(&threadtopo);
-			return (ESRCH);
-		}
-	}
-	ap->retval = p->p_group->pg_session->s_id;
-	mutex_sunlock(&threadtopo);
-	return (0);
+	p = process_lookup(pgid);
+	if (p == NULL)
+		return (NULL);
+	pg = p->p_group;
+	if (pg->pg_id != pgid)
+		return (NULL);
+	return (pg);
 }
 
-int
-sys_setsid(struct thread *td __unused,
-    struct sys_setsid_args *ap __unused)
+struct thread *
+thread_lookup(cookie_t tid)
 {
+	struct thread *td;
 
-	return (ENOSYS);
-}
-
-int
-sys_waitid(struct thread *td __unused,
-    struct sys_waitid_args *ap __unused)
-{
-
-	return (ENOSYS);
-}
-
-int
-sys__Exit(struct thread *td __unused,
-    struct sys__Exit_args *ap __unused)
-{
-
-	return (ENOSYS);
+	mutex_assert(&threadtopo);
+	td = thread_rbtree_lookup(&threadtree, tid);
+	return (td);
 }

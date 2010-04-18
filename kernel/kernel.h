@@ -33,6 +33,7 @@
 #define	__NEED_SIZE_T
 
 #include <noa/astack.h>
+#include <noa/rbtree.h>
 #include <noa/types.h>
 #include <limits.h>
 
@@ -104,6 +105,7 @@ struct slab {
 
 struct thread {
 	struct process	*td_process;	/* (c) Process. */
+	RBTREE_ENTRY(thread) td_tree;	/* (l) Thread tree. */
 	cookie_t	 td_id;		/* (c) Thread identifier. */
 };
 
@@ -150,6 +152,9 @@ void	 mutex_xunlock(struct mutex *);
 struct process *
 	 process_lookup(cookie_t);
 
+struct processgroup *
+	 processgroup_lookup(cookie_t);
+
 void	*slab_alloc_nowait(struct slab *);
 void	*slab_alloc_waitok(struct slab *);
 void	 slab_free(struct slab *, void *);
@@ -157,6 +162,9 @@ void	 slab_give(void *);
 void	 _slab_init(struct slab *, size_t, void (*)(void *));
 #define	slab_init(s, t, c) \
 	_slab_init((s), sizeof(t), (void *)(c))
+
+struct thread *
+	 thread_lookup(cookie_t);
 
 /*
  * Kernel utility functions.
@@ -172,6 +180,6 @@ void	 putchar(char);
  * Global variables.
  */
 
-extern struct mutex process_layout;
+extern struct mutex threadtopo;
 
 #endif /* !_KERNEL_H_ */

@@ -24,15 +24,41 @@
  * SUCH DAMAGE.
  */
 
-#include <kernel.h>
+#ifndef _NOA_RBTREE_H_
+#define	_NOA_RBTREE_H_
 
-struct mutex process_layout;
-
-struct process *
-process_lookup(cookie_t pid __unused)
-{
-
-	mutex_assert(&process_layout);
-
-	return (NULL);
+#define	RBTREE_HEAD(name, type)						\
+struct name {								\
+	struct type	*rbh_head;					\
 }
+
+#define	RBTREE_ENTRY(type)						\
+struct {								\
+	struct type	*rbe_parent;					\
+	struct type	*rbe_left;					\
+	struct type	*rbe_right;					\
+}
+
+#define	RBTREE_INIT(head) do {						\
+	(head)->rbh_head = NULL;					\
+} while (0)
+
+#define	RBTREE_FUNCS(prefix, htype, etype, field, compar, keytype)	\
+static inline struct etype *						\
+prefix ## _lookup(struct htype *h, keytype k)				\
+{									\
+	struct etype *e;						\
+	int c;								\
+	for (e = h->rbh_head; e != NULL;) {				\
+		c = compar(e, k);					\
+		if (c > 0)						\
+			e = e->field.rbe_left;				\
+		else if (c < 0)						\
+			e = e->field.rbe_right;				\
+		else							\
+			return (e);					\
+	}								\
+	return (NULL);							\
+}
+
+#endif /* !_NOA_RBTREE_H_ */
