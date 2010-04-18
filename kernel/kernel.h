@@ -113,6 +113,7 @@ struct thread {
 /*
  * Machine-dependent subroutines.
  */
+
 void	 cpu_critical_enter(void);
 void	 cpu_critical_leave(void);
 
