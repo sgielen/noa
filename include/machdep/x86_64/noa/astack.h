@@ -54,7 +54,7 @@ struct {								\
 #define	_ASTACK_NEXT(elm, field)	((elm)->field.ase_next)
 
 #define	_ASTACK_IDX(p, oh) \
-	((signed long)(p) << 16) | (((oh) + 1) & 0xffff)
+	(((signed long)(p) << 16) | ((oh) & 0xffff))
 #define	_ASTACK_PTR(idx) \
 	((void *)(idx >> 16))
 
@@ -77,7 +77,7 @@ struct {								\
 		_oh = (head)->ash_first;				\
 		if (((elm) = _ASTACK_PTR(_oh)) == NULL)			\
 			break;						\
-		_nh = _ASTACK_IDX(_ASTACK_NEXT(elm, field), _oh);	\
+		_nh = _ASTACK_IDX(_ASTACK_NEXT(elm, field), _oh + 1);	\
 	} while (!atomic_cmpset_long(&(head)->ash_first, _oh, _nh));	\
 } while (0)
 
