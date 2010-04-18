@@ -279,3 +279,10 @@ PUBLIC
 RET mode_t
 ARG cmask : mode_t
 END
+
+SYSCALL 38 kill
+PUBLIC
+RET int
+ARG pid : pid_t
+ARG sig : int
+END
