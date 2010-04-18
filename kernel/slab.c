@@ -27,7 +27,7 @@
 #include <kernel.h>
 
 struct slabentry {
-	astack_entry_t	 se_next;
+	ASTACK_ENTRY(slabentry) se_next;
 	char		 se_data[];
 };
 
@@ -36,7 +36,7 @@ slab_alloc(struct slab *sl)
 {
 	struct slabentry *se;
 
-	se = ASTACK_POP(&sl->sl_freelist, slabentry, se_next);
+	ASTACK_REMOVE_HEAD(&sl->sl_freelist, se, se_next);
 	if (se != NULL)
 		return (se->se_data);
 	
@@ -50,7 +50,7 @@ slab_free(struct slab *sl, void *addr)
 	struct slabentry *se;
 
 	se = __container_of(addr, slabentry, se_data);
-	ASTACK_PUSH(&sl->sl_freelist, se, se_next);
+	ASTACK_INSERT_HEAD(&sl->sl_freelist, se, se_next);
 }
 
 void

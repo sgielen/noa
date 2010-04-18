@@ -32,65 +32,53 @@
 #include <noa/atomic.h>
 #include <noa/types.h>
 
-typedef struct {
-	void		*ash_first;
-	unsigned long	 ash_cnt;
-} astack_head_t;
+/*
+ * An atomic stack implementation for x86-64.
+ *
+ * We take care of the ABA problem by using the fact that on current
+ * x86-64 hardware, the top 16 bits of the pointer are not yet used. We
+ * store the address in a signed long, of which we use the bottom 16
+ * bits to store a counter.
+ */
 
-typedef struct {
-	void		*ash_next;
-} astack_entry_t;
-
-static inline void
-__astack_init(astack_head_t *head)
-{
-
-	head->ash_first = NULL;
-	head->ash_cnt = 0;
+#define	ASTACK_HEAD(name, type)						\
+struct name {								\
+	signed long	 ash_first;					\
 }
 
-static inline void *
-__astack_pop(astack_head_t *head __unused, size_t offset __unused)
-{
-#if 0
-	astack_head_t ohead, nhead;
-	void *ret;
-
-	do {
-		atomic(ohead = nhead = *head);
-		ret = nhead.ash_first
-		if (ret == NULL)
-			return (NULL);
-		nhead.ash_first = ret.ash_next;
-		nhead.ash_cnt++;
-	} while (!atomic(head, ohead, nhead));
-
-	return (ret);
-#endif
-	return (NULL);
+#define	ASTACK_ENTRY(type)						\
+struct {								\
+	struct type	*ase_next;					\
 }
 
-static inline void
-__astack_push(astack_head_t *head __unused, void *elm __unused, size_t offset __unused)
-{
-#if 0
-	astack_head_t ohead, nhead;
+#define	_ASTACK_NEXT(elm, field)	((elm)->field.ase_next)
 
-	do {
-		atomic(ohead = nhead = *head);
-		elm->next = ohead.first;
-		nhead.ash_first = elm;
-		nhead.ash_cnt++;
-	} while (!atomic(head, ohead, nhead));
-#endif
-}
+#define	_ASTACK_IDX(p, oh) \
+	((signed long)(p) << 16) | (((oh) + 1) & 0xffff)
+#define	_ASTACK_PTR(idx) \
+	((void *)(idx >> 16))
 
-#define	ASTACK_INIT(head) \
-	__astack_init(head)
-#define	ASTACK_POP(head, type, field) \
-	(struct type *)__astack_pop(head,				\
-	    (char *)&(((struct type *)0)->field) - (char *)0)
-#define	ASTACK_PUSH(head, elm, field) \
-	__astack_push(head, (elm), (char *)&((elm)->field) - (char *)(elm))
+#define	ASTACK_INIT(head) do {						\
+	(head)->ash_first = 0;						\
+} while (0)
+
+#define	ASTACK_INSERT_HEAD(head, elm, field) do {			\
+	signed long _oh, _nh;						\
+	do {								\
+		_oh = (head)->ash_first;				\
+		_ASTACK_NEXT(elm, field) = _ASTACK_PTR(_oh);		\
+		_nh = _ASTACK_IDX(elm, _oh);				\
+	} while (!atomic_cmpset_long(&(head)->ash_first, _oh, _nh));	\
+} while (0)
+
+#define	ASTACK_REMOVE_HEAD(head, elm, field) do {			\
+	signed long _oh, _nh;						\
+	do {								\
+		_oh = (head)->ash_first;				\
+		if (((elm) = _ASTACK_PTR(_oh)) == NULL)			\
+			break;						\
+		_nh = _ASTACK_IDX(_ASTACK_NEXT(elm, field), _oh);	\
+	} while (!atomic_cmpset_long(&(head)->ash_first, _oh, _nh));	\
+} while (0)
 
 #endif /* !_NOA_ASTACK_H_ */

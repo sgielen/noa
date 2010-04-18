@@ -97,7 +97,7 @@ struct session {
 };
 
 struct slab {
-	astack_head_t	 sl_freelist;	/* (a) Free list. */
+	ASTACK_HEAD(, slabentry) sl_freelist; /* (a) Free list. */
 	size_t		 sl_size;	/* (c) Allocation size. */
 	void		(*sl_ctor)(void *); /* (c) Constructor. */
 };
