@@ -49,7 +49,7 @@ putchar(char c)
 
 	if (++position >= NROWS * NCOLS) {
 		for (i = 0; i < 2 * (NROWS - 1) * NCOLS; i++)
-			vga[i] = vga[i + NCOLS];
+			vga[i] = vga[i + 2 * NCOLS];
 		position = (NROWS - 1) * NCOLS;
 	}
 }
