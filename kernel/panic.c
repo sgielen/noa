@@ -24,31 +24,13 @@
  * SUCH DAMAGE.
  */
 
-#undef assert
-
-#ifdef NDEBUG
-#define	assert(e) \
-	((void)0)
-#else
-#define	assert(e) \
-	((e) ? (void)0 : __assertion_failed(__func__, __FILE__, __LINE__, #e))
-#endif
-
-#ifndef _ASSERT_H_
-#define	_ASSERT_H_
-
-#ifdef _KERNEL
-
-void	 __assertion_failed(const char *, const char *, int, const char *);
-
-#else /* _KERNEL */
-
 #include <noa/cdefs.h>
+#include <assert.h>
 
-__BEGIN_DECLS
-void	 __assertion_failed(const char *, const char *, int, const char *);
-__END_DECLS
+void
+__assertion_failed(const char *func __unused, const char *file __unused,
+    int line __unused, const char *e __unused)
+{
 
-#endif /* !_KERNEL */
-
-#endif /* !_ASSERT_H_ */
+	/* TODO */
+}
