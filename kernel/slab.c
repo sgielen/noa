@@ -98,10 +98,12 @@ slab_alloc_waitok(struct slab *sl)
 {
 	void *ret;
 
+	/* Fast path. */
 	ret = slab_alloc_nowait(sl);
 	if (ret != NULL)
 		return (ret);
-	
+
+	/* Allocation failed. Try with blocking. */
 	mutex_slock(&slablock);
 	while ((ret = slab_alloc_nowait(sl)) == NULL)
 		cond_wait(&slabavail, &slablock, NULL, 0);
