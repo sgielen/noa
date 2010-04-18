@@ -126,7 +126,7 @@ _slab_init(struct slab *sl, size_t size, void (*ctor)(void *))
 	/* Reserve additional space for the free list pointer. */
 	/* XXX: ROUND UP TO MAXIMUM ALIGNMENT! */
 	sl->sl_size = size + sizeof(struct slabentry);
-	assert(sl->sl_size > sizeof(struct slabentry) /* &&
-	    sl->sl_size <= PAGESIZE */);
+	assert(sl->sl_size > sizeof(struct slabentry) &&
+	    sl->sl_size <= PAGE_SIZE);
 	sl->sl_ctor = ctor;
 }
