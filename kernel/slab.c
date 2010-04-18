@@ -24,6 +24,7 @@
  * SUCH DAMAGE.
  */
 
+#include <assert.h>
 #include <kernel.h>
 
 struct slabentry {
@@ -60,8 +61,7 @@ _slab_init(struct slab *sl, size_t size, void (*ctor)(void *))
 	ASTACK_INIT(&sl->sl_freelist);
 	/* Reserve additional space for the free list pointer. */
 	sl->sl_size = size + sizeof(struct slabentry);
-#if 0
-	assert(sl->sl_size <= PAGESIZE);
-#endif
+	assert(sl->sl_size > sizeof(struct slabentry) /* &&
+	    sl->sl_size <= PAGESIZE */);
 	sl->sl_ctor = ctor;
 }
