@@ -42,7 +42,7 @@ putchar(char c)
 		position = ((position / NCOLS) + 1) * NCOLS;
 		break;
 	default:
-		vga[position * 2] = 'c';
+		vga[position * 2] = c;
 		vga[position * 2 + 1] = 2;
 		break;
 	}
