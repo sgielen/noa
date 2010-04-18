@@ -58,6 +58,10 @@ _slab_init(struct slab *sl, size_t size, void (*ctor)(void *))
 {
 
 	ASTACK_INIT(&sl->sl_freelist);
-	sl->sl_size = size;
+	/* Reserve additional space for the free list pointer. */
+	sl->sl_size = size + sizeof(struct slabentry);
+#if 0
+	assert(sl->sl_size <= PAGESIZE);
+#endif
 	sl->sl_ctor = ctor;
 }
