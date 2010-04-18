@@ -39,7 +39,22 @@ struct slabpage {
 	char		 sp_data[];
 };
 
+static struct mutex slablock;
+static struct cond slabavail;
+
 static ASTACK_HEAD(, slabpage) slabpagelist[PAGE_SHIFT + 1];
+
+void
+slab_give(void *page)
+{
+	struct slabpage *sp = page;
+
+	mutex_xlock(&slablock);
+	sp->sp_left = PAGE_SIZE;
+	ASTACK_INSERT_HEAD(&slabpagelist[PAGE_SHIFT], sp, sp_next);
+	cond_signal(&slabavail, 0);
+	mutex_xlock(&slablock);
+}
 
 void *
 slab_alloc_nowait(struct slab *sl)
@@ -62,13 +77,14 @@ slab_alloc_nowait(struct slab *sl)
 
 		/* Allocate new instance in this page. */
 		assert(sp->sp_left >= sl->sl_size);
-		left = sp->sp_left -= sl->sl_size;
+		left = sp->sp_left - sl->sl_size;
 		se = (struct slabentry *)((char *)sp + sp->sp_left);
 		sl->sl_ctor(se->se_data);
 
 		/* Store the page back in the free space table. */
 		if (left > 0) {
-			log = log2floor(left);
+			sp->sp_left = left;
+			log = log2floor(sp->sp_left);
 			ASTACK_INSERT_HEAD(&slabpagelist[log], sp, sp_next);
 		}
 
@@ -86,15 +102,11 @@ slab_alloc_waitok(struct slab *sl)
 	if (ret != NULL)
 		return (ret);
 	
-#if 0
-	mutex_lock(&slab_nospace_lock);
+	mutex_slock(&slablock);
 	while ((ret = slab_alloc_nowait(sl)) == NULL)
-		cond_wait(&slab_nospace_block, &slab_nospace_lock, NULL, 0);
-	mutex_unlock(&slab_nospace_lock);
+		cond_wait(&slabavail, &slablock, NULL, 0);
+	mutex_sunlock(&slablock);
 	return (ret);
-#else
-	return (NULL);
-#endif
 }
 
 void

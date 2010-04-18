@@ -24,10 +24,25 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _NOA_VMPARAM_H_
-#define	_NOA_VMPARAM_H_
+#include <kernel.h>
 
-#define	PAGE_SHIFT	12
-#define	PAGE_SIZE	(1 << PAGE_SHIFT)
+void
+cond_init(struct cond *cv __unused)
+{
+}
 
-#endif /* !_NOA_VMPARAM_H_ */
+void
+cond_destroy(struct cond *cv __unused)
+{
+}
+
+void
+cond_signal(struct cond *cv __unused, int flags __unused)
+{
+}
+
+void
+cond_wait(struct cond *cv __unused, struct mutex *m __unused,
+    const struct timespec *timeout __unused, int flags __unused)
+{
+}

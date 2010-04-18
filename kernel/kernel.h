@@ -153,6 +153,7 @@ struct process *
 void	*slab_alloc_nowait(struct slab *);
 void	*slab_alloc_waitok(struct slab *);
 void	 slab_free(struct slab *, void *);
+void	 slab_give(void *);
 void	 _slab_init(struct slab *, size_t, void (*)(void *));
 #define	slab_init(s, t, c) \
 	_slab_init((s), sizeof(t), (void *)(c))
