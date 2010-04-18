@@ -44,10 +44,11 @@ putchar(char c)
 	default:
 		vga[position * 2] = c;
 		vga[position * 2 + 1] = 2;
+		position++;
 		break;
 	}
 
-	if (++position >= NROWS * NCOLS) {
+	if (position >= NROWS * NCOLS) {
 		for (i = 0; i < 2 * (NROWS - 1) * NCOLS; i++)
 			vga[i] = vga[i + 2 * NCOLS];
 		position = (NROWS - 1) * NCOLS;
