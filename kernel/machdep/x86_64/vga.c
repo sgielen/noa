@@ -43,7 +43,7 @@ putchar(char c)
 		break;
 	default:
 		vga[position * 2] = c;
-		vga[position * 2 + 1] = 2;
+		vga[position * 2 + 1] = 15;
 		position++;
 		break;
 	}
@@ -51,6 +51,8 @@ putchar(char c)
 	if (position >= NROWS * NCOLS) {
 		for (i = 0; i < 2 * (NROWS - 1) * NCOLS; i++)
 			vga[i] = vga[i + 2 * NCOLS];
+		for (i = 2 * (NROWS - 1) * NCOLS; i < 2 * NROWS * NCOLS; i++)
+			vga[i] = 0;
 		position = (NROWS - 1) * NCOLS;
 	}
 }
