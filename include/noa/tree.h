@@ -53,9 +53,9 @@ struct {								\
 static inline int							\
 name(struct etype *e, keytype c)					\
 {									\
-	if (e->field > c)						\
+	if (e->field < c)						\
 		return (-1);						\
-	else if (e->field < c)						\
+	else if (e->field > c)						\
 		return (1);						\
 	return (0);							\
 }
