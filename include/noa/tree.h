@@ -79,12 +79,11 @@ prefix ## _lookup(struct htype *h, keytype k)				\
 }									\
 									\
 static inline void							\
-__ ## prefix ## _setlink(struct etype *e, struct etype **p)		\
+__ ## prefix ## _setlink(struct etype **p, struct etype *e)		\
 {									\
 	if (e != NULL)							\
 		e->field.te_parent = p;					\
-	if (p != NULL)							\
-		*p = e;							\
+	*p = e;								\
 }									\
 									\
 static inline void							\
@@ -100,9 +99,9 @@ prefix ## _insert(struct htype *h, struct etype *e, cookie_t k)		\
 		else							\
 			p = &(*p)->field.te_right;			\
 	}								\
-	__ ## prefix ## _setlink(NULL, &e->field.te_left);		\
-	__ ## prefix ## _setlink(NULL, &e->field.te_right);		\
-	__ ## prefix ## _setlink(e, p);					\
+	__ ## prefix ## _setlink(&e->field.te_left, NULL);		\
+	__ ## prefix ## _setlink(&e->field.te_right, NULL);		\
+	__ ## prefix ## _setlink(p, e);					\
 }									\
 									\
 static inline struct etype *						\
@@ -118,18 +117,18 @@ prefix ## _remove(struct etype *e)					\
 {									\
 	struct etype *s;						\
 	if (e->field.te_left == NULL) {					\
-		__ ## prefix ## _setlink(e, &e->field.te_right);	\
+		__ ## prefix ## _setlink(&e->field.te_right, e);	\
 	} else if (e->field.te_right == NULL) {				\
-		__ ## prefix ## _setlink(e, &e->field.te_left);		\
+		__ ## prefix ## _setlink(&e->field.te_left, e);		\
 	} else {							\
 		s = __ ## prefix ## _min(e->field.te_right);		\
-		__ ## prefix ## _setlink(s->field.te_right,		\
-		    s->field.te_parent);				\
-		__ ## prefix ## _setlink(e->field.te_left,		\
-		    &s->field.te_left);					\
-		__ ## prefix ## _setlink(e->field.te_left,		\
-		    &s->field.te_right);				\
-		__ ## prefix ## _setlink(s, e->field.te_parent);	\
+		__ ## prefix ## _setlink(s->field.te_parent,		\
+		    s->field.te_right);					\
+		__ ## prefix ## _setlink(&s->field.te_left,		\
+		    e->field.te_left);					\
+		__ ## prefix ## _setlink(&s->field.te_right,		\
+		    e->field.te_left);					\
+		__ ## prefix ## _setlink(e->field.te_parent, s);	\
 	}								\
 }
 
