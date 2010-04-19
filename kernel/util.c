@@ -66,8 +66,8 @@ void
 printf(const char *restrict format, ...)
 {
 	va_list args;
-	int state = 0;
 	const char *str;
+	int state = 0;
 
 	va_start(args, format);
 	for (; *format != '\0'; format++) {
