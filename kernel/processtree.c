@@ -27,7 +27,7 @@
 #include <kernel.h>
 
 /*
- * Thread and process group red-black tree.
+ * Thread and process group tree.
  */
 
 struct mutex processtopo = MUTEX_INITIALIZER;
