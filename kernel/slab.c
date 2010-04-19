@@ -39,7 +39,7 @@ struct slabpage {
 	char		 sp_data[];
 };
 
-static struct mutex slablock;
+static struct mutex slablock = MUTEX_INITIALIZER;
 static struct cond slabavail;
 
 static ASTACK_HEAD(, slabpage) slabpagelist[PAGE_SHIFT + 1];

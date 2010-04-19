@@ -59,7 +59,7 @@ RBTREE_HEAD(thread_rbhead, thread);
 RBTREE_FUNCS(thread_rbtree, thread_rbhead, thread, td_tree,
     thread_idcmp, cookie_t);
 
-struct mutex processtopo;
+struct mutex processtopo = MUTEX_INITIALIZER;
 static struct processgroup_rbhead processgrouptree;
 static struct thread_rbhead threadtree;
 

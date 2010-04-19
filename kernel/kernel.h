@@ -135,6 +135,8 @@ cookie_t cookie_get(void);
 #define	cookie_put(c)		((void)0)
 
 #ifdef NO_SMP
+#define	MUTEX_INITIALIZER	{ }
+
 #define	mutex_assert(m)		((void)0)
 #define	mutex_destroy(m)	((void)0)
 #define	mutex_init(m)		((void)0)
@@ -143,6 +145,8 @@ cookie_t cookie_get(void);
 #define	mutex_xlock(m)		cpu_critical_enter()
 #define	mutex_xunlock(m)	cpu_critical_leave()
 #else /* !NO_SMP */
+#define	MUTEX_INITIALIZER	{ 0 }
+
 void	 mutex_assert(struct mutex *);
 void	 mutex_destroy(struct mutex *);
 void	 mutex_init(struct mutex *);
