@@ -115,10 +115,11 @@ prefix ## _remove(struct etype *e)					\
 		*e->field.te_parent = e->field.te_left;			\
 	} else {							\
 		s = __ ## prefix ## _min(e->field.te_right);		\
-		*e->field.te_parent = s;				\
 		*s->field.te_parent = s->field.te_right;		\
 		s->field.te_left = e->field.te_left;			\
 		s->field.te_right = e->field.te_right;			\
+		s->field.te_parent = e->field.te_parent;		\
+		*s->field.te_parent = s;				\
 	}								\
 }
 
