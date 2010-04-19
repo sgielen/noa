@@ -24,6 +24,7 @@
  * SUCH DAMAGE.
  */
 
+#include <assert.h>
 #include <kernel.h>
 #include <stdarg.h>
 
@@ -87,6 +88,8 @@ printf(const char *restrict format, ...)
 				puts(str);
 				state = 0;
 				break;
+			default:
+				assert(0);
 			}
 		}
 	}
