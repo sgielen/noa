@@ -38,9 +38,9 @@ struct name {								\
 
 #define	TREE_ENTRY(type)						\
 struct {								\
-	struct type	*te_parent;					\
 	struct type	*te_left;					\
 	struct type	*te_right;					\
+	struct type	**te_parent;					\
 }
 
 #define	TREE_INIT(head) do {						\
@@ -74,6 +74,50 @@ prefix ## _lookup(struct htype *h, keytype k)				\
 			return (e);					\
 	}								\
 	return (NULL);							\
+}									\
+									\
+static inline void							\
+prefix ## _insert(struct htype *h, struct etype *e, cookie_t k)		\
+{									\
+	struct etype **p;						\
+	int c;								\
+	p = &h->th_head;						\
+	while (*p != NULL) {						\
+		c = compar(*p, k);					\
+		if (c > 0)						\
+			p = &(*p)->field.te_left;			\
+		else							\
+			p = &(*p)->field.te_right;			\
+	}								\
+	e->field.te_left = NULL;					\
+	e->field.te_right = NULL;					\
+	e->field.te_parent = p;						\
+	*p = e;								\
+}									\
+									\
+static inline struct etype *						\
+__ ## prefix ## _min(struct etype *e)					\
+{									\
+	while (e->field.te_left != NULL)				\
+		e = e->field.te_left;					\
+	return (e);							\
+}									\
+									\
+static inline void							\
+prefix ## _remove(struct etype *e)					\
+{									\
+	struct etype *s;						\
+	if (e->field.te_left == NULL) {					\
+		*e->field.te_parent = e->field.te_right;		\
+	} else if (e->field.te_right == NULL) {				\
+		*e->field.te_parent = e->field.te_left;			\
+	} else {							\
+		s = __ ## prefix ## _min(e->field.te_right);		\
+		*e->field.te_parent = s;				\
+		*s->field.te_parent = s->field.te_right;		\
+		s->field.te_left = e->field.te_left;			\
+		s->field.te_right = e->field.te_right;			\
+	}								\
 }
 
 #endif /* !_NOA_TREE_H_ */
