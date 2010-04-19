@@ -129,7 +129,7 @@ prefix ## _remove(struct etype *e)					\
 		__ ## prefix ## _setlink(&s->field.te_left,		\
 		    e->field.te_left);					\
 		__ ## prefix ## _setlink(&s->field.te_right,		\
-		    e->field.te_left);					\
+		    e->field.te_right);					\
 		__ ## prefix ## _setlink(e->field.te_parent, s);	\
 	}								\
 }
