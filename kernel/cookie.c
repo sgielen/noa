@@ -56,15 +56,15 @@ cookie_get(void)
 	cookie_t ret;
 
 	ret = atomic_fetchadd_intmax_t(&cookie_next, 2);
-	ret = (((ret & 0xaaaaaaaaaaaaaaaa) >> 1) |
-	    ((ret & 0x5555555555555555) << 1));
-	ret = (((ret & 0xcccccccccccccccc) >> 2) |
-	    ((ret & 0x3333333333333333) << 2));
-	ret = (((ret & 0xf0f0f0f0f0f0f0f0) >> 4) |
-	    ((ret & 0x0f0f0f0f0f0f0f0f) << 4));
-	ret = (((ret & 0xff00ff00ff00ff00) >> 8) |
-	    ((ret & 0x00ff00ff00ff00ff) << 8));
-	ret = (((ret & 0xffff0000ffff0000) >> 16) |
-	    ((ret & 0x0000ffff0000ffff) << 16));
+	ret = ((ret & 0xaaaaaaaaaaaaaaaa) >> 1) |
+	    ((ret & 0x5555555555555555) << 1);
+	ret = ((ret & 0xcccccccccccccccc) >> 2) |
+	    ((ret & 0x3333333333333333) << 2);
+	ret = ((ret & 0xf0f0f0f0f0f0f0f0) >> 4) |
+	    ((ret & 0x0f0f0f0f0f0f0f0f) << 4);
+	ret = ((ret & 0xff00ff00ff00ff00) >> 8) |
+	    ((ret & 0x00ff00ff00ff00ff) << 8);
+	ret = ((ret & 0xffff0000ffff0000) >> 16) |
+	    ((ret & 0x0000ffff0000ffff) << 16);
 	return ((ret >> 32) | (ret << 32));
 }
