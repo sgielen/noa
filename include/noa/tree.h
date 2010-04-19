@@ -87,7 +87,7 @@ __ ## prefix ## _setlink(struct etype **p, struct etype *e)		\
 }									\
 									\
 static inline void							\
-prefix ## _insert(struct htype *h, struct etype *e, cookie_t k)		\
+prefix ## _insert(struct htype *h, struct etype *e, keytype k)		\
 {									\
 	struct etype **p;						\
 	int c;								\
@@ -118,10 +118,10 @@ prefix ## _remove(struct etype *e)					\
 	struct etype *s;						\
 	if (e->field.te_left == NULL) {					\
 		__ ## prefix ## _setlink(e->field.te_parent,		\
-		    e->field.te_right, e);				\
+		    e->field.te_right);					\
 	} else if (e->field.te_right == NULL) {				\
 		__ ## prefix ## _setlink(e->field.te_parent,		\
-		    e->field.te_left, e);				\
+		    e->field.te_left);					\
 	} else {							\
 		s = __ ## prefix ## _min(e->field.te_right);		\
 		__ ## prefix ## _setlink(s->field.te_parent,		\
