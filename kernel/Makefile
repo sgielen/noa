@@ -7,6 +7,9 @@ CLEANFILES+=syscallvec.c syscalls.h
 
 CFLAGS+=-I${.CURDIR}
 
+# Disable SMP for now. Requires __percpu.
+NO_SMP=
+
 .if defined(NO_SMP)
 CFLAGS+=-DNO_SMP
 .else
