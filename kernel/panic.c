@@ -31,6 +31,8 @@ void
 __assertion_failed(const char *func, const char *file, int line, const char *e)
 {
 
-	printf("\n\nAssertion failed: %s\nFile: %s:%d\nFunction: %s", e, file, line, func);
-	for(;;);
+	cpu_critical_enter();
+	printf("\n\nAssertion failed: %s\nFile: %s:%d\nFunction: %s",
+	    e, file, line, func);
+	for (;;);
 }
