@@ -94,7 +94,7 @@ prefix ## _insert(struct htype *h, struct etype *e, cookie_t k)		\
 	e->field.te_left = NULL;					\
 	e->field.te_right = NULL;					\
 	e->field.te_parent = p;						\
-	*p = e;								\
+	*e->field.te_parent = e;					\
 }									\
 									\
 static inline struct etype *						\
