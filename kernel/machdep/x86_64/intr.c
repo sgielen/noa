@@ -42,7 +42,6 @@ cpu_critical_leave(void)
 {
 
 	assert(critnest > 0);
-
 	if (--critnest == 0)
 		asm ("sti;");
 }
