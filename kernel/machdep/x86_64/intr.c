@@ -30,12 +30,14 @@ void
 cpu_critical_enter(void)
 {
 
-	/* XXX */
+	/* XXX: nesting! */
+	asm ("cli;");
 }
 
 void
 cpu_critical_leave(void)
 {
 
-	/* XXX */
+	/* XXX: nesting! */
+	asm ("sti;");
 }
