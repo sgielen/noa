@@ -36,12 +36,12 @@ TREE_HEAD(processgroup_head, processgroup);
 TREE_COMPAR_NUMERICAL(processgroup_idcmp, processgroup, pg_id, cookie_t);
 TREE_FUNCS(processgrouptree, processgroup_head, processgroup, pg_tree,
     processgroup_idcmp, cookie_t);
-static struct processgroup_head processgrouptree;
+static struct processgroup_head processgrouptree = TREE_INITIALIZER;
 
 TREE_HEAD(thread_head, thread);
 TREE_COMPAR_NUMERICAL(thread_idcmp, thread, td_id, cookie_t);
 TREE_FUNCS(threadtree, thread_head, thread, td_tree, thread_idcmp, cookie_t);
-static struct thread_head threadtree;
+static struct thread_head threadtree = TREE_INITIALIZER;
 
 struct process *
 process_lookup(cookie_t pid)

@@ -43,6 +43,8 @@ struct {								\
 	struct type	**te_parent;					\
 }
 
+#define	TREE_INITIALIZER	{ NULL }
+
 #define	TREE_INIT(head) do {						\
 	(head)->th_head = NULL;						\
 } while (0)
