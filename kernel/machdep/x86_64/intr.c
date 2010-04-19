@@ -24,20 +24,25 @@
  * SUCH DAMAGE.
  */
 
+#include <assert.h>
 #include <kernel.h>
+
+static __percpu unsigned int critnest;
 
 void
 cpu_critical_enter(void)
 {
 
-	/* XXX: nesting! */
 	asm ("cli;");
+	critnest++;
 }
 
 void
 cpu_critical_leave(void)
 {
 
-	/* XXX: nesting! */
-	asm ("sti;");
+	assert(critnest > 0);
+
+	if (--critnest == 0)
+		asm ("sti;");
 }

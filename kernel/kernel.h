@@ -55,6 +55,16 @@ struct timespec;
 typedef unsigned long refcount_t;
 
 /*
+ * Use TLS for per-CPU variables.
+ */
+
+#ifdef NO_SMP
+#define	__percpu
+#else
+#define	__percpu	__thread
+#endif
+
+/*
  * Locking of kernel data structures.
  *
  * (a) Atomic operations.
