@@ -34,13 +34,13 @@ struct mutex processtopo = MUTEX_INITIALIZER;
 
 TREE_HEAD(processgroup_head, processgroup);
 TREE_COMPAR_NUMERICAL(processgroup_idcmp, processgroup, pg_id, cookie_t);
-TREE_FUNCS(processgroup_tree, processgroup_head, processgroup, pg_tree,
+TREE_FUNCS(processgrouptree, processgroup_head, processgroup, pg_tree,
     processgroup_idcmp, cookie_t);
 static struct processgroup_head processgrouptree;
 
 TREE_HEAD(thread_head, thread);
 TREE_COMPAR_NUMERICAL(thread_idcmp, thread, td_id, cookie_t);
-TREE_FUNCS(thread_tree, thread_head, thread, td_tree, thread_idcmp, cookie_t);
+TREE_FUNCS(threadtree, thread_head, thread, td_tree, thread_idcmp, cookie_t);
 static struct thread_head threadtree;
 
 struct process *
@@ -64,7 +64,7 @@ processgroup_lookup(cookie_t pgid)
 	struct processgroup *pg;
 
 	mutex_assert(&processtopo);
-	pg = processgroup_tree_lookup(&processgrouptree, pgid);
+	pg = processgrouptree_lookup(&processgrouptree, pgid);
 	return (pg);
 }
 
@@ -74,6 +74,6 @@ thread_lookup(cookie_t tid)
 	struct thread *td;
 
 	mutex_assert(&processtopo);
-	td = thread_tree_lookup(&threadtree, tid);
+	td = threadtree_lookup(&threadtree, tid);
 	return (td);
 }
