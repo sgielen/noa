@@ -89,6 +89,7 @@ struct process {
 
 struct processgroup {
 	struct session	*pg_session;	/* (c) Session. */
+	RBTREE_ENTRY(processgroup) pg_tree; /* (l) Process group tree. */
 	cookie_t	 pg_id;		/* (c) Process group identifier. */
 };
 
@@ -183,6 +184,6 @@ void	 putchar(char);
  * Global variables.
  */
 
-extern struct mutex threadtopo;
+extern struct mutex processtopo;
 
 #endif /* !_KERNEL_H_ */

@@ -27,8 +27,19 @@
 #include <kernel.h>
 
 /*
- * Thread red-black tree.
+ * Thread and process group red-black tree.
  */
+
+static inline int
+processgroup_idcmp(struct processgroup *pg, cookie_t pgid)
+{
+
+	if (pg->pg_id > pgid)
+		return (-1);
+	else if (pg->pg_id < pgid)
+		return (1);
+	return (0);
+}
 
 static inline int
 thread_idcmp(struct thread *td, cookie_t tid)
@@ -41,11 +52,15 @@ thread_idcmp(struct thread *td, cookie_t tid)
 	return (0);
 }
 
+RBTREE_HEAD(processgroup_rbhead, processgroup);
+RBTREE_FUNCS(processgroup_rbtree, processgroup_rbhead, processgroup,
+    pg_tree, processgroup_idcmp, cookie_t);
 RBTREE_HEAD(thread_rbhead, thread);
 RBTREE_FUNCS(thread_rbtree, thread_rbhead, thread, td_tree,
     thread_idcmp, cookie_t);
 
-struct mutex threadtopo;
+struct mutex processtopo;
+static struct processgroup_rbhead processgrouptree;
 static struct thread_rbhead threadtree;
 
 struct process *
@@ -66,15 +81,10 @@ process_lookup(cookie_t pid)
 struct processgroup *
 processgroup_lookup(cookie_t pgid)
 {
-	struct process *p;
 	struct processgroup *pg;
 
-	p = process_lookup(pgid);
-	if (p == NULL)
-		return (NULL);
-	pg = p->p_group;
-	if (pg->pg_id != pgid)
-		return (NULL);
+	mutex_assert(&processtopo);
+	pg = processgroup_rbtree_lookup(&processgrouptree, pgid);
 	return (pg);
 }
 
@@ -83,7 +93,7 @@ thread_lookup(cookie_t tid)
 {
 	struct thread *td;
 
-	mutex_assert(&threadtopo);
+	mutex_assert(&processtopo);
 	td = thread_rbtree_lookup(&threadtree, tid);
 	return (td);
 }

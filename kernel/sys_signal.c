@@ -59,27 +59,27 @@ sys_kill(struct thread *td, struct sys_kill_args *ap)
 
 	if (ap->pid < -1) {
 		/* Signal process group. */
-		mutex_slock(&threadtopo);
+		mutex_slock(&processtopo);
 		pg = processgroup_lookup(-ap->pid);
 		if (pg != NULL)
 			error = kill_processgroup(pg, ap->sig);
-		mutex_sunlock(&threadtopo);
+		mutex_sunlock(&processtopo);
 	} else if (ap->pid == -1) {
 		/* Signal all processes. */
 		error = kill_all(ap->sig);
 	} else if (ap->pid == 0) {
 		/* Signal current process group. */
-		mutex_slock(&threadtopo);
+		mutex_slock(&processtopo);
 		pg = td->td_process->p_group;
 		error = kill_processgroup(pg, ap->sig);
-		mutex_sunlock(&threadtopo);
+		mutex_sunlock(&processtopo);
 	} else {
 		/* Signal process. */
-		mutex_slock(&threadtopo);
+		mutex_slock(&processtopo);
 		p = process_lookup(ap->pid);
 		if (p != NULL)
 			error = kill_process(p, ap->sig);
-		mutex_sunlock(&threadtopo);
+		mutex_sunlock(&processtopo);
 	}
 
 	return (error);
