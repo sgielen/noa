@@ -117,9 +117,11 @@ prefix ## _remove(struct etype *e)					\
 {									\
 	struct etype *s;						\
 	if (e->field.te_left == NULL) {					\
-		__ ## prefix ## _setlink(&e->field.te_right, e);	\
+		__ ## prefix ## _setlink(e->field.te_parent,		\
+		    e->field.te_right, e);				\
 	} else if (e->field.te_right == NULL) {				\
-		__ ## prefix ## _setlink(&e->field.te_left, e);		\
+		__ ## prefix ## _setlink(e->field.te_parent,		\
+		    e->field.te_left, e);				\
 	} else {							\
 		s = __ ## prefix ## _min(e->field.te_right);		\
 		__ ## prefix ## _setlink(s->field.te_parent,		\
