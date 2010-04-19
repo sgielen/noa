@@ -25,6 +25,7 @@
  */
 
 #include <kernel.h>
+#include <stdarg.h>
 
 unsigned int
 log2ceil(unsigned long i)
@@ -53,11 +54,41 @@ log2floor(unsigned long i)
 	return (l);
 }
 
+static void
+puts(const char *str)
+{
+
+	while (*str != '\0')
+		putchar(*str++);
+}
+
 void
 printf(const char *restrict format, ...)
 {
+	va_list args;
+	int state = 0;
+	const char *str;
 
-	/* XXX! */
-	while (*format != '\0')
-		putchar(*format++);
+	va_start(args, format);
+	for (; *format != '\0'; format++) {
+		if (state == 0) {
+			if (*format == '%')
+				state = 1;
+			else
+				putchar(*format);
+		} else {
+			switch (*format) {
+			case '%':
+				putchar('%');
+				state = 0;
+				break;
+			case 's':
+				str = va_arg(args, const char *);
+				puts(str);
+				state = 0;
+				break;
+			}
+		}
+	}
+	va_end(args);
 }
