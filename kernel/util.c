@@ -69,6 +69,7 @@ printf(const char *restrict format, ...)
 	va_list args;
 	const char *str;
 	int state = 0;
+	char c;
 
 	va_start(args, format);
 	for (; *format != '\0'; format++) {
@@ -81,6 +82,11 @@ printf(const char *restrict format, ...)
 			switch (*format) {
 			case '%':
 				putchar('%');
+				state = 0;
+				break;
+			case 'c':
+				c = va_arg(args, char);
+				putchar(c);
 				state = 0;
 				break;
 			case 's':
