@@ -24,8 +24,8 @@
  * SUCH DAMAGE.
  */
 
-#include <noa/cdefs.h>
 #include <assert.h>
+#include <kernel.h>
 
 void
 __assertion_failed(const char *func, const char *file, int line, const char *e)
