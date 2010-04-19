@@ -49,7 +49,7 @@ struct {								\
 	(head)->th_head = NULL;						\
 } while (0)
 
-#define	TREE_COMPAR_NUMERICAL(name, etype, field, keytype)		\
+#define	TREE_COMPARE_NUMERICAL(name, etype, field, keytype)		\
 static inline int							\
 name(struct etype *e, keytype c)					\
 {									\
@@ -60,14 +60,14 @@ name(struct etype *e, keytype c)					\
 	return (0);							\
 }
 
-#define	TREE_FUNCS(prefix, htype, etype, field, compar, keytype)	\
+#define	TREE_FUNCS(prefix, htype, etype, field, compare, keytype)	\
 static inline struct etype *						\
 prefix ## _lookup(struct htype *h, keytype k)				\
 {									\
 	struct etype *e;						\
 	int c;								\
 	for (e = h->th_head; e != NULL;) {				\
-		c = compar(e, k);					\
+		c = compare(e, k);					\
 		if (c > 0)						\
 			e = e->field.te_left;				\
 		else if (c < 0)						\
@@ -93,7 +93,7 @@ prefix ## _insert(struct htype *h, struct etype *e, cookie_t k)		\
 	int c;								\
 	p = &h->th_head;						\
 	while (*p != NULL) {						\
-		c = compar(*p, k);					\
+		c = compare(*p, k);					\
 		if (c > 0)						\
 			p = &(*p)->field.te_left;			\
 		else							\
