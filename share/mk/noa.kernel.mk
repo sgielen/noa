@@ -14,4 +14,4 @@ kernel: ${OBJS}
 ${OBJS}: ${SRCS:M*.h}
 
 clean:
-	@rm -f ${OBJS} ${CLEANFILES}
+	@rm -f kernel ${OBJS} ${CLEANFILES}
