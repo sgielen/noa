@@ -33,7 +33,7 @@
 #define	__NEED_SIZE_T
 
 #include <noa/astack.h>
-#include <noa/rbtree.h>
+#include <noa/tree.h>
 #include <noa/types.h>
 #include <limits.h>
 
@@ -99,7 +99,7 @@ struct process {
 
 struct processgroup {
 	struct session	*pg_session;	/* (c) Session. */
-	RBTREE_ENTRY(processgroup) pg_tree; /* (l) Process group tree. */
+	TREE_ENTRY(processgroup) pg_tree; /* (l) Process group tree. */
 	cookie_t	 pg_id;		/* (c) Process group identifier. */
 };
 
@@ -117,7 +117,7 @@ struct slab {
 
 struct thread {
 	struct process	*td_process;	/* (c) Process. */
-	RBTREE_ENTRY(thread) td_tree;	/* (l) Thread tree. */
+	TREE_ENTRY(thread) td_tree;	/* (l) Thread tree. */
 	cookie_t	 td_id;		/* (c) Thread identifier. */
 };
 

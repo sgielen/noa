@@ -24,41 +24,56 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _NOA_RBTREE_H_
-#define	_NOA_RBTREE_H_
+#ifndef _NOA_TREE_H_
+#define	_NOA_TREE_H_
 
-#define	RBTREE_HEAD(name, type)						\
+/*
+ * An unbalanced binary tree.
+ */
+
+#define	TREE_HEAD(name, type)						\
 struct name {								\
-	struct type	*rbh_head;					\
+	struct type	*th_head;					\
 }
 
-#define	RBTREE_ENTRY(type)						\
+#define	TREE_ENTRY(type)						\
 struct {								\
-	struct type	*rbe_parent;					\
-	struct type	*rbe_left;					\
-	struct type	*rbe_right;					\
+	struct type	*te_parent;					\
+	struct type	*te_left;					\
+	struct type	*te_right;					\
 }
 
-#define	RBTREE_INIT(head) do {						\
-	(head)->rbh_head = NULL;					\
+#define	TREE_INIT(head) do {						\
+	(head)->th_head = NULL;						\
 } while (0)
 
-#define	RBTREE_FUNCS(prefix, htype, etype, field, compar, keytype)	\
+#define	TREE_COMPAR_NUMERICAL(name, etype, field, keytype)		\
+static inline int							\
+name(struct etype *e, keytype c)					\
+{									\
+	if (e->field > c)						\
+		return (-1);						\
+	else if (e->field < c)						\
+		return (1);						\
+	return (0);							\
+}
+
+#define	TREE_FUNCS(prefix, htype, etype, field, compar, keytype)	\
 static inline struct etype *						\
 prefix ## _lookup(struct htype *h, keytype k)				\
 {									\
 	struct etype *e;						\
 	int c;								\
-	for (e = h->rbh_head; e != NULL;) {				\
+	for (e = h->th_head; e != NULL;) {				\
 		c = compar(e, k);					\
 		if (c > 0)						\
-			e = e->field.rbe_left;				\
+			e = e->field.te_left;				\
 		else if (c < 0)						\
-			e = e->field.rbe_right;				\
+			e = e->field.te_right;				\
 		else							\
 			return (e);					\
 	}								\
 	return (NULL);							\
 }
 
-#endif /* !_NOA_RBTREE_H_ */
+#endif /* !_NOA_TREE_H_ */
