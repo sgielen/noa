@@ -28,7 +28,7 @@
 #define	_NOA_TREE_H_
 
 /*
- * An unbalanced binary tree.
+ * An unbalanced binary search tree.
  */
 
 #define	TREE_HEAD(name, type)						\
