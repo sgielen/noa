@@ -81,9 +81,8 @@ prefix ## _lookup(struct htype *h, keytype k)				\
 static inline void							\
 __ ## prefix ## _setlink(struct etype **p, struct etype *e)		\
 {									\
-	if (e != NULL)							\
+	if ((*p = e) != NULL)						\
 		e->field.te_parent = p;					\
-	*p = e;								\
 }									\
 									\
 static inline void							\
