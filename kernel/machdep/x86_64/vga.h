@@ -24,18 +24,9 @@
  * SUCH DAMAGE.
  */
 
-#include <assert.h>
-#include <kernel.h>
-#include <vga.h>
+#ifndef _VGA_H_
+#define	_VGA_H_
 
-void kstartup(void);
+void	 vga_init(void);
 
-void
-kstartup(void)
-{
-
-	vga_init();
-	printf("Noa\nHello world!\n");
-
-	for (;;);
-}
+#endif /* !_VGA_H_ */
