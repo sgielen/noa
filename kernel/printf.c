@@ -36,7 +36,7 @@ putnumber(uintmax_t i, unsigned int base)
 {
 	uintmax_t m;
 
-	assert(base >= 2 && base <= 16);
+	assert(base >= 2 && base <= 16 && "Invalid base");
 	for (m = 1; (i / m) >= base; m *= base);
 	for (; m >= 1; m /= base)
 		putchar(hex[(i / m) % base]);
@@ -109,7 +109,7 @@ printf(const char *restrict format, ...)
 				state = 0;
 				break;
 			default:
-				assert(0);
+				assert(0 && "Invalid printf modifier");
 			}
 		}
 	}

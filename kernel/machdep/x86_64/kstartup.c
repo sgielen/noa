@@ -37,5 +37,5 @@ kstartup(void)
 	vga_init();
 	printf("Noa\nHello world!\n");
 
-	for (;;);
+	assert(0 && "Startup code missing");
 }
