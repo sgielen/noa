@@ -46,6 +46,9 @@
 #define	__symbol_alias(from, to) \
 	extern __typeof(from) to __attribute__((alias(#from)))
 
+#define	__howmany(a, b)		(((a) + (b) - 1) / (b))
+#define	__roundup(a, b)		(__howmany((a), (b)) * (b))
+
 #define	__CTASSERT(expr)	___CTASSERT(expr, __LINE__)
 #define	___CTASSERT(expr, line)	____CTASSERT(expr, line)
 #define	____CTASSERT(expr, line) \

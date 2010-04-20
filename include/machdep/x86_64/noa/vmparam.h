@@ -30,4 +30,6 @@
 #define	PAGE_SHIFT	12
 #define	PAGE_SIZE	(1 << PAGE_SHIFT)
 
+#define	KMEM_ALIGN	8
+
 #endif /* !_NOA_VMPARAM_H_ */
