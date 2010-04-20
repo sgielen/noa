@@ -27,6 +27,7 @@
 #include <assert.h>
 #include <kernel.h>
 #include <stdarg.h>
+#include <stddef.h>
 #include <stdint.h>
 
 static const char hex[16] = "0123456789abcdef";
@@ -50,6 +51,15 @@ putstring(const char *str)
 		putchar(*str++);
 }
 
+#define	VA_GET(cast, sign) \
+	(numsize == sizeof(char) ? (cast)va_arg(args, sign char) :	\
+	(numsize == sizeof(short) ? (cast)va_arg(args, sign short) :	\
+	(numsize == sizeof(int) ? (cast)va_arg(args, sign int) :	\
+	(numsize == sizeof(long) ? (cast)va_arg(args, sign long) :	\
+	((cast)va_arg(args, sign long long))))))
+#define	VA_SIGNED	VA_GET(intmax_t, signed)
+#define	VA_UNSIGNED	VA_GET(uintmax_t, unsigned)
+
 void
 printf(const char *restrict format, ...)
 {
@@ -58,14 +68,16 @@ printf(const char *restrict format, ...)
 	int state = 0;
 	intmax_t si;
 	uintmax_t ui;
+	size_t numsize;
 	char c;
 
 	va_start(args, format);
 	for (; *format != '\0'; format++) {
 		if (state == 0) {
-			if (*format == '%')
+			if (*format == '%') {
 				state = 1;
-			else
+				numsize = sizeof(int);
+			} else
 				putchar(*format);
 		} else {
 			switch (*format) {
@@ -79,7 +91,7 @@ printf(const char *restrict format, ...)
 				state = 0;
 				break;
 			case 'd':
-				si = (intmax_t)va_arg(args, int);
+				si = VA_SIGNED;
 				if (si < 0) {
 					putchar('-');
 					putnumber(-si, 10);
@@ -88,13 +100,24 @@ printf(const char *restrict format, ...)
 				}
 				state = 0;
 				break;
+			case 'h':
+				numsize = (numsize == sizeof(short)) ?
+				    sizeof(char) : sizeof(short);
+				break;
+			case 'j':
+				numsize = sizeof(intmax_t);
+				break;
+			case 'l':
+				numsize = (numsize == sizeof(long)) ?
+				    sizeof(long long) : sizeof(long);
+				break;
 			case 'o':
-				ui = (uintmax_t)va_arg(args, unsigned int);
+				ui = VA_UNSIGNED;
 				putnumber(ui, 8);
 				state = 0;
 				break;
 			case 'p':
-				ui = (uintptr_t)va_arg(args, void *);
+				ui = VA_UNSIGNED;
 				putnumber(ui, 16);
 				state = 0;
 				break;
@@ -103,15 +126,21 @@ printf(const char *restrict format, ...)
 				putstring(str);
 				state = 0;
 				break;
+			case 't':
+				numsize = sizeof(ptrdiff_t);
+				break;
 			case 'u':
-				ui = (uintmax_t)va_arg(args, unsigned int);
+				ui = VA_UNSIGNED;
 				putnumber(ui, 10);
 				state = 0;
 				break;
 			case 'x':
-				ui = (uintmax_t)va_arg(args, unsigned int);
+				ui = VA_UNSIGNED;
 				putnumber(ui, 16);
 				state = 0;
+				break;
+			case 'z':
+				numsize = sizeof(size_t);
 				break;
 			default:
 				assert(0 && "Invalid printf modifier");
