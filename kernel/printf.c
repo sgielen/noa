@@ -93,6 +93,11 @@ printf(const char *restrict format, ...)
 				putnumber(ui, 8);
 				state = 0;
 				break;
+			case 'p':
+				ui = (uintptr_t)va_arg(args, void *);
+				putnumber(ui, 16);
+				state = 0;
+				break;
 			case 's':
 				str = va_arg(args, const char *);
 				putstring(str);
