@@ -80,7 +80,8 @@ slab_alloc_nowait(struct slab *sl)
 		    "Slab page in wrong slab page list");
 		left = sp->sp_left - sl->sl_size;
 		se = (struct slabentry *)((char *)sp + sp->sp_left);
-		sl->sl_ctor(se->se_data);
+		if (sl->sl_ctor != NULL)
+			sl->sl_ctor(se->se_data);
 
 		/* Store the page back in the free space table. */
 		if (left >= sizeof(struct slabpage)) {
