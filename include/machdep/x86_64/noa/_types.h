@@ -33,6 +33,8 @@ typedef unsigned long __uint64_t;
 typedef unsigned long __uintmax_t;
 typedef signed long __intmax_t;
 
+typedef signed long __ptrdiff_t;
+
 typedef unsigned long __size_t;
 typedef signed long __ssize_t;
 
