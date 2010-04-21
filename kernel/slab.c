@@ -27,6 +27,7 @@
 #include <noa/vmparam.h>
 #include <assert.h>
 #include <kernel.h>
+#include <stdint.h>
 
 struct slabentry {
 	ASTACK_ENTRY(slabentry) se_next;
@@ -48,6 +49,8 @@ void
 slab_give(void *page)
 {
 	struct slabpage *sp = page;
+
+	assert(((uintptr_t)page % PAGE_SIZE) == 0);
 
 	mutex_xlock(&slablock);
 	sp->sp_left = PAGE_SIZE;
