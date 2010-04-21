@@ -24,7 +24,9 @@
  * SUCH DAMAGE.
  */
 
+#include <assert.h>
 #include <kernel.h>
+#include <vga.h>
 
 void kstartup(void);
 
@@ -32,7 +34,8 @@ void
 kstartup(void)
 {
 
+	vga_init();
 	printf("Noa\nHello world!\n");
 
-	for (;;);
+	assert(0 && "Startup code missing");
 }

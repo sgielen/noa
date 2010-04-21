@@ -138,6 +138,11 @@ typedef struct __pthread_t *pthread_t;
 #define	__HAVE_PTHREAD_T
 #endif
 
+#if defined(__NEED_PTRDIFF_T) && !defined(__HAVE_PTRDIFF_T)
+typedef __ptrdiff_t ptrdiff_t;
+#define	__HAVE_PTRDIFF_T
+#endif
+
 #if defined(__NEED_SIGSET_T) && !defined(__HAVE_SIGSET_T)
 typedef struct {
 	long bogus[1];

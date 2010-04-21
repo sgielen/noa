@@ -79,10 +79,12 @@ slab_alloc_nowait(struct slab *sl)
 			continue;
 
 		/* Allocate new instance in this page. */
-		assert(sp->sp_left >= sl->sl_size);
+		assert(sp->sp_left >= sl->sl_size &&
+		    "Slab page in wrong slab page list");
 		left = sp->sp_left - sl->sl_size;
 		se = (struct slabentry *)((char *)sp + sp->sp_left);
-		sl->sl_ctor(se->se_data);
+		if (sl->sl_ctor != NULL)
+			sl->sl_ctor(se->se_data);
 
 		/* Store the page back in the free space table. */
 		if (left >= sizeof(struct slabpage)) {
@@ -128,10 +130,13 @@ _slab_init(struct slab *sl, size_t size, void (*ctor)(void *))
 {
 
 	ASTACK_INIT(&sl->sl_freelist);
+
 	/* Reserve additional space for the free list pointer. */
-	/* XXX: ROUND UP TO MAXIMUM ALIGNMENT! */
+	size = __roundup(size, KMEM_ALIGN);
 	sl->sl_size = size + sizeof(struct slabentry);
 	assert(sl->sl_size > sizeof(struct slabentry) &&
-	    sl->sl_size <= PAGE_SIZE);
+	    sl->sl_size <= PAGE_SIZE &&
+	    "Allocation size not within page boundary");
+
 	sl->sl_ctor = ctor;
 }

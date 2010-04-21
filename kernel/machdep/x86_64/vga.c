@@ -25,11 +25,22 @@
  */
 
 #include <kernel.h>
+#include <vga.h>
 
 #define	NROWS	25
 #define	NCOLS	80
 
 static int position = 0;
+
+void
+vga_init(void)
+{
+	char *vga = (char *)0xb8000;
+	unsigned int i;
+
+	for (i = 0; i < 2 * NROWS * NCOLS; i++)
+		vga[i] = 0;
+}
 
 void
 putchar(char c)

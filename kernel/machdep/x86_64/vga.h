@@ -24,12 +24,9 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _NOA_VMPARAM_H_
-#define	_NOA_VMPARAM_H_
+#ifndef _VGA_H_
+#define	_VGA_H_
 
-#define	PAGE_SHIFT	12
-#define	PAGE_SIZE	(1 << PAGE_SHIFT)
+void	 vga_init(void);
 
-#define	KMEM_ALIGN	8
-
-#endif /* !_NOA_VMPARAM_H_ */
+#endif /* !_VGA_H_ */

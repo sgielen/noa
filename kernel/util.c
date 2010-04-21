@@ -24,9 +24,7 @@
  * SUCH DAMAGE.
  */
 
-#include <assert.h>
 #include <kernel.h>
-#include <stdarg.h>
 
 unsigned int
 log2ceil(unsigned long i)
@@ -53,51 +51,4 @@ log2floor(unsigned long i)
 			break;
 	}
 	return (l);
-}
-
-static void
-puts(const char *str)
-{
-
-	while (*str != '\0')
-		putchar(*str++);
-}
-
-void
-printf(const char *restrict format, ...)
-{
-	va_list args;
-	const char *str;
-	int state = 0;
-	char c;
-
-	va_start(args, format);
-	for (; *format != '\0'; format++) {
-		if (state == 0) {
-			if (*format == '%')
-				state = 1;
-			else
-				putchar(*format);
-		} else {
-			switch (*format) {
-			case '%':
-				putchar('%');
-				state = 0;
-				break;
-			case 'c':
-				c = va_arg(args, char);
-				putchar(c);
-				state = 0;
-				break;
-			case 's':
-				str = va_arg(args, const char *);
-				puts(str);
-				state = 0;
-				break;
-			default:
-				assert(0);
-			}
-		}
-	}
-	va_end(args);
 }

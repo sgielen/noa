@@ -41,7 +41,7 @@ void
 cpu_critical_leave(void)
 {
 
-	assert(critnest > 0);
+	assert(critnest > 0 && "Not inside critical section");
 	if (--critnest == 0)
 		asm ("sti;");
 }
