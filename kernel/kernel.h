@@ -42,7 +42,8 @@
  */
 
 struct cond;
-struct filedescriptor;
+struct filedesc;
+struct filehnd;
 struct mutex;
 struct process;
 struct processgroup;
@@ -73,14 +74,22 @@ typedef unsigned long refcount_t;
  * (p) Locked by p_lock.
  */
 
+TREE_HEAD(filedesctable, filedesc);
+
 struct cond {
 	void		*cv_dummy;
 };
 
-struct filedescriptor {
-	struct process	*fd_service;
-	cookie_t	 fd_cookie;
-	refcount_t	 fd_refcount;
+struct filedesc {
+	TREE_ENTRY(filedesc) fd_tree;	/* (p) Tree linkage. */
+	struct filehnd	*fd_handle;	/* (c) Underlying file handle. */
+	int		 fd_flags;	/* (a) File descriptor flags. */
+};
+
+struct filehnd {
+	struct process	*fh_service;	/* (c) Responsible handler. */
+	cookie_t	 fh_cookie;	/* (c) Identifier. */
+	refcount_t	 fh_refcount;	/* (a) Reference count. */
 };
 
 struct mutex {
@@ -90,16 +99,17 @@ struct mutex {
 };
 
 struct process {
+	struct mutex	 p_lock;	/* Per-process lock. */
 	struct process	*p_parent;	/* (l) Parent process. */
 	struct processgroup *p_group;	/* (l) Process group. */
-	struct mutex	 p_lock;	/* Per-process lock. */
 	cookie_t	 p_id;		/* (c) Process identifier. */
+	struct filedesctable p_fd;	/* (p) File descriptor table. */
 	mode_t		 p_umask;	/* (a) File mode creation mask. */
 };
 
 struct processgroup {
-	struct session	*pg_session;	/* (c) Session. */
 	TREE_ENTRY(processgroup) pg_tree; /* (l) Process group tree. */
+	struct session	*pg_session;	/* (c) Session. */
 	cookie_t	 pg_id;		/* (c) Process group identifier. */
 };
 
@@ -116,8 +126,8 @@ struct slab {
 };
 
 struct thread {
-	struct process	*td_process;	/* (c) Process. */
 	TREE_ENTRY(thread) td_tree;	/* (l) Thread tree. */
+	struct process	*td_process;	/* (c) Process. */
 	cookie_t	 td_id;		/* (c) Thread identifier. */
 };
 
