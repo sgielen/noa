@@ -50,7 +50,8 @@ slab_give(void *page)
 {
 	struct slabpage *sp = page;
 
-	assert(((uintptr_t)page % PAGE_SIZE) == 0);
+	assert(((uintptr_t)page % PAGE_SIZE) == 0 &&
+	    "Address not page aligned");
 
 	mutex_xlock(&slablock);
 	sp->sp_left = PAGE_SIZE;
