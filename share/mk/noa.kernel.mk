@@ -9,7 +9,8 @@ OBJS+=	${SRCS:N*.h:R:S/$/.o/}
 all: kernel
 
 kernel: ${OBJS}
-	${LD} ${LDFLAGS} -o ${.TARGET} ${OBJS}
+	@echo LD ${.TARGET}
+	@${LD} ${LDFLAGS} -o ${.TARGET} ${OBJS}
 
 ${OBJS}: ${SRCS:M*.h}
 
