@@ -24,45 +24,12 @@
  * SUCH DAMAGE.
  */
 
-#include <errno.h>
 #include <kernel.h>
-#include <time.h>
-
-#include "syscalls.h"
 
 int
-sys_clock_gettime(struct thread *td __unused,
-    struct sys_clock_gettime_args *ap __unused)
+priv_check(struct thread *td __unused, int priv __unused)
 {
 
-	return (ENOSYS);
-}
-
-int
-sys_clock_settime(struct thread *td, struct sys_clock_settime_args *ap)
-{
-	int error;
-
-	if (ap->clock_id != CLOCK_REALTIME)
-		return (EINVAL);
-	if ((error = priv_check(td, PRIV_CLOCK_SETTIME)) != 0)
-		return (error);
-
-	return (ENOSYS);
-}
-
-int
-sys_clock_nanosleep(struct thread *td __unused,
-    struct sys_clock_nanosleep_args *ap __unused)
-{
-
-	return (ENOSYS);
-}
-
-int
-sys_clock_getres(struct thread *td __unused,
-    struct sys_clock_getres_args *ap __unused)
-{
-
-	return (ENOSYS);
+	/* XXX */
+	return (0);
 }

@@ -1,4 +1,4 @@
-SRCS+=	cond.c cookie.c panic.c printf.c processtree.c slab.c \
+SRCS+=	cond.c cookie.c panic.c printf.c priv.c processtree.c slab.c \
 	sys_clock.c sys_fildes.c sys_mman.c sys_proc.c sys_signal.c \
 	sys_tty.c sys_vfs.c util.c
 

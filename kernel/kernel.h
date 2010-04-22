@@ -176,6 +176,10 @@ void	 mutex_xlock(struct mutex *);
 void	 mutex_xunlock(struct mutex *);
 #endif /* NO_SMP */
 
+#define	PRIV_CLOCK_SETTIME	1
+
+int	 priv_check(struct thread *, int);
+
 struct process *
 	 process_lookup(cookie_t);
 
