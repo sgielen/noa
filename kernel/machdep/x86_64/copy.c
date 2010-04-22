@@ -24,7 +24,6 @@
  * SUCH DAMAGE.
  */
 
-#include <errno.h>
 #include <kernel.h>
 #include <string.h>
 
