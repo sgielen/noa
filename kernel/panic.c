@@ -33,7 +33,17 @@ __assertion_failed(const char *func, const char *file, int line, const char *e)
 
 	/* XXX: Also disable execution on other CPUs. */
 	cpu_critical_enter();
-	printf("\n\nAssertion failed: %s\nFile: %s:%d\nFunction: %s",
+	printf("\n\nAssertion failed: %s\nFile: %s:%d\nFunction: %s\n",
 	    e, file, line, func);
+	for (;;);
+}
+
+void
+panic(const char *msg)
+{
+
+	/* XXX: Also disable execution on other CPUs. */
+	cpu_critical_enter();
+	printf("\n\nKernel panic: %s\n", msg);
 	for (;;);
 }

@@ -26,7 +26,7 @@
 
 #include <assert.h>
 #include <kernel.h>
-#include <vga.h>
+#include <machdep.h>
 
 void kstartup(void);
 
@@ -35,6 +35,8 @@ kstartup(void)
 {
 
 	vga_init();
+	hpet_init();
+
 	printf("Noa\nHello world!\n");
 
 	assert(0 && "Startup code missing");

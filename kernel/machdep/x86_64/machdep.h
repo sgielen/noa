@@ -24,9 +24,10 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _VGA_H_
-#define	_VGA_H_
+#ifndef _MACHDEP_H_
+#define	_MACHDEP_H_
 
+void	 hpet_init(void);
 void	 vga_init(void);
 
-#endif /* !_VGA_H_ */
+#endif /* !_MACHDEP_H_ */

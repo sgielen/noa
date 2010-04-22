@@ -26,44 +26,53 @@
 
 #include <kernel.h>
 #include <machdep.h>
+#include <stdint.h>
 
-#define	NROWS	25
-#define	NCOLS	80
+#define	HPET_REG_CONFIG		0x10
+#define	    HPET_LEG_RT_CNF	0x02
+#define	    HPET_ENABLE_CNF	0x01
+#define	HPET_REG_COUNTER	0xf0
 
-static int position = 0;
-
-void
-vga_init(void)
+static inline uint64_t
+hpet_read(unsigned int reg)
 {
-	char *vga = (char *)0xb8000;
-	unsigned int i;
 
-	for (i = 0; i < 2 * NROWS * NCOLS; i++)
-		vga[i] = 0;
+	return (*(volatile uint64_t *)(0x0fed000f0 + reg));
+}
+
+static inline void
+hpet_write(unsigned int reg, uint64_t value)
+{
+
+	*(volatile uint64_t *)(0x0fed000f0 + reg) = value;
 }
 
 void
-putchar(char c)
+hpet_init(void)
 {
-	char *vga = (char *)0xb8000;
-	unsigned int i;
+	uint64_t reg;
+	uint64_t s1, s2;
+	int same = 0;
 
-	switch (c) {
-	case '\n':
-		position = ((position / NCOLS) + 1) * NCOLS;
-		break;
-	default:
-		vga[position * 2] = c;
-		vga[position * 2 + 1] = 15;
-		position++;
-		break;
-	}
+	/* Disable the counter. */
+	reg = hpet_read(HPET_REG_CONFIG);
+	reg &= ~(HPET_LEG_RT_CNF|HPET_ENABLE_CNF);
+	hpet_write(HPET_REG_CONFIG, reg);
+	
+	/* Reset the counter value. */
+	hpet_write(HPET_REG_COUNTER, 0);
 
-	if (position >= NROWS * NCOLS) {
-		for (i = 0; i < 2 * (NROWS - 1) * NCOLS; i++)
-			vga[i] = vga[i + 2 * NCOLS];
-		for (i = 2 * (NROWS - 1) * NCOLS; i < 2 * NROWS * NCOLS; i++)
-			vga[i] = 0;
-		position = (NROWS - 1) * NCOLS;
+	/* Re-enable the counter. */
+	reg |= HPET_ENABLE_CNF;
+	hpet_write(HPET_REG_CONFIG, reg);
+
+	/* See whether the hardware actually works. */
+	s1 = hpet_read(HPET_REG_COUNTER);
+	for (;;) {
+		s2 = hpet_read(HPET_REG_COUNTER);
+		if (s1 != s2)
+			break;
+		if (++same == 1000)
+			panic("HPET timer missing");
 	}
 }

@@ -209,6 +209,7 @@ unsigned int
 	 log2ceil(unsigned long);
 unsigned int
 	 log2floor(unsigned long);
+void	 panic(const char *);
 void	 printf(const char *restrict, ...);
 void	 putchar(char);
 void	 timespec_add(struct timespec *, const struct timespec *);
