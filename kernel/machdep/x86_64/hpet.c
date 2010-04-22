@@ -37,14 +37,14 @@ static inline uint64_t
 hpet_read(unsigned int reg)
 {
 
-	return (*(volatile uint64_t *)(0x0fed000f0 + reg));
+	return (*(volatile uint64_t *)(0xfed00000 + reg));
 }
 
 static inline void
 hpet_write(unsigned int reg, uint64_t value)
 {
 
-	*(volatile uint64_t *)(0x0fed000f0 + reg) = value;
+	*(volatile uint64_t *)(0xfed00000 + reg) = value;
 }
 
 void
