@@ -64,8 +64,13 @@ timespec_add(struct timespec *to, const struct timespec *from)
 }
 
 void
-timespec_sub(struct timespec *to __unused, const struct timespec *from __unused)
+timespec_sub(struct timespec *to, const struct timespec *from)
 {
 
-	/* XXX */
+	to->tv_sec -= from->tv_sec;
+	to->tv_nsec -= from->tv_nsec;
+	if (to->tv_nsec < 0) {
+		to->tv_sec--;
+		to->tv_nsec += 1000000000;
+	}
 }
