@@ -31,6 +31,7 @@
 #define	__NEED_MODE_T
 #define	__NEED_NULL
 #define	__NEED_SIZE_T
+#define	__NEED_STRUCT_TIMESPEC
 
 #include <noa/astack.h>
 #include <noa/tree.h>
@@ -51,7 +52,6 @@ struct session;
 struct slab;
 struct slabentry;
 struct thread;
-struct timespec;
 
 typedef unsigned long refcount_t;
 
@@ -135,6 +135,9 @@ struct thread {
  * Machine-dependent subroutines.
  */
 
+void	 clockhw_read(struct timespec *);
+int	 copyin(const void *, void *, size_t);
+int	 copyout(const void *, void *, size_t);
 void	 cpu_critical_enter(void);
 void	 cpu_critical_leave(void);
 
@@ -207,6 +210,8 @@ unsigned int
 	 log2floor(unsigned long);
 void	 printf(const char *restrict, ...);
 void	 putchar(char);
+void	 timespec_add(struct timespec *, const struct timespec *);
+void	 timespec_sub(struct timespec *, const struct timespec *);
 
 /*
  * Global variables.

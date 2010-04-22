@@ -24,63 +24,13 @@
  * SUCH DAMAGE.
  */
 
-#include <errno.h>
 #include <kernel.h>
-#include <time.h>
 
-#include "syscalls.h"
-
-static struct timespec realtime_offset;
-
-int
-sys_clock_gettime(struct thread *td __unused,
-    struct sys_clock_gettime_args *ap)
-{
-	struct timespec ts;
-
-	switch (ap->clock_id) {
-	case CLOCK_MONOTONIC:
-		clockhw_read(&ts);
-		return (copyout(&ts, ap->tp, sizeof ts));
-	case CLOCK_REALTIME:
-		clockhw_read(&ts);
-		timespec_add(&ts, &realtime_offset);
-		return (copyout(&ts, ap->tp, sizeof ts));
-	default:
-		return (EINVAL);
-	}
-}
-
-int
-sys_clock_settime(struct thread *td, struct sys_clock_settime_args *ap)
-{
-	struct timespec tm, tr;
-	int error;
-
-	if (ap->clock_id != CLOCK_REALTIME)
-		return (EINVAL);
-	if ((error = priv_check(td, PRIV_CLOCK_SETTIME)) != 0)
-		return (error);
-	if ((error = copyin(ap->tp, &tr, sizeof tr)) != 0)
-		return (error);
-	clockhw_read(&tm);
-	timespec_sub(&tr, &tm);
-	realtime_offset = tr;
-	return (0);
-}
-
-int
-sys_clock_nanosleep(struct thread *td __unused,
-    struct sys_clock_nanosleep_args *ap __unused)
+void
+clockhw_read(struct timespec *ts)
 {
 
-	return (ENOSYS);
-}
-
-int
-sys_clock_getres(struct thread *td __unused,
-    struct sys_clock_getres_args *ap __unused)
-{
-
-	return (ENOSYS);
+	/* XXX */
+	ts->tv_sec = 0;
+	ts->tv_nsec = 0;
 }

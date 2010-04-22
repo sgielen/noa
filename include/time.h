@@ -27,14 +27,6 @@
 #ifndef _TIME_H_
 #define	_TIME_H_
 
-#define	CLOCK_MONOTONIC			1
-#define	CLOCK_PROCESS_CPUTIME_ID	2
-#define	CLOCK_REALTIME			3
-#define	CLOCK_THREAD_CPUTIME_ID		4
-
-#define	TIMER_ABSTIME			0x1
-
-#ifndef _KERNEL
 #define	__NEED_CLOCKID_T
 #define	__NEED_CLOCK_T
 #define	__NEED_LOCALE_T
@@ -46,6 +38,15 @@
 #define	__NEED_TIME_T
 
 #include <noa/types.h>
+
+#define	CLOCK_MONOTONIC			1
+#define	CLOCK_PROCESS_CPUTIME_ID	2
+#define	CLOCK_REALTIME			3
+#define	CLOCK_THREAD_CPUTIME_ID		4
+
+#define	TIMER_ABSTIME			0x1
+
+#ifndef _KERNEL
 
 struct sigevent;
 

@@ -52,3 +52,22 @@ log2floor(unsigned long i)
 	}
 	return (l);
 }
+
+void
+timespec_add(struct timespec *to, const struct timespec *from)
+{
+
+	to->tv_sec += from->tv_sec;
+	to->tv_nsec += from->tv_nsec;
+	if (to->tv_nsec >= 1000000000) {
+		to->tv_sec += to->tv_nsec / 1000000000;
+		to->tv_nsec %= 1000000000;
+	}
+}
+
+void
+timespec_sub(struct timespec *to __unused, const struct timespec *from __unused)
+{
+
+	/* XXX */
+}
