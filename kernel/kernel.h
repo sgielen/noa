@@ -135,6 +135,7 @@ struct thread {
  * Machine-dependent subroutines.
  */
 
+void	 clockhw_getres(struct timespec *);
 void	 clockhw_read(struct timespec *);
 int	 copyin(const void *, void *, size_t);
 int	 copyout(const void *, void *, size_t);

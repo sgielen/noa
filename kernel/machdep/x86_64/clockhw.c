@@ -27,6 +27,15 @@
 #include <kernel.h>
 
 void
+clockhw_getres(struct timespec *ts)
+{
+
+	/* XXX */
+	ts->tv_sec = 0;
+	ts->tv_nsec = 1000;
+}
+
+void
 clockhw_read(struct timespec *ts)
 {
 

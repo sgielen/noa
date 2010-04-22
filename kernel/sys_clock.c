@@ -79,8 +79,16 @@ sys_clock_nanosleep(struct thread *td __unused,
 
 int
 sys_clock_getres(struct thread *td __unused,
-    struct sys_clock_getres_args *ap __unused)
+    struct sys_clock_getres_args *ap)
 {
+	struct timespec ts;
 
-	return (ENOSYS);
+	switch (ap->clock_id) {
+	case CLOCK_MONOTONIC:
+	case CLOCK_REALTIME:
+		clockhw_getres(&ts);
+		return (copyout(&ts, ap->res, sizeof ts));
+	default:
+		return (EINVAL);
+	}
 }
