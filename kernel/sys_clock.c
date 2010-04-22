@@ -32,6 +32,18 @@
 
 static struct timespec realtime_offset;
 
+static inline int
+timespec_copyin(const struct timespec *tu, struct timespec *tk)
+{
+	int error;
+
+	if ((error = copyin(tu, tk, sizeof *tk)) != 0)
+		return (error);
+	if (tk->tv_nsec < 0 || tk->tv_nsec >= 1000000000)
+		return (EINVAL);
+	return (0);
+}
+
 int
 sys_clock_gettime(struct thread *td __unused,
     struct sys_clock_gettime_args *ap)
@@ -54,26 +66,42 @@ sys_clock_gettime(struct thread *td __unused,
 int
 sys_clock_settime(struct thread *td, struct sys_clock_settime_args *ap)
 {
-	struct timespec tm, tr;
+	struct timespec tnow, treal;
 	int error;
 
 	if (ap->clock_id != CLOCK_REALTIME)
 		return (EINVAL);
 	if ((error = priv_check(td, PRIV_CLOCK_SETTIME)) != 0)
 		return (error);
-	if ((error = copyin(ap->tp, &tr, sizeof tr)) != 0)
+	if ((error = timespec_copyin(ap->tp, &treal)) != 0)
 		return (error);
-	clockhw_read(&tm);
-	timespec_sub(&tr, &tm);
-	realtime_offset = tr;
+
+	clockhw_read(&tnow);
+	timespec_sub(&treal, &tnow);
+	realtime_offset = treal;
 	return (0);
 }
 
 int
 sys_clock_nanosleep(struct thread *td __unused,
-    struct sys_clock_nanosleep_args *ap __unused)
+    struct sys_clock_nanosleep_args *ap)
 {
+	struct timespec ts, tnow;
+	int error;
 
+	if (ap->clock_id != CLOCK_MONOTONIC && ap->clock_id != CLOCK_REALTIME)
+		return (EINVAL);
+	if ((error = timespec_copyin(ap->rqtp, &ts)) != 0)
+		return (error);
+
+	if (!(ap->flags & TIMER_ABSTIME)) {
+		clockhw_read(&tnow);
+		timespec_add(&ts, &tnow);
+	} else if (ap->clock_id == CLOCK_REALTIME) {
+		timespec_sub(&ts, &realtime_offset);
+	}
+
+	/* XXX */
 	return (ENOSYS);
 }
 
