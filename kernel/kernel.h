@@ -141,6 +141,7 @@ int	 copyin(const void *, void *, size_t);
 int	 copyout(const void *, void *, size_t);
 void	 cpu_critical_enter(void);
 void	 cpu_critical_leave(void);
+void	 cpu_idle(void);
 
 /*
  * Kernel interfaces.

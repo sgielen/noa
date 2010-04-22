@@ -39,5 +39,5 @@ kstartup(void)
 
 	printf("Noa\nHello world!\n");
 
-	assert(0 && "Startup code missing");
+	panic("Startup code missing");
 }

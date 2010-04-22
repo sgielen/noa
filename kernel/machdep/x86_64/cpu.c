@@ -45,3 +45,10 @@ cpu_critical_leave(void)
 	if (--critnest == 0)
 		asm ("sti;");
 }
+
+void
+cpu_idle(void)
+{
+
+	asm ("hlt;");
+}
