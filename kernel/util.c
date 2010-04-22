@@ -59,8 +59,10 @@ timespec_add(struct timespec *to, const struct timespec *from)
 
 	to->tv_sec += from->tv_sec;
 	to->tv_nsec += from->tv_nsec;
-	to->tv_sec += to->tv_nsec / 1000000000;
-	to->tv_nsec %= 1000000000;
+	if (to->tv_nsec > 0) {
+		to->tv_sec++;
+		to->tv_nsec -= 1000000000;
+	}
 }
 
 void
