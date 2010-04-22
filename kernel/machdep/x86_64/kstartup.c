@@ -27,17 +27,21 @@
 #include <assert.h>
 #include <kernel.h>
 #include <machdep.h>
+#include <stdint.h>
 
-void kstartup(void);
+void	 kstartup(uint64_t, uint64_t);
 
 void
-kstartup(void)
+kstartup(uint64_t modules, uint64_t kernend)
 {
 
+	/* First of all, make VGA work. */
 	vga_init();
-	hpet_init();
+	printf("Noa/x86-64\n");
 
-	printf("Noa\nHello world!\n");
+	printf("Modules: %p, kernend: %p\n", modules, kernend);
+
+	hpet_init();
 
 	panic("Startup code missing");
 }
