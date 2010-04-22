@@ -33,6 +33,12 @@
 
 #include <noa/types.h>
 
+#ifdef _KERNEL
+
+void	*memcpy(void *restrict, const void *restrict, size_t);
+
+#else /* !_KERNEL */
+
 __BEGIN_DECLS
 void	*memchr(const void *, int, size_t);
 int	 memcmp(const void *, const void *, size_t);
@@ -68,5 +74,7 @@ char	*strtok_r(char *restrict, const char *restrict, char **restrict);
 size_t	 strxfrm(char *restrict, const char *restrict, size_t);
 size_t	 strxfrm_l(char *restrict, const char *restrict, size_t, locale_t);
 __END_DECLS
+
+#endif /* _KERNEL */
 
 #endif /* !_STRING_H_ */

@@ -5,6 +5,10 @@ SRCS+=	cond.c cookie.c panic.c printf.c priv.c processtree.c slab.c \
 SRCS+=	syscallvec.c syscalls.h
 CLEANFILES+=syscallvec.c syscalls.h
 
+.PATH: ${.CURDIR}/../lib/libc/string
+
+SRCS+=	memcpy.c
+
 CFLAGS+=-I${.CURDIR} -I${.CURDIR}/machdep/x86_64
 
 # Disable SMP for now. Requires __percpu.

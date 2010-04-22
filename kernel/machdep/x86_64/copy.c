@@ -26,17 +26,22 @@
 
 #include <errno.h>
 #include <kernel.h>
+#include <string.h>
 
 int
-copyin(const void *user __unused, void *kernel __unused, size_t len __unused)
+copyin(const void *user, void *kernel, size_t len)
 {
 
-	return (EFAULT);
+	/* XXX: Offer memory protection! */
+	memcpy(kernel, user, len);
+	return (0);
 }
 
 int
-copyout(const void *kernel __unused, void *user __unused, size_t len __unused)
+copyout(const void *kernel, void *user, size_t len)
 {
 
-	return (EFAULT);
+	/* XXX: Offer memory protection! */
+	memcpy(user, kernel, len);
+	return (0);
 }
