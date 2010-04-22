@@ -30,6 +30,6 @@ int
 priv_check(struct thread *td __unused, int priv __unused)
 {
 
-	/* XXX */
+	/* XXX: Grant everyone root privileges for now. */
 	return (0);
 }
