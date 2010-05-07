@@ -30,7 +30,11 @@
 
 #include "syscalls.h"
 
-static int
+int __isaptm(int);
+__symbol_alias(__isaptm, grantpt);
+__symbol_alias(__isaptm, unlockpt);
+
+int
 __isaptm(int fildes)
 {
 	int ret;
@@ -40,6 +44,3 @@ __isaptm(int fildes)
 		errno = EINVAL;
 	return (ret);
 }
-
-__symbol_alias(__isaptm, grantpt);
-__symbol_alias(__isaptm, unlockpt);
