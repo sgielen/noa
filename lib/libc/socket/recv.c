@@ -28,8 +28,8 @@
 #include <stddef.h>
 
 ssize_t
-recv(int socket, void *buffer, size_t length, int flags)
+recv(int s, void *buffer, size_t length, int flags)
 {
 
-	return (recvfrom(socket, buffer, length, flags, NULL, 0));
+	return (recvfrom(s, buffer, length, flags, NULL, 0));
 }
